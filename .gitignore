@@ -1,4 +1,5 @@
 /a-dev/
+/.tmp.drivedownload/
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
