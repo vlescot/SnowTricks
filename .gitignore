@@ -1,4 +1,5 @@
 /a-dev/
 /.tmp.drivedownload/
 /vendor/
+/var/cache/
 /node_modules/*

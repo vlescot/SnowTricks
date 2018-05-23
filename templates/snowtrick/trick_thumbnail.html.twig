@@ -1,0 +1,18 @@
+{% for trick in tricks %}
+<div class="col-6 col-md-4 col-lg-3">
+	<div class="main-trick">
+		<a href="trick/0">
+			<div class="main-trick-header">
+				<div class="img" style="background-image:url('{{ asset('assets/img/trick/'~trick.img) }}');"></div>
+				<p class="main-trick-title h">{{ trick.title |title }}</p>
+				<p class="main-trick-content">{{ trick.content|length > 50 ? trick.content|slice(0, 50) ~ '...' : trick.content  }}</p>
+			</div>
+		</a>
+		<div class="main-trick-administration">
+			<a href="#"><i class="far fa-eye fa-lg"></i></a>
+			<a href="#"><i class="far fa-edit fa-lg"></i></a>
+			<a href="#"><i class="far fa-trash-alt fa-lg"></i></a>
+		</div>
+	</div>
+</div>
+{% endfor %}

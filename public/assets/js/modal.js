@@ -1,0 +1,18 @@
+$("#connexion").click(function(){
+    $("#modal-container").load("/connexion",function(response){
+        console.log('connexion');
+        $("#connectionModal").modal({show:true});
+    });
+});
+$("#resetPassword").click(function(){
+    $("#modal-container").load("/reset_password",function(response){
+        console.log("resetpassword");
+        $("#resetPasswordModal").modal({show:true});
+    });
+});
+$("#registration").click(function(){
+    $("#modal-container").load("/registration",function(response){
+        console.log("registration");
+        $("#registrationModal").modal({show:true});
+    });
+});
