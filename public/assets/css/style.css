@@ -1,4 +1,4 @@
-/* 
+/*
 #2f5e67
 #75CFE5
 #0E2050
@@ -155,11 +155,10 @@ header {
 
 
 footer {
-  margin-top: 50px;
   bottom: 0px;
   padding : 10px;
-  background-color: #0E2050; 
-  color: #fff;
+  background-color: #fff;
+  color: #4b6270;
 }
 footer #my-links {
   text-align: center;
@@ -167,10 +166,13 @@ footer #my-links {
 }
 footer a {
     margin-bottom: 10px;
-    color: #fff;
+    color: #4b6270;
+}
+footer .fab:hover {
+    color: #989ca0;
 }
 footer #copyright {
-  color: #6c757d;
+  color: #4b6270;
   font-size: 0.7em;
 }
 
@@ -287,9 +289,14 @@ footer #copyright {
 /**
  * Comments Section
  */
+.comment-container {
+    padding: 10px;
+    background-color: #989ca0;
+    border-radius: 5px;
+}
 #comments {
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
 }
 .avatar {
   display: flex;
@@ -298,7 +305,7 @@ footer #copyright {
 }
 #comments p {
   margin-top: 0px;
-  color: #fff !important;
+  color: #000 !important;
 }
 .comment-content {
   display: flex;
@@ -307,7 +314,8 @@ footer #copyright {
   border-radius: 5px;
   padding: 0.5rem 1rem;
   margin: 0.2rem 0;
-  background-color: #2f5e67;
+  background-color: #fff;
+  /*background-color: #2f5e67;*/
 }
 .comment {
   font-size: 0.85rem;

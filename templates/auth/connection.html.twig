@@ -30,7 +30,23 @@
         	<div class="row">
         		<div class="col-8">
 			      <p><small class="text-muted"><span class="modal-link" id="resetPassword">Mot de passe oublié ?</span></small></p>
+                    <script>
+                        $("#resetPassword").on("click", function(){
+                            $("#modal-container").load("/reset_password",function(response){
+                                $(".modal-backdrop").remove();
+                                $("#resetPasswordModal").modal({show:true});
+                            });
+                        });
+                    </script>
 			      <p><small class="text-muted"><span class="modal-link" id="registration">Créer votre compte</span></small></p>
+                    <script>
+                        $("#registration").on("click", function(){
+                            $("#modal-container").load("/registration",function(response){
+                                $(".modal-backdrop").remove();
+                                $("#registrationModal").modal({show:true});
+                            });
+                        });
+                    </script>
         		</div>
 	        	<div class="col-4">
 	          		<button type="button" class="btn btn-default btn-sm text-right" data-dismiss="modal">Close</button>

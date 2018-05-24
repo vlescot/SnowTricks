@@ -1,4 +1,5 @@
 /a-dev/
+/.env
 /.tmp.drivedownload/
 /vendor/
 /var/cache/
