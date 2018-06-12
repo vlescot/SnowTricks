@@ -1,0 +1,27 @@
+<div class="modal fade" role="dialog" id={{ id }}>
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    {% block modal_head %}{% endblock %}
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-10 mx-auto">
+                        {% block authentication_form %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-8">
+                    {% block footer_modal %}{% endblock %}
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-default btn-sm text-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

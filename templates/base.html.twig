@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('assets/favicon.png') }}" />
+        {# Bootstrap #}
+        <link rel="stylesheet" href="{{ asset('assets/lib/bootstrap/css/bootstrap.min.css') }}">
+        {# Font-Awesome #}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        {# Project files #}
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <style>
+            @font-face {
+                font-family: 'Montserrat';
+                src: url( {{ asset('assets/fonts/montserrat/Montserrat-Regular.ttf') }} ) format('truetype');
+            }
+            @font-face {
+                font-family: 'Raleway-Medium';
+                src: url( {{ asset('assets/fonts/raleway/Raleway-Medium.ttf') }} ) format('truetype');
+            }
+            @font-face {
+                font-family: 'Raleway-Light';
+                src: url( {{ asset('assets/fonts/raleway/Raleway-Light.ttf') }} ) format('truetype');
+            }
+        </style>
+        {% block css %}{% endblock %}
+    </head>
+
+    <body>
+        {# Navbar #}
+        {% include 'layout/navbar.html.twig' %}
+
+        {#Hidden elements when starting#}
+        <div id="modal-container"></div>
+		<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+
+        {# Header #}
+        {% block header %}{% endblock %}
+        {# Body #}
+        {% block body %}{% endblock %}
+        {# Footer #}
+        {% include 'layout/footer.html.twig' %}
+
+	    {# JavaScript #}
+        {#jQuery#}
+        <script src="{{ asset('assets/lib/jquery.min.js') }}"></script>
+        {#Bootstrap#}
+        <script src="{{ asset('assets/lib/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+        {#My JS#}
+        <script src="{{ asset('assets/js/modal.js') }}"></script>
+        {% block javascript %}{% endblock %}
+
+    </body>
+</html>

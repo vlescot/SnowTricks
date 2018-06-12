@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    {# Bootstrap #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      {# Font-Awesome #}
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      {# Project files #}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  .modal-head {
+    position: relative;
+  }
+  .modal-display .row {
+    margin-right: 0px;
+    margin-left: 0px;
+    background-color: black;
+  }
+  .row > .column {
+    padding: 0 0px !important;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* The lightbox (background) */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+  }
+
+  /* Modal Content */
+  .modal-display {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  /* The Close Button */
+  .close {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .mySlides {
+    display: none;
+  }
+
+  .cursor {
+    cursor: pointer
+  }
+
+  /* Next & previous buttons */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+  img, iframe {
+    margin-bottom: -4px;
+  }
+  iframe {
+    position:absolute;
+  }
+  .video-container {
+    position:absolute; 
+    background:red;
+    z-index: 99;
+  }
+  .caption-container {
+    text-align: center;
+    background-color: black;
+    padding: 2px 16px;
+  }
+  .caption-container p {
+    color: white;
+  }
+
+  .demo {
+    opacity: 0.6;
+  }
+
+  .active,
+  .demo:hover {
+    opacity: 1;
+  }
+</style>
+<body>
+
+
+  <section class="container-fluid">
+    <div class="row">
+      {% set n = 0 %}
+      {# IMAGE #}
+      {% for img in trick.img %}
+        {% set n = n + 1 %}
+        <div class="col-6 col-md-4 col-lg-2 media mx-auto">
+          <img src="{{ asset('assets/img/trick-name/') }}{{ img.path }}" alt="{{ img.alt }}" class="rounded img-fluid cursor" onclick="openModal();currentSlide({{ n }})">
+        </div>
+      {% endfor %}
+      {# VIDEO #}
+      {% for video in trick.video %}
+        {% set n = n + 1 %}
+        <div class="col-6 col-md-4 col-lg-2 media mx-auto">
+          <div class="embed-responsive embed-responsive-4by3" onclick="openModal();currentSlide({{ n }})">
+            <iframe class="rounded embed-responsive-item" src="https://www.youtube.com/embed/TJAfLE39ZZ8" frameborder="0"></iframe>
+          </div>
+          <div class="video-container"></div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+
+
+
+
+<div id="myModal" class="lightbox">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-display">
+    <div class="modal-head">
+      {% set n = 0 %}
+        {# IMAGE #}
+      {% for img in trick.img %}
+        {% set n = n + 1 %}
+        <div class="mySlides">
+          <div class="numbertext">{{ n }} / {{ trick.img |length + trick.video |length }}</div>
+          <img src="{{ asset('assets/img/trick-name/') }}{{ img.path }}" alt="{{ img.alt }}" style="width:100%">
+        </div>
+      {% endfor %}
+      {# VIDEO #}
+      {% for video in trick.video %}
+        {% set n = n + 1 %}
+        <div class="mySlides">
+          <div class="numbertext">{{ n }} / {{ trick.img |length + trick.video |length }}</div>
+            <iframe style="width:100%;" onclick="openModal();currentSlide({{ n }})" class="cursor" src="https://www.youtube.com/embed/TJAfLE39ZZ8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+      {% endfor %}
+      
+      <a class="prev " onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next " onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+
+
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+    
+    <div class="row">
+      {% set n = 0 %}
+      {% for img in trick.img %}
+        {% set n = n + 1 %}
+        <div class="col-4 col-md-3 col-lg-2 column">
+          <img class="demo cursor" src="{{ asset('assets/img/trick-name/') }}{{ img.path }}" alt="{{ img.alt }}" style="width:100%" onclick="currentSlide({{ n }})" alt="{{ img.alt }}">
+        </div>
+      {% endfor %}    
+      {% for video in trick.video %}
+        {% set n = n + 1 %}
+        <div class="col-4 col-md-3 col-lg-2 column">
+          <div class="embed-responsive embed-responsive-4by3">
+            <iframe class="rounded embed-responsive-item" src="https://www.youtube.com/embed/TJAfLE39ZZ8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('myModal').style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById('myModal').style.display = "none";
+  }
+
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    captionText.innerHTML = dots[slideIndex-1].alt;
+  }
+</script>
+{#Bootstrap#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{#My functions #}
+<script src="{{ asset('build/app.js') }}"></script>
+</body>
+</html>

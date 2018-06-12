@@ -1,0 +1,60 @@
+a:
+  filename    : welcome.png
+  path        : /
+  alt         : welcome_photo
+b:
+  filename   : 1.png
+  path       : /trick
+  alt        : TrickName1Picture
+c:
+  filename   : 2.png
+  path       : /trick
+  alt        : TrickName2Picture
+d :
+  filename   : 3.png
+  path       : /trick
+  alt        : TrickName3Picture
+e :
+  filename   : 2.png
+  path       : /trick
+  alt        : TrickName2Picture
+grab1 :
+  filename   : 1.png
+  path       : /trick/grab
+  alt        : grab1
+grab2 :
+  filename   : 2.png
+  path       : /trick/grab
+  alt        : grab2
+spins1 :
+  filename   : 1.png
+  path       : /trick/spins
+  alt        : spins1
+spins2 :
+  filename   : 2.png
+  path       : /trick/spins
+  alt        : spins2
+spins3 :
+  filename   : 3.png
+  path       : /trick/spins
+  alt        : spins3
+japan1 :
+  filename   : 2.png
+  path       : /trick/japan
+  alt        : japan2
+japan2 :
+  filename   : 3.png
+  path       : /trick/japan
+  alt        : japan3
+User1:
+    filename   : a1.png
+    path       : /user
+    alt        : user1
+User2:
+    filename   : a2.png
+    path       : /user
+    alt        : user2
+User3:
+    filename   : a3.png
+    path       : /user
+    alt        : user3
