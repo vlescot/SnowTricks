@@ -1,8 +1,7 @@
-/a-dev/
-/.env
 /.tmp.drivedownload/
+/.idea/
+/_Building/
+
 /vendor/
 /var/
-/node_modules/*
-/.idea/
-/_building/
+/.env
