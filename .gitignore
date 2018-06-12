@@ -2,6 +2,7 @@
 /.env
 /.tmp.drivedownload/
 /vendor/
-/var/cache/
+/var/
 /node_modules/*
 /.idea/
+/_building/
