@@ -1,0 +1,8 @@
+a:
+  Username: root
+  Password: root
+  Email: floyd-24@hotmail.com
+  validated: true
+  Token: azerty
+  Roles: admin
+  enabled: true

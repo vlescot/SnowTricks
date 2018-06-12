@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Entity\Comment" table="st_comment" repository-class="App\Domain\Repository\CommentRepository">
+
+        <id name="id" type="uuid" />
+        <field name="content" type="text" />
+        <field name="createdAt" column="date_creation" type="datetime" />
+        <field name="validated" type="boolean" />
+
+        <one-to-many field="author" target-entity="App\Domain\Entity\User" mapped-by="comments">
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC"/>
+            </order-by>
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC" />
+            </order-by>
+        </one-to-many>
+
+    </entity>
+
+</doctrine-mapping>
