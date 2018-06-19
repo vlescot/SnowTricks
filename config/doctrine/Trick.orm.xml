@@ -10,36 +10,34 @@
         <field name="title" type="string" length="255" unique="true" />
         <field name="slug" type="string" length="255" unique="true" />
         <field name="description" type="text" />
-        <field name="createdAt" column="date_creation" type="datetime" />
-        <field name="updatedAt" column="date_update" type="datetime" />
+        <field name="createdAt" column="date_creation" type="string" />
+        <field name="updatedAt" column="date_update" type="string" />
         <field name="validated" type="boolean" />
 
-        <one-to-many field="author" target-entity="App\Domain\Entity\User" mapped-by="tricks">
+        <many-to-one field="author" target-entity="App\Domain\Entity\User" inversed-by="tricks">
             <cascade>
                 <cascade-persist/>
             </cascade>
-            <order-by>
-                <order-by-field name="createdAt" direction="DESC" />
-            </order-by>
+        </many-to-one>
+
+        <one-to-many field="comments" target-entity="App\Domain\Entity\Comment" mapped-by="trick">
+            <cascade>
+                <cascade-all/>
+            </cascade>
         </one-to-many>
 
-        <many-to-one field="comments" target-entity="Comment" inversed-by="trick">
+        <one-to-many field="pictures" target-entity="App\Domain\Entity\Picture" mapped-by="trick">
             <cascade>
                 <cascade-all/>
             </cascade>
-        </many-to-one>
 
-        <many-to-one field="pictures" target-entity="Picture">
-            <cascade>
-                <cascade-all/>
-            </cascade>
-        </many-to-one>
+        </one-to-many>
 
-        <many-to-one field="videos" target-entity="Video">
+        <one-to-many field="videos" target-entity="App\Domain\Entity\Video" mapped-by="trick">
             <cascade>
                 <cascade-all/>
             </cascade>
-        </many-to-one>
+        </one-to-many>
 
         <many-to-many field="groups" inversed-by="tricks" target-entity="Group">
             <cascade>

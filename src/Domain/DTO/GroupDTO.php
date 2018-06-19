@@ -2,12 +2,12 @@
 
 namespace App\Domain\DTO;
 
+use App\Domain\Entity\Trick;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class GroupDTO
- * @package App\Domain\DTO
+ * Class GroupDTO.
  */
 class GroupDTO
 {
@@ -67,28 +67,28 @@ class GroupDTO
     }
 
     /**
-     * @param TrickDTO $trick
+     * @param Trick $trick
+     *
      * @return GroupDTO
      */
-    public function addTrick(TrickDTO $trick): self
+    public function addTrick(Trick $trick): self
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
-            $trick->addGroup($this);
         }
 
         return $this;
     }
 
     /**
-     * @param TrickDTO $trick
+     * @param Trick $trick
+     *
      * @return GroupDTO
      */
-    public function removeTrick(TrickDTO $trick): self
+    public function removeTrick(Trick $trick): self
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
-            $trick->removeGroup($this);
         }
 
         return $this;

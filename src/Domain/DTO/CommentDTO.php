@@ -2,11 +2,12 @@
 
 namespace App\Domain\DTO;
 
-
+use App\Domain\Entity\Trick;
+use App\Domain\Entity\User;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class CommentDTO
+ * Class CommentDTO.
  */
 class CommentDTO
 {
@@ -21,12 +22,12 @@ class CommentDTO
     private $content;
 
     /**
-     * @var UserDTO
+     * @var User
      */
     private $author;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $createdAt;
 
@@ -34,6 +35,11 @@ class CommentDTO
      * @var boolean
      */
     private $validated = false;
+
+    /**
+     * @var Trick
+     */
+    private $trick;
 
     /**
      * @return UuidInterface
@@ -68,33 +74,33 @@ class CommentDTO
     }
 
     /**
-     * @return UserDTO
+     * @return User
      */
-    public function getAuthor(): UserDTO
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
     /**
-     * @param UserDTO $author
+     * @param User $author
      */
-    public function setAuthor(UserDTO $author): void
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @param string $createdAt
      */
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -113,5 +119,21 @@ class CommentDTO
     public function setValidated(bool $validated): void
     {
         $this->validated = $validated;
+    }
+
+    /**
+     * @return Trick
+     */
+    public function getTrick(): Trick
+    {
+        return $this->trick;
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
     }
 }

@@ -2,14 +2,16 @@
 
 namespace App\Domain\DTO;
 
-
-
+use App\Domain\Entity\Comment;
+use App\Domain\Entity\Group;
+use App\Domain\Entity\Picture;
+use App\Domain\Entity\User;
+use App\Domain\Entity\Video;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class TrickDTO
- * @package App\Domain\DTO
+ * Class TrickDTO.
  */
 class TrickDTO
 {
@@ -44,7 +46,7 @@ class TrickDTO
     private $updatedAt;
 
     /**
-     * @var UserDTO
+     * @var User
      */
     private $author;
 
@@ -74,7 +76,7 @@ class TrickDTO
     private $groups;
 
     /**
-     * TrickDTO constructor.
+     * Trick constructor.
      */
     public function __construct()
     {
@@ -180,17 +182,17 @@ class TrickDTO
     }
 
     /**
-     * @return UserDTO
+     * @return User
      */
-    public function getAuthor(): UserDTO
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
     /**
-     * @param UserDTO $author
+     * @param User $author
      */
-    public function setAuthor(UserDTO $author): void
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
     }
@@ -212,10 +214,11 @@ class TrickDTO
     }
 
     /**
-     * @param CommentDTO $comment
+     * @param Comment $comment
+     *
      * @return TrickDTO
      */
-    public function addComment(CommentDTO $comment): self
+    public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
@@ -225,10 +228,11 @@ class TrickDTO
     }
 
     /**
-     * @param CommentDTO $comment
+     * @param Comment $comment
+     *
      * @return TrickDTO
      */
-    public function removeComment(CommentDTO $comment): self
+    public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
@@ -246,10 +250,11 @@ class TrickDTO
     }
 
     /**
-     * @param PictureDTO $picture
+     * @param Picture $picture
+     *
      * @return TrickDTO
      */
-    public function addPicture(PictureDTO $picture): self
+    public function addPicture(Picture $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures[] = $picture;
@@ -259,10 +264,11 @@ class TrickDTO
     }
 
     /**
-     * @param PictureDTO $picture
+     * @param Picture $picture
+     *
      * @return TrickDTO
      */
-    public function removePicture(PictureDTO $picture): self
+    public function removePicture(Picture $picture): self
     {
         if ($this->pictures->contains($picture)) {
             $this->pictures->removeElement($picture);
@@ -280,10 +286,11 @@ class TrickDTO
     }
 
     /**
-     * @param VideoDTO $video
+     * @param Video $video
+     *
      * @return TrickDTO
      */
-    public function addVideo(VideoDTO $video): self
+    public function addVideo(Video $video): self
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
@@ -293,10 +300,11 @@ class TrickDTO
     }
 
     /**
-     * @param VideoDTO $video
+     * @param Video $video
+     *
      * @return TrickDTO
      */
-    public function removeVideo(VideoDTO $video): self
+    public function removeVideo(Video $video): self
     {
         if ($this->videos->contains($video)) {
             $this->videos->removeElement($video);
@@ -314,28 +322,28 @@ class TrickDTO
     }
 
     /**
-     * @param GroupDTO $group
+     * @param Group $group
+     *
      * @return TrickDTO
      */
-    public function addGroup(GroupDTO $group): self
+    public function addGroup(Group $group): self
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
-            $group->addTrick($this);
         }
 
         return $this;
     }
 
     /**
-     * @param GroupDTO $group
+     * @param Group $group
+     *
      * @return TrickDTO
      */
-    public function removeGroup(GroupDTO $group): self
+    public function removeGroup(Group $group): self
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
-            $group->removeTrick($this);
         }
 
         return $this;
@@ -344,7 +352,7 @@ class TrickDTO
     /**
      * @return ArrayCollection
      */
-    public function getGroups(): ArrayCollection
+    public function getGroups()
     {
         return $this->groups;
     }

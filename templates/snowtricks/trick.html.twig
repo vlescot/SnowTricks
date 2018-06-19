@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trick !{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('assets/lib/lightbox/simpleLightbox.min.css') }}">
+{% endblock %}
+
+{% block header %}
+  <header style="background-image: url('{{ asset('assets/img/trick/1.jpg') }}')">
+    <div class="contents-header">
+      <h1 class="header-title text-center">{{ trick.title }}</h1>
+    </div>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+    <section class="container-fluid">
+        <h3 class="text-center">Médias</h3>
+        <div class="row justify-content-md-center">
+{#            {% for img in trick.pictures %}
+              <div class="col-6 col-sm-4 col-md-3 col-lg-2 media imageGallery1">
+                <a href="{{ asset('assets/img/trick-name/') }}{{ img.path }}">
+                  <img src="{{ asset('assets/img/trick-name/') }}{{ img.path }}" alt="Gallery image 1" class="rounded img-fluid"/>
+                </a>
+              </div>
+			{% endfor %}
+        </div>
+        <div class="row justify-content-md-center">
+        {% for video in trick.videos %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 media">
+                <div class="embed-responsive embed-responsive-4by3">
+                    <iframe class="embed-responsive-item rounded" src="{{ video }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
+        {% endfor %}#}
+		</div>
+	</section>
+
+    <section class="container" id="trick-description">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <h3 class="text-center">Description</h3>
+                <p>{{ trick.description }}</p>
+                <div class="trick-infos">
+                    <p><small><strong>Groupe :</strong></small>
+                        {#{% for group in trick.groups %}#}
+                            {#<a href="#" class="badge badge-dark">{{ group|capitalize }}</a>#}
+                        {#{% endfor %}#}
+                    </p>
+                    <p><small><strong>
+                                {#Auteur : {{ trick.author }},#} le {{ trick.createdAt | date("F jS \\à g:ia") }}
+                    </strong></small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <section id="comments">
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-1 offset-lg-2 col-md-10 col-lg-8 comment-container">
+            {#<div class="col-md-8 col-lg-6">#}
+            <div class="col-12">
+                <h3 class="text-center">Commentaires</h3>
+                <form action="" method="post" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="author" class="form-control col-3" placeholder="Votre nom" required>
+                        <textarea name="content" class="form-control col-7" placeholder="Écrire un commentaire..." rows="1" required></textarea>
+                        <button type="submit" class="btn btn-primary col-2">Poster</button>
+                    </div>
+                </form>
+                {#{% for comment in comments %}#}
+                    {#<div class="row">#}
+                        {#<div class="col-2 avatar">#}
+                            {#<div class="">#}
+                                {#<img src="{{ asset('assets/img/avatar/') }}{{ comment.avatar }}" alt="{{ comment.alt }}" class="rounded img-fluid ">#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="col-10 comment-content">#}
+                            {#<p class="comment">{{ comment.content }}</p>#}
+                            {#<p class="text-right infos"><strong>{{ comment.author }},  le {{ comment.date|date("F jS \\à g:ia") }}</strong></p>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#{% endfor %}#}
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="{{ asset('assets/lib/lightbox/simpleLightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/js/trick.js') }}"></script>
+    <script>
+        $('.imageGallery1 a').simpleLightbox();
+    </script>
+{% endblock %}

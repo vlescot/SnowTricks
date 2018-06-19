@@ -2,7 +2,7 @@
 
 namespace App\Domain\DTO;
 
-
+use App\Domain\Entity\Trick;
 use Ramsey\Uuid\UuidInterface;
 
 class VideoDTO
@@ -21,6 +21,11 @@ class VideoDTO
      * @var string
      */
     private $platform;
+
+    /**
+     * @var Trick
+     */
+    private $trick;
 
     /**
      * @return UuidInterface
@@ -61,11 +66,28 @@ class VideoDTO
     {
         return $this->platform;
     }
+
     /**
      * @param string $platform
      */
     public function setPlatform(string $platform): void
     {
         $this->platform = $platform;
+    }
+
+    /**
+     * @return Trick
+     */
+    public function getTrick(): Trick
+    {
+        return $this->trick;
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
     }
 }

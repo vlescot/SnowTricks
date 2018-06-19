@@ -4,11 +4,11 @@ namespace App\Domain\Entity;
 
 use App\Domain\DTO\GroupDTO;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class Group
- * @package App\Domain\Entity
+ * Class Group.
  */
 class Group
 {
@@ -29,6 +29,7 @@ class Group
 
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
         $this->tricks = new ArrayCollection();
     }
 
@@ -37,7 +38,7 @@ class Group
         $this->name = $groupDTO->getName();
 
         $tricks = $groupDTO->getTricks();
-        foreach ($tricks->getIterator() as $trick){
+        foreach ($tricks->getIterator() as $trick) {
             $this->addTrick($trick);
         }
     }
@@ -58,5 +59,29 @@ class Group
         }
 
         return $this;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTricks(): ArrayCollection
+    {
+        return $this->tricks;
     }
 }

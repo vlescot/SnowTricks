@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Domain\Entity;
+
 use App\Domain\DTO\VideoDTO;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-
 /**
- * Class Video
- * @package App\Domain\Entity
+ * Class Video.
  */
 class Video
 {
@@ -16,16 +15,21 @@ class Video
      * @var UuidInterface
      */
     private $id;
-    
+
     /**
      * @var string
      */
     private $url;
-    
+
     /**
      * @var string
      */
     private $platform;
+
+    /**
+     * @var Trick
+     */
+    private $trick;
 
     public function __construct()
     {
@@ -36,5 +40,37 @@ class Video
     {
         $this->url = $videoDTO->getUrl();
         $this->platform = $videoDTO->getPlatform();
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlatform(): string
+    {
+        return $this->platform;
+    }
+
+    /**
+     * @return Trick
+     */
+    public function getTrick(): Trick
+    {
+        return $this->trick;
     }
 }

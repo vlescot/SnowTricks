@@ -2,14 +2,13 @@
 
 namespace App\Domain\DTO;
 
-
-
+use App\Domain\Entity\Comment;
+use App\Domain\Entity\Picture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class UserDTO
- * @package App\Domain\DTO
+ * Class UserDTO.
  */
 class UserDTO
 {
@@ -59,7 +58,7 @@ class UserDTO
     private $enabled;
 
     /**
-     * @var PictureDTO
+     * @var Picture
      */
     private $picture;
 
@@ -72,7 +71,6 @@ class UserDTO
      * @var ArrayCollection
      */
     private $tricks;
-
 
     /**
      * UserDTO constructor.
@@ -228,25 +226,27 @@ class UserDTO
     }
 
     /**
-     * @return PictureDTO
+     * @return Picture
      */
-    public function getPicture(): PictureDTO
+    public function getPicture(): Picture
     {
         return $this->picture;
     }
+
     /**
-     * @param PictureDTO $picture
+     * @param Picture $picture
      */
-    public function setPicture(PictureDTO $picture): void
+    public function setPicture(Picture $picture): void
     {
         $this->picture = $picture;
     }
 
     /**
-     * @param TrickDTO $trick
+     * @param Trick $trick
+     *
      * @return UserDTO
      */
-    public function addTrick(TrickDTO $trick): self
+    public function addTrick(Trick $trick): self
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
@@ -257,15 +257,16 @@ class UserDTO
     }
 
     /**
-     * @param TrickDTO $trick
+     * @param Trick $trick
+     *
      * @return UserDTO
      */
-    public function removeTrick(TrickDTO $trick): self
+    public function removeTrick(Trick $trick): self
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
 
-            if ($trick->getAuthor() === $this){
+            if ($trick->getAuthor() === $this) {
                 $trick->setAuthor(null);
             }
         }
@@ -281,12 +282,12 @@ class UserDTO
         return $this->tricks;
     }
 
-
     /**
-     * @param CommentDTO $comment
+     * @param Comment $comment
+     *
      * @return UserDTO
      */
-    public function addComment(CommentDTO $comment): self
+    public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
@@ -297,15 +298,16 @@ class UserDTO
     }
 
     /**
-     * @param CommentDTO $comment
+     * @param Comment $comment
+     *
      * @return UserDTO
      */
-    public function removeComment(CommentDTO $comment): self
+    public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
 
-            if ($comment->getAuthor() === $this){
+            if ($comment->getAuthor() === $this) {
                 $comment->setAuthor(null);
             }
         }
@@ -318,7 +320,6 @@ class UserDTO
      */
     public function getComments(): ArrayCollection
     {
-        return
-            $this->comments;
+        return $this->comments;
     }
 }

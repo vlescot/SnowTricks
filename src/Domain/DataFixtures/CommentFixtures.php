@@ -2,46 +2,53 @@
 
 namespace App\Domain\DataFixtures;
 
-
 use App\Domain\DTO\CommentDTO;
 use App\Domain\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Yaml\Yaml;
 
-class CommentFixtures extends Fixture implements DependentFixtureInterface
+class CommentFixtures extends Fixture implements OrderedFixtureInterface
 {
-    private function getData($file)
+    private $fixturesHelper;
+
+    public function __construct(FixturesHelper $fixturesHelper)
     {
-        $fixturesPath = __DIR__ . '/Fixtures/';
-        $fixtures = Yaml::parse(file_get_contents( $fixturesPath . $file .'.yaml', true));
-        return $fixtures;
+        $this->fixturesHelper = $fixturesHelper;
     }
 
     public function load(ObjectManager $manager)
     {
-        $comments = $this->getData('Comment');
+        $comments = $this->fixturesHelper->get('Comment');
 
-        foreach ($comments as $comment){
+        foreach ($comments as $key => $comment) {
             $commentDTO = new CommentDTO();
-            $commentDTO->setAuthor($this->getReference($comment['Author']));
             $commentDTO->setContent($comment['Content']);
             $commentDTO->setValidated($comment['Validated']);
+
+            if (isset($comment['Reference'])) {
+                foreach ($comment['Reference'] as $referenceEntity => $ref) {
+                    $callableMethod = $this->fixturesHelper->getCallable($referenceEntity, $commentDTO);
+
+                    foreach ($ref as $referenceName) {
+                        $commentDTO->$callableMethod($this->getReference($referenceName));
+                    }
+                }
+            }
 
             $comment = new Comment();
             $comment->add($commentDTO);
 
             $manager->persist($comment);
+
+            $this->addReference($key, $comment);
         }
 
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getOrder()
     {
-        return array(
-            UserFixtures::class,
-        );
+        return 4;
     }
 }

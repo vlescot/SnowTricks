@@ -2,3 +2,6 @@ Comment1:
   Author: root
   Content: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Validated: true
+  Reference:
+    Author:
+      - User1

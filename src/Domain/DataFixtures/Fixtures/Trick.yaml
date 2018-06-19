@@ -1,6 +1,55 @@
-trick1:
-  Title: grab
+Trick1:
+  Title: Grab
   Slug: grab
   Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?
-  Author: root
   Validated: true
+  Reference:
+    Author:
+      - User1
+    Comment:
+      - Comment1
+    Picture:
+      - PictureGrab0
+      - PictureGrab1
+      - PictureGrab2
+    Video:
+      - Video1
+      - Video2
+      - Video3
+Trick2:
+  Title: Spins
+  Slug: spins
+  Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?
+  Validated: true
+  Reference:
+    Author:
+      - User2
+    Comment:
+      - Comment1
+    Picture:
+      - PictureSpins0
+      - PictureSpins1
+      - PictureSpins2
+      - PictureSpins3
+    Video:
+      - Video1
+      - Video2
+      - Video3
+Trick3:
+  Title: Japan
+  Slug: japan
+  Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?
+  Validated: true
+  Reference:
+    Author:
+      - User1
+    Comment:
+      - Comment1
+    Picture:
+      - PictureJapan0
+      - PictureJapan1
+      - PictureJapan2
+    Video:
+      - Video1
+      - Video2
+      - Video3

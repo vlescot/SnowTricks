@@ -1,8 +1,28 @@
-a:
+User1:
   Username: root
   Password: root
   Email: floyd-24@hotmail.com
-  validated: true
+  Validated: true
   Token: azerty
   Roles: admin
-  enabled: true
+  Enabled: true
+  Reference:
+    Picture:
+      - PictureUser1
+    # Comment:
+      # - Comment1
+    # Trick:
+    #   - Trick1
+    #   - Trick2
+    #   - Trick3
+User2:
+  Username: Vincent
+  Password: root
+  Email: vincent.lescot@gmail.com
+  Validated: true
+  Token: ytreza
+  Roles: admin
+  Enabled: true
+  Reference:
+    Picture:
+      - PictureUser2

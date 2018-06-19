@@ -8,17 +8,12 @@
 
         <id name="id" type="uuid" />
         <field name="content" type="text" />
-        <field name="createdAt" column="date_creation" type="datetime" />
+        <field name="createdAt" column="date_creation" type="string" />
         <field name="validated" type="boolean" />
 
-        <one-to-many field="author" target-entity="App\Domain\Entity\User" mapped-by="comments">
-            <order-by>
-                <order-by-field name="createdAt" direction="DESC"/>
-            </order-by>
-            <order-by>
-                <order-by-field name="createdAt" direction="DESC" />
-            </order-by>
-        </one-to-many>
+        <many-to-one field="author" target-entity="App\Domain\Entity\User" inversed-by="comments" />
+
+        <many-to-one field="trick" target-entity="App\Domain\Entity\Trick" inversed-by="comments" />
 
     </entity>
 

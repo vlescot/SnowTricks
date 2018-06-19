@@ -11,7 +11,7 @@
         <field name="username" type="string" length="255" unique="true" />
         <field name="email" column="email" type="string" unique="true" />
         <field name="password" type="string" />
-        <field name="createdAt" column="date_creation" type="datetime" />
+        <field name="createdAt" column="date_creation" type="string" />
         <field name="token" type="string" unique="true" />
         <field name="roles" type="string" />
         <field name="validated" type="boolean" />
@@ -23,8 +23,8 @@
             </cascade>
         </one-to-one>
 
-        <many-to-one field="comments" target-entity="App\Domain\Entity\Comment" inversed-by="author" />
-        <many-to-one field="tricks" target-entity="App\Domain\Entity\Trick" inversed-by="author" />
+        <one-to-many field="comments" target-entity="App\Domain\Entity\Comment" mapped-by="author" />
+        <one-to-many field="tricks" target-entity="App\Domain\Entity\Trick" mapped-by="author" />
 
     </entity>
 </doctrine-mapping>

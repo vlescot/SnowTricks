@@ -2,12 +2,12 @@
 
 namespace App\Domain\DTO;
 
-
+use App\Domain\Entity\Trick;
+use App\Domain\Entity\User;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class PictureDTO
- * @package App\Domain\DTO
+ * Class PictureDTO.
  */
 class PictureDTO
 {
@@ -30,6 +30,16 @@ class PictureDTO
      * @var string
      */
     private $alt;
+
+    /**
+     * @var Trick
+     */
+    private $trick;
+
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * @return UuidInterface
@@ -93,5 +103,37 @@ class PictureDTO
     public function setAlt(string $alt): void
     {
         $this->alt = $alt;
+    }
+
+    /**
+     * @return Trick
+     */
+    public function getTrick(): Trick
+    {
+        return $this->trick;
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 }

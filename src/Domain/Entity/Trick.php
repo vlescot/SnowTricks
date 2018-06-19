@@ -8,8 +8,7 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class Trick
- * @package App\Domain\Entity
+ * Class Trick.
  */
 class Trick
 {
@@ -79,7 +78,8 @@ class Trick
     public function __construct()
     {
         $this->id = Uuid::uuid4();
-        $this->createdAt = new \DateTime('Europe/Paris');
+        $this->createdAt = time();
+        $this->updatedAt = time();
 
         $this->comments = new ArrayCollection();
         $this->pictures = new ArrayCollection();
@@ -90,36 +90,41 @@ class Trick
     /**
      * @param TrickDTO $trickDTO
      */
-    public function creation(TrickDTO $trickDTO) {
+    public function creation(TrickDTO $trickDTO)
+    {
         $this->title = $trickDTO->getTitle();
         $this->slug = $trickDTO->getSlug();
         $this->description = $trickDTO->getDescription();
         $this->validated = $trickDTO->isValidated();
-        $this->author = $trickDTO->getAuthor();
+//        $this->author = $trickDTO->getAuthor();
 
         $pictures = $trickDTO->getPictures();
-        foreach ($pictures->getIterator() as $picture){
+        foreach ($pictures->getIterator() as $picture) {
             $this->addPicture($picture);
         }
 
-        $videos = $trickDTO->getVideos();
-        foreach ($videos->getIterator() as $video){
-            $this->addVideo($video);
-        }
+//        if ($videos = $trickDTO->getVideos()){
+//            foreach ($videos->getIterator() as $video){
+//                $this->addVideo($video);
+//            }
+//        }
 
-        $comments = $trickDTO->getComments();
-        foreach ($comments->getIterator() as $comment){
-            $this->addComment($comment);
-        }
+//        if ($comments = $trickDTO->getComments()){
+//            foreach ($comments->getIterator() as $comment){
+//                $this->addComment($comment);
+//            }
+//        }
 
-        $groups = $trickDTO->getGroups();
-        foreach ($groups->getIterator() as $group){
-            $this->addGroup($group);
-        }
+//        if ($groups = $trickDTO->getGroups()){
+//            foreach ($groups->getIterator() as $group){
+//                $this->addGroup($group);
+//            }
+//        }
     }
 
     /**
      * @param Comment $comment
+     *
      * @return Trick
      */
     private function addComment(Comment $comment): self
@@ -133,6 +138,7 @@ class Trick
 
     /**
      * @param Comment $comment
+     *
      * @return Trick
      */
     private function removeComment(Comment $comment): self
@@ -146,6 +152,7 @@ class Trick
 
     /**
      * @param Picture $picture
+     *
      * @return Trick
      */
     private function addPicture(Picture $picture): self
@@ -159,6 +166,7 @@ class Trick
 
     /**
      * @param Picture $picture
+     *
      * @return Trick
      */
     private function removePicture(Picture $picture): self
@@ -170,9 +178,9 @@ class Trick
         return $this;
     }
 
-
     /**
      * @param Video $video
+     *
      * @return Trick
      */
     private function addVideo(Video $video): self
@@ -186,6 +194,7 @@ class Trick
 
     /**
      * @param Video $video
+     *
      * @return Trick
      */
     private function removeVideo(Video $video): self
@@ -199,6 +208,7 @@ class Trick
 
     /**
      * @param Group $group
+     *
      * @return Trick
      */
     private function addGroup(Group $group): self
@@ -212,6 +222,7 @@ class Trick
 
     /**
      * @param Group $group
+     *
      * @return Trick
      */
     private function removeGroup(Group $group): self
@@ -221,5 +232,101 @@ class Trick
         }
 
         return $this;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValidated(): bool
+    {
+        return $this->validated;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getComments(): ArrayCollection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPictures(): ArrayCollection
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getVideos(): ArrayCollection
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGroups(): ArrayCollection
+    {
+        return $this->groups;
     }
 }
