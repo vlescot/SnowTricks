@@ -2,13 +2,8 @@
 
 namespace App\Domain\DTO;
 
-use App\Domain\Entity\Comment;
-use App\Domain\Entity\Group;
 use App\Domain\Entity\Picture;
 use App\Domain\Entity\User;
-use App\Domain\Entity\Video;
-use Doctrine\Common\Collections\ArrayCollection;
-use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class TrickDTO.
@@ -16,344 +11,99 @@ use Ramsey\Uuid\UuidInterface;
 class TrickDTO
 {
     /**
-     * @var UuidInterface
+     * @var string
      */
-    private $id;
+    public $title;
 
     /**
      * @var string
      */
-    private $title;
+    public $slug;
 
     /**
      * @var string
      */
-    private $slug;
-
-    /**
-     * @var string
-     */
-    private $description;
+    public $description;
 
     /**
      * @var \DateTime;
      */
-    private $createdAt;
+    public $createdAt;
 
     /**
      * @var \DateTime
      */
-    private $updatedAt;
+    public $updatedAt;
 
     /**
      * @var User
      */
-    private $author;
+    public $author;
 
     /**
      * @var boolean
      */
-    private $validated;
+    public $validated;
 
     /**
-     * @var ArrayCollection
+     * @var Picture
      */
-    private $comments;
+    public $mainPicture;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
-    private $pictures;
+    public $comments;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
-    private $videos;
+    public $pictures;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
-    private $groups;
+    public $videos;
 
     /**
-     * Trick constructor.
+     * @var \ArrayAccess
      */
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
-        $this->videos = new ArrayCollection();
-    }
+    public $groups;
 
     /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param UuidInterface $id
-     */
-    public function setId(UuidInterface $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
+     * TrickDTO constructor.
      * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    /**
      * @param string $slug
-     */
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
      * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt(): \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt(\DateTime $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return User
-     */
-    public function getAuthor(): User
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param User $author
-     */
-    public function setAuthor(User $author): void
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isValidated(): bool
-    {
-        return $this->validated;
-    }
-
-    /**
      * @param bool $validated
+     * @param User $author
+     * @param Picture $mainPicture
+     * @param \ArrayAccess|null $comments
+     * @param \ArrayAccess|null $pictures
+     * @param \ArrayAccess|null $videos
+     * @param \ArrayAccess|null $groups
      */
-    public function setValidated(bool $validated): void
-    {
+    public function __construct(
+        string $title,
+        string $slug,
+        string $description,
+        bool $validated,
+        User $author,
+        Picture $mainPicture,
+        \ArrayAccess $comments = null,
+        \ArrayAccess $pictures = null,
+        \ArrayAccess $videos = null,
+        \ArrayAccess $groups = null
+    ) {
+        $this->title = $title;
+        $this->slug = $slug;
+        $this->description = $description;
         $this->validated = $validated;
-    }
-
-    /**
-     * @param Comment $comment
-     *
-     * @return TrickDTO
-     */
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Comment $comment
-     *
-     * @return TrickDTO
-     */
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getComments(): ArrayCollection
-    {
-        return $this->comments;
-    }
-
-    /**
-     * @param Picture $picture
-     *
-     * @return TrickDTO
-     */
-    public function addPicture(Picture $picture): self
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Picture $picture
-     *
-     * @return TrickDTO
-     */
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->contains($picture)) {
-            $this->pictures->removeElement($picture);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPictures(): ArrayCollection
-    {
-        return $this->pictures;
-    }
-
-    /**
-     * @param Video $video
-     *
-     * @return TrickDTO
-     */
-    public function addVideo(Video $video): self
-    {
-        if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Video $video
-     *
-     * @return TrickDTO
-     */
-    public function removeVideo(Video $video): self
-    {
-        if ($this->videos->contains($video)) {
-            $this->videos->removeElement($video);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getVideos(): ArrayCollection
-    {
-        return $this->videos;
-    }
-
-    /**
-     * @param Group $group
-     *
-     * @return TrickDTO
-     */
-    public function addGroup(Group $group): self
-    {
-        if (!$this->groups->contains($group)) {
-            $this->groups[] = $group;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Group $group
-     *
-     * @return TrickDTO
-     */
-    public function removeGroup(Group $group): self
-    {
-        if ($this->groups->contains($group)) {
-            $this->groups->removeElement($group);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getGroups()
-    {
-        return $this->groups;
+        $this->author = $author;
+        $this->mainPicture = $mainPicture;
+        $this->comments = $comments;
+        $this->pictures = $pictures;
+        $this->videos = $videos;
+        $this->groups = $groups;
     }
 }

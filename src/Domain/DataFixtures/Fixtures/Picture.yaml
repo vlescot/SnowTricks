@@ -1,52 +1,91 @@
-PictureGrab0:
-  filename   : main1.png
-  path       : /trick/grab
+MainPictureGrab:
+  filename   : main1.jpg
+  path       : img/trick/grab/
   alt        : main_grab
+  Reference:
+    MainTrick:
+      - Trick1
 PictureGrab1 :
-  filename   : 1.png
-  path       : /trick/grab
+  filename   : 1.jpg
+  path       : img/trick/grab/
   alt        : grab1
+  Reference:
+    Trick:
+      - Trick1
 PictureGrab2 :
-  filename   : 2.png
-  path       : /trick/grab
+  filename   : 2.jpg
+  path       : img/trick/grab/
   alt        : grab2
-PictureSpins0:
-  filename   : main3.png
-  path       : /trick/spins
+  Reference:
+    Trick:
+      - Trick1
+MainPictureSpins:
+  filename   : main3.jpg
+  path       : img/trick/spins/
   alt        : main_spins
+  Reference:
+    MainTrick:
+      - Trick2
 PictureSpins1 :
-  filename   : 1.png
-  path       : /trick/spins
+  filename   : 1.jpg
+  path       : img/trick/spins/
   alt        : spins1
+  Reference:
+    Trick:
+      - Trick2
 PictureSpins2 :
-  filename   : 2.png
-  path       : /trick/spins
+  filename   : 2.jpg
+  path       : img/trick/spins/
   alt        : spins2
+  Reference:
+    Trick:
+      - Trick2
 PictureSpins3 :
-  filename   : 3.png
-  path       : /trick/spins
+  filename   : 3.jpg
+  path       : img/trick/spins/
   alt        : spins3
-PictureJapan0:
-  filename   : main2.png
-  path       : /trick/japan
+  Reference:
+    Trick:
+      - Trick2
+MainPictureJapan:
+  filename   : main2.jpg
+  path       : img/trick/japan/
   alt        : main_japan
-PictureJapan1 :
-  filename   : 2.png
-  path       : /trick/japan
+  Reference:
+    MainTrick:
+      - Trick3
+PictureJapan1:
+  filename   : 1.jpg
+  path       : img/trick/japan/
   alt        : japan2
+  Reference:
+    Trick:
+      - Trick3
 PictureJapan2 :
-  filename   : 3.png
-  path       : /trick/japan
+  filename   : 2.jpg
+  path       : img/trick/japan/
   alt        : japan3
+  Reference:
+    Trick:
+      - Trick3
 PictureUser1:
-    filename   : a1.png
-    path       : /user
-    alt        : user1
+  filename   : a1.jpg
+  path       : img/user/
+  alt        : user1
+  Reference:
+    User:
+      - User1
 PictureUser2:
-    filename   : a2.png
-    path       : /user
-    alt        : user2
+  filename   : a2.jpg
+  path       : img/user/
+  alt        : user2
+  Reference:
+    User:
+      - User2
 PictureUser3:
-    filename   : a3.png
-    path       : /user
-    alt        : user3
+  filename   : a3.jpg
+  path       : img/user/
+  alt        : user3
+  Reference:
+    User:
+      - User3

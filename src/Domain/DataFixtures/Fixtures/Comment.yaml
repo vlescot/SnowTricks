@@ -1,7 +1,24 @@
 Comment1:
-  Author: root
   Content: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Validated: true
   Reference:
     Author:
+      - User2
+    Trick:
+      - Trick1
+Comment2:
+  Content: Lorem consectetur adipisicing elit.
+  Validated: true
+  Reference:
+    Author:
       - User1
+    Trick:
+      - Trick2
+Comment3:
+  Content: Lorem consectetur adipisicing elit.
+  Validated: true
+  Reference:
+    Author:
+      - User1
+    Trick:
+      - Trick3

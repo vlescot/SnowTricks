@@ -27,7 +27,7 @@ class Comment
     private $author;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $createdAt;
 
@@ -49,9 +49,10 @@ class Comment
 
     public function add(CommentDTO $commentDTO)
     {
-        $this->author = $commentDTO->getAuthor();
-        $this->content = $commentDTO->getContent();
-        $this->validated = $commentDTO->isValidated();
+        $this->content = $commentDTO->content;
+        $this->validated = $commentDTO->validated;
+        $this->author = $commentDTO->author;
+        $this->trick = $commentDTO->trick;
     }
 
     /**
@@ -79,9 +80,9 @@ class Comment
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }

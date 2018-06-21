@@ -2,13 +2,13 @@
 
 namespace App\Responder;
 
+use App\Domain\Entity\Trick;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 
-class HomePageResponder
+class TrickPageResponder
 {
     /**
-     * @Var Environment
+     * @Var Twig_Environment
      */
     private $twig;
 
@@ -16,7 +16,7 @@ class HomePageResponder
      * HomePageResponder constructor.
      * @param \Twig_Environment $twig
      */
-    public function __construct(Environment $twig)
+    public function __construct(\Twig_Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -28,11 +28,11 @@ class HomePageResponder
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke($tricks)
+    public function __invoke(Trick $trick)
     {
         return new Response(
-            $this->twig->render('snowtricks/index.html.twig', [
-                'tricks' => $tricks,
+            $this->twig->render('snowtricks/trick.html.twig', [
+                'trick' => $trick,
             ])
         );
     }

@@ -38,8 +38,9 @@ class Video
 
     public function add(VideoDTO $videoDTO)
     {
-        $this->url = $videoDTO->getUrl();
-        $this->platform = $videoDTO->getPlatform();
+        $this->url = $videoDTO->url;
+        $this->platform = $videoDTO->platform;
+        $this->trick = $videoDTO->trick;
     }
 
     /**

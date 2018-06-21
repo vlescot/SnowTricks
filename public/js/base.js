@@ -15,5 +15,4 @@ function displayModal(modalName) {
 let $spinner = $('.fa-spinner').hide();
 $(document)
     .ajaxStart(function () { $spinner.show(); })
-    .ajaxStop(function () { $spinner.hide(); })
-;
+    .ajaxStop(function () { $spinner.hide(); });

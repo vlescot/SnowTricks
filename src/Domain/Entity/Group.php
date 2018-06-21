@@ -23,7 +23,7 @@ class Group
     private $name;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
     private $tricks;
 
@@ -33,29 +33,31 @@ class Group
         $this->tricks = new ArrayCollection();
     }
 
-    public function creation(GroupDTO $groupDTO)
+    public function create(GroupDTO $groupDTO)
     {
-        $this->name = $groupDTO->getName();
+        $this->name = $groupDTO->name;
 
-        $tricks = $groupDTO->getTricks();
+        $tricks = $groupDTO->tricks;
         foreach ($tricks->getIterator() as $trick) {
             $this->addTrick($trick);
         }
     }
 
-    private function addTrick(Trick $trick)
+    public function addTrick(Trick $trick): self
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
+            $trick->addGroup($this);
         }
 
         return $this;
     }
 
-    private function removeTrick(Trick $trick): self
+    public function removeTrick(Trick $trick): self
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
+            $trick->removeGroup($this);
         }
 
         return $this;
@@ -78,9 +80,9 @@ class Group
     }
 
     /**
-     * @return ArrayCollection
+     * @return \ArrayAccess
      */
-    public function getTricks(): ArrayCollection
+    public function getTricks(): \ArrayAccess
     {
         return $this->tricks;
     }

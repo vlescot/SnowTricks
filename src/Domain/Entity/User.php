@@ -63,12 +63,12 @@ class User
     private $picture;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
     private $comments;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
     private $tricks;
 
@@ -92,24 +92,14 @@ class User
      */
     public function registration(UserDTO $userDTO)
     {
-        $this->username = $userDTO->getUsername();
-        $this->password = $userDTO->getPassword();
-        $this->email = $userDTO->getEmail();
-        $this->validated = $userDTO->isValidated();
-        $this->token = $userDTO->getToken();
-        $this->roles = $userDTO->getRoles();
-        $this->enabled = $userDTO->isEnabled();
-        $this->picture = $userDTO->getPicture();
-
-        $tricks = $userDTO->getTricks();
-        foreach ($tricks->getIterator() as $trick) {
-            $this->addTrick($trick);
-        }
-
-        $comments = $userDTO->getComments();
-        foreach ($comments->getIterator() as $comment) {
-            $this->addComment($comment);
-        }
+        $this->username = $userDTO->username;
+        $this->password = $userDTO->password;
+        $this->email = $userDTO->email;
+        $this->validated = $userDTO->validated;
+        $this->token = $userDTO->token;
+        $this->roles = $userDTO->roles;
+        $this->enabled = $userDTO->enabled;
+        $this->picture = $userDTO->picture;
     }
 
     /**
@@ -117,7 +107,7 @@ class User
      *
      * @return $this
      */
-    private function addTrick(Trick $trick)
+    public function addTrick(Trick $trick): self
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
@@ -131,7 +121,7 @@ class User
      *
      * @return User
      */
-    private function removeTrick(Trick $trick): self
+    public function removeTrick(Trick $trick): self
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
@@ -145,7 +135,7 @@ class User
      *
      * @return $this
      */
-    private function addComment(Comment $comment)
+    public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
@@ -159,7 +149,7 @@ class User
      *
      * @return User
      */
-    private function removeComment(Comment $comment): self
+    public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
@@ -249,17 +239,17 @@ class User
     }
 
     /**
-     * @return ArrayCollection
+     * @return \ArrayAccess
      */
-    public function getComments(): ArrayCollection
+    public function getComments(): \ArrayAccess
     {
         return $this->comments;
     }
 
     /**
-     * @return ArrayCollection
+     * @return \ArrayAccess
      */
-    public function getTricks(): ArrayCollection
+    public function getTricks(): \ArrayAccess
     {
         return $this->tricks;
     }

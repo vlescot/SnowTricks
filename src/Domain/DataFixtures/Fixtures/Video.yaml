@@ -1,9 +1,18 @@
 Video1:
   Url: https://www.youtube.com/embed/6Q7kljjRE6U
   Platform: Youtube
+  Reference:
+    Trick:
+      - Trick1
 Video2:
   Url: https://www.youtube.com/embed/cVKamPWu_Sc
   Platform: Youtube
+  Reference:
+    Trick:
+      - Trick2
 Video3:
   Url: https://www.youtube.com/embed/nMAvJtpNvJI
   Platform: Youtube
+  Reference:
+    Trick:
+      - Trick3

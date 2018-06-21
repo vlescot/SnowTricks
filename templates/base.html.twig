@@ -4,25 +4,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}{% endblock %}</title>
-        <link rel="icon" type="image/png" href="{{ asset('assets/favicon.png') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}" />
         {# Bootstrap #}
-        <link rel="stylesheet" href="{{ asset('assets/lib/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}">
         {# Font-Awesome #}
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         {# Project files #}
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <style>
             @font-face {
                 font-family: 'Montserrat';
-                src: url( {{ asset('assets/fonts/montserrat/Montserrat-Regular.ttf') }} ) format('truetype');
+                src: url( {{ asset('fonts/montserrat/Montserrat-Regular.ttf') }} ) format('truetype');
             }
             @font-face {
                 font-family: 'Raleway-Medium';
-                src: url( {{ asset('assets/fonts/raleway/Raleway-Medium.ttf') }} ) format('truetype');
+                src: url( {{ asset('fonts/raleway/Raleway-Medium.ttf') }} ) format('truetype');
             }
             @font-face {
                 font-family: 'Raleway-Light';
-                src: url( {{ asset('assets/fonts/raleway/Raleway-Light.ttf') }} ) format('truetype');
+                src: url( {{ asset('fonts/raleway/Raleway-Light.ttf') }} ) format('truetype');
             }
         </style>
         {% block css %}{% endblock %}
@@ -45,13 +45,13 @@
 
 	    {# JavaScript #}
         {#jQuery#}
-        <script src="{{ asset('assets/lib/jquery.min.js') }}"></script>
+        <script src="{{ asset('lib/jquery.min.js') }}"></script>
         {#Bootstrap#}
-        <script src="{{ asset('assets/lib/popper.min.js') }}"></script>
-        <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('lib/popper.min.js') }}"></script>
+        <script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}"></script>
         {#My JS#}
-        <script src="{{ asset('assets/js/modal.js') }}"></script>
         {% block javascript %}{% endblock %}
+        <script src="{{ asset('js/base.js') }}"></script>
 
     </body>
 </html>

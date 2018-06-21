@@ -5,16 +5,16 @@ namespace App\Responder;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class HomePageResponder
+class AuthenticationPageResponder
 {
     /**
-     * @Var Environment
+     * @var Environment
      */
     private $twig;
 
     /**
-     * HomePageResponder constructor.
-     * @param \Twig_Environment $twig
+     * AuthenticationPageResponder constructor.
+     * @param Environment $twig
      */
     public function __construct(Environment $twig)
     {
@@ -22,17 +22,17 @@ class HomePageResponder
     }
 
     /**
-     * @param $tricks
+     * @param string $modal
      * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke($tricks)
+    public function __invoke(string $modal)
     {
         return new Response(
-            $this->twig->render('snowtricks/index.html.twig', [
-                'tricks' => $tricks,
+            $this->twig->render('auth/'.$modal.'.html.twig', [
+                'id' => $modal
             ])
         );
     }

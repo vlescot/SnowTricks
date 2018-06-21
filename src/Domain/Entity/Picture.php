@@ -36,11 +36,6 @@ class Picture
      */
     private $trick;
 
-    /**
-     * @var User
-     */
-    private $user;
-
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -48,9 +43,12 @@ class Picture
 
     public function add(PictureDTO $pictureDTO)
     {
-        $this->path = $pictureDTO->getPath();
-        $this->fileName = $pictureDTO->getFileName();
-        $this->alt = $pictureDTO->getAlt();
+        $this->path = $pictureDTO->path;
+        $this->fileName = $pictureDTO->fileName;
+        $this->alt = $pictureDTO->alt;
+        if ($pictureDTO->trick) {
+            $this->trick = $pictureDTO->trick;
+        }
     }
 
     /**
@@ -91,13 +89,5 @@ class Picture
     public function getTrick(): Trick
     {
         return $this->trick;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
     }
 }

@@ -1,40 +1,38 @@
 Trick1:
   Title: Grab
   Slug: grab
-  Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?
+  Description: Vestibulum nec dui lorem. Sed eget turpis est. Morbi feugiat faucibus est sed bibendum. Aenean ut tincidunt tortor. Cras blandit neque iaculis diam euismod auctor. Vestibulum felis nisi, dignissim et ligula at, ornare semper metus. Duis luctus in nisi quis pretium. Integer condimentum, justo sed congue imperdiet, diam mi varius nisi, ut convallis urna dolor sed ex. Vestibulum viverra lacus quis quam malesuada luctus. Aliquam eget bibendum tortor. Curabitur finibus lorem velit, nec vehicula leo malesuada vel. Donec quis tortor ac dui vestibulum vestibulum. Morbi scelerisque purus et enim varius, non gravida turpis tincidunt. Proin eu vestibulum lorem. Donec eget quam quis ante mollis facilisis. Fusce venenatis dignissim diam, eget tristique urna accumsan ut.
   Validated: true
   Reference:
     Author:
       - User1
     Comment:
       - Comment1
+    MainPicture:
+      - MainPictureGrab
     Picture:
-      - PictureGrab0
       - PictureGrab1
       - PictureGrab2
     Video:
       - Video1
-      - Video2
-      - Video3
 Trick2:
   Title: Spins
   Slug: spins
-  Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?
+  Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet orci et sapien tristique, sed feugiat neque aliquet. Quisque cursus sodales massa at venenatis. In hac habitasse platea dictumst. Curabitur maximus tempus urna, vitae ullamcorper ligula placerat vitae. Nulla est lectus, vehicula vitae tempor id, pretium eu ante. Nulla egestas justo non sapien molestie, quis mollis enim malesuada. Nunc dui nisi, elementum ac tempor a, viverra quis odio. Integer augue neque, mattis vitae lobortis vel, pulvinar ac mauris. In cursus pulvinar posuere. Vivamus in auctor quam. Maecenas at nunc vel ligula porttitor auctor eget in dolor. Nam posuere ligula et dignissim interdum.
   Validated: true
   Reference:
     Author:
       - User2
     Comment:
-      - Comment1
+      - Comment2
+    MainPicture:
+      - MainPictureSpins
     Picture:
-      - PictureSpins0
       - PictureSpins1
       - PictureSpins2
       - PictureSpins3
     Video:
-      - Video1
       - Video2
-      - Video3
 Trick3:
   Title: Japan
   Slug: japan
@@ -44,12 +42,11 @@ Trick3:
     Author:
       - User1
     Comment:
-      - Comment1
+      - Comment3
+    MainPicture:
+      - MainPictureJapan
     Picture:
-      - PictureJapan0
       - PictureJapan1
       - PictureJapan2
     Video:
-      - Video1
-      - Video2
       - Video3

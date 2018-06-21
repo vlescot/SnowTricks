@@ -1,19 +1,19 @@
+/_Building/
 /.tmp.drivedownload/
 /.idea/
-/_Building/
+/UML Diagrams/
 
-/vendor/
-/var/
+###> symfony/framework-bundle ###
 /.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
 
-/.php_cs.cache
-/.php_cs.dist
+###> symfony/webpack-encore-pack ###
+/public/build/
+###< symfony/webpack-encore-pack ###
 
-###> friendsofphp/php-cs-fixer ###
-/.php_cs
-/.php_cs.cache
-###< friendsofphp/php-cs-fixer ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-###< phpunit/phpunit ###
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

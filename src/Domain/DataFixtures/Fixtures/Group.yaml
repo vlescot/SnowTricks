@@ -1,4 +1,12 @@
 Group1:
-  name: Jump
+  Name: Jump
+  Reference:
+    Trick:
+      - Trick1
+      - Trick2
 Group2:
-  name: Slide
+  Name: Slide
+  Reference:
+    Trick:
+      - Trick2
+      - Trick3

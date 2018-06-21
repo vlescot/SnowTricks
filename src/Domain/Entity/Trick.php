@@ -4,6 +4,8 @@ namespace App\Domain\Entity;
 
 use App\Domain\DTO\TrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -33,12 +35,12 @@ class Trick
     private $description;
 
     /**
-     * @var \DateTime;
+     * @var string
      */
     private $createdAt;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $updatedAt;
 
@@ -53,22 +55,27 @@ class Trick
     private $validated;
 
     /**
-     * @var ArrayCollection
+     * @var Picture
+     */
+    private $mainPicture;
+
+    /**
+     * @var \ArrayAccess
      */
     private $comments;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
     private $pictures;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
     private $videos;
 
     /**
-     * @var ArrayCollection
+     * @var \ArrayAccess
      */
     private $groups;
 
@@ -92,42 +99,35 @@ class Trick
      */
     public function creation(TrickDTO $trickDTO)
     {
-        $this->title = $trickDTO->getTitle();
-        $this->slug = $trickDTO->getSlug();
-        $this->description = $trickDTO->getDescription();
-        $this->validated = $trickDTO->isValidated();
-//        $this->author = $trickDTO->getAuthor();
+        $this->title = $trickDTO->title;
+        $this->slug = $trickDTO->slug;
+        $this->description = $trickDTO->description;
+        $this->validated = $trickDTO->validated;
+        $this->author = $trickDTO->author;
+        $this->mainPicture = $trickDTO->mainPicture;
 
-        $pictures = $trickDTO->getPictures();
-        foreach ($pictures->getIterator() as $picture) {
-            $this->addPicture($picture);
+        if ($trickDTO->pictures) {
+            $this->pictures = $trickDTO->pictures;
         }
 
-//        if ($videos = $trickDTO->getVideos()){
-//            foreach ($videos->getIterator() as $video){
-//                $this->addVideo($video);
-//            }
-//        }
+        if ($trickDTO->videos) {
+            $this->videos = $trickDTO->videos;
+        }
 
-//        if ($comments = $trickDTO->getComments()){
-//            foreach ($comments->getIterator() as $comment){
-//                $this->addComment($comment);
-//            }
-//        }
-
-//        if ($groups = $trickDTO->getGroups()){
-//            foreach ($groups->getIterator() as $group){
-//                $this->addGroup($group);
-//            }
-//        }
+        if ($trickDTO->groups) {
+            foreach ($trickDTO->groups->getIterator() as $group) {
+                $this->addGroup($group);
+            }
+        }
     }
+
 
     /**
      * @param Comment $comment
      *
      * @return Trick
      */
-    private function addComment(Comment $comment): self
+    public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
@@ -141,7 +141,7 @@ class Trick
      *
      * @return Trick
      */
-    private function removeComment(Comment $comment): self
+    public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
@@ -155,7 +155,7 @@ class Trick
      *
      * @return Trick
      */
-    private function addPicture(Picture $picture): self
+    public function addPicture(Picture $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures[] = $picture;
@@ -169,7 +169,7 @@ class Trick
      *
      * @return Trick
      */
-    private function removePicture(Picture $picture): self
+    public function removePicture(Picture $picture): self
     {
         if ($this->pictures->contains($picture)) {
             $this->pictures->removeElement($picture);
@@ -183,7 +183,7 @@ class Trick
      *
      * @return Trick
      */
-    private function addVideo(Video $video): self
+    public function addVideo(Video $video): self
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
@@ -197,7 +197,7 @@ class Trick
      *
      * @return Trick
      */
-    private function removeVideo(Video $video): self
+    public function removeVideo(Video $video): self
     {
         if ($this->videos->contains($video)) {
             $this->videos->removeElement($video);
@@ -211,10 +211,11 @@ class Trick
      *
      * @return Trick
      */
-    private function addGroup(Group $group): self
+    public function addGroup(Group $group): self
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
+            $group->addTrick($this);
         }
 
         return $this;
@@ -225,10 +226,11 @@ class Trick
      *
      * @return Trick
      */
-    private function removeGroup(Group $group): self
+    public function removeGroup(Group $group): self
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
+            $group->removeTrick($this);
         }
 
         return $this;
@@ -267,17 +269,17 @@ class Trick
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
@@ -299,33 +301,41 @@ class Trick
     }
 
     /**
-     * @return ArrayCollection
+     * @return Picture
      */
-    public function getComments(): ArrayCollection
+    public function getMainPicture(): Picture
+    {
+        return $this->mainPicture;
+    }
+
+    /**
+     * @return \ArrayAccess
+     */
+    public function getComments(): \ArrayAccess
     {
         return $this->comments;
     }
 
     /**
-     * @return ArrayCollection
+     * @return \ArrayAccess
      */
-    public function getPictures(): ArrayCollection
+    public function getPictures(): \ArrayAccess
     {
         return $this->pictures;
     }
 
     /**
-     * @return ArrayCollection
+     * @return \ArrayAccess
      */
-    public function getVideos(): ArrayCollection
+    public function getVideos(): \ArrayAccess
     {
         return $this->videos;
     }
 
     /**
-     * @return ArrayCollection
+     * @return \ArrayAccess
      */
-    public function getGroups(): ArrayCollection
+    public function getGroups(): \ArrayAccess
     {
         return $this->groups;
     }

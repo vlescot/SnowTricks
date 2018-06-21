@@ -1,58 +1,24 @@
-  <div class="modal fade" id="connectionModal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Connexion</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+{% extends 'auth/modal.html.twig' %}
+
+{% block modal_head %}Connexion{% endblock %}
+
+{% block authentication_form %}
+    <form action="authentification" method="post">
+        <div class="form-group form-control-sm">
+            <label for="login">Votre identifiant</label>
+            <input class="form-control" name="login" id="login" type="login" placeholder="Nom d'utilisateur" required>
         </div>
-        <!-- Connection Form -->
-        <div class="modal-body">
-        <div class="row">
-          <div class="col-12 col-md-10 mx-auto">
-            <form action="/authentification" method="post">
-              <div class="form-group form-control-sm">
-                <label for="login">Votre identifiant</label>
-                <input class="form-control" name="login" id="login" type="login" placeholder="Nom d'utilisateur" required>
-              </div>
-              <div class="form-group form-control-sm">
-                <label for="psw">Votre mot de passe</label>
-                <input class="form-control" name="psw" id="psw" type="password" placeholder="Mot de passe" required>
-              </div>
-              <div class="text-center">
-              	<input class="btn btn-primary btn-sm" type="submit" value="Se connecter">
-              </div>
-            </form>
-          </div>
+        <div class="form-group form-control-sm">
+            <label for="psw">Votre mot de passe</label>
+            <input class="form-control" name="psw" id="psw" type="password" placeholder="Mot de passe" required>
         </div>
+        <div class="text-center">
+            <input class="btn btn-primary btn-sm" type="submit" value="Se connecter">
         </div>
-        <div class="modal-footer">
-        	<div class="row">
-        		<div class="col-8">
-			      <p><small class="text-muted"><span class="modal-link" id="resetPassword">Mot de passe oublié ?</span></small></p>
-                    <script>
-                        $("#resetPassword").on("click", function(){
-                            $("#modal-container").load("/reset_password",function(response){
-                                $(".modal-backdrop").remove();
-                                $("#resetPasswordModal").modal({show:true});
-                            });
-                        });
-                    </script>
-			      <p><small class="text-muted"><span class="modal-link" id="registration">Créer votre compte</span></small></p>
-                    <script>
-                        $("#registration").on("click", function(){
-                            $("#modal-container").load("/registration",function(response){
-                                $(".modal-backdrop").remove();
-                                $("#registrationModal").modal({show:true});
-                            });
-                        });
-                    </script>
-        		</div>
-	        	<div class="col-4">
-	          		<button type="button" class="btn btn-default btn-sm text-right" data-dismiss="modal">Close</button>
-	        	</div>
-        	</div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </form>
+{% endblock %}
+
+{% block footer_modal %}
+    <p><small class="text-muted"><span class="modal-link" onclick="displayModal('reset_password')">Mot de passe oublié ?</span></small></p>
+    <p><small class="text-muted"><span class="modal-link" onclick="displayModal('registration')">Créer votre compte</span></small></p>
+{% endblock %}

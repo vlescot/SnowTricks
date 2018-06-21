@@ -20,6 +20,8 @@
             </cascade>
         </many-to-one>
 
+        <one-to-one field="mainPicture" target-entity="App\Domain\Entity\Picture" />
+
         <one-to-many field="comments" target-entity="App\Domain\Entity\Comment" mapped-by="trick">
             <cascade>
                 <cascade-all/>
@@ -30,7 +32,6 @@
             <cascade>
                 <cascade-all/>
             </cascade>
-
         </one-to-many>
 
         <one-to-many field="videos" target-entity="App\Domain\Entity\Video" mapped-by="trick">
@@ -43,9 +44,6 @@
             <cascade>
                 <cascade-all/>
             </cascade>
-            <order-by>
-                <order-by-field name="name" direction="ASC"/>
-            </order-by>
             <join-table name="st_tricks_groups">
                 <join-columns>
                     <join-column name="trick_id" referenced-column-name="id" />
@@ -54,6 +52,9 @@
                     <join-column name="group_id" referenced-column-name="id" />
                 </inverse-join-columns>
             </join-table>
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
         </many-to-many>
 
     </entity>

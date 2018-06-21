@@ -13,13 +13,13 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
-//    public function findTrickBySlug(string $slug)
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.slug = :slug')
-//                ->setParameter('slug', $slug)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findOneBySlug(string $slug)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.slug = :slug')
+                ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

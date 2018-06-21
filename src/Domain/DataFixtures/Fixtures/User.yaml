@@ -9,12 +9,13 @@ User1:
   Reference:
     Picture:
       - PictureUser1
-    # Comment:
-      # - Comment1
-    # Trick:
-    #   - Trick1
-    #   - Trick2
-    #   - Trick3
+    Comment:
+       - Comment2
+       - Comment3
+    Trick:
+       - Trick1
+       - Trick2
+       - Trick3
 User2:
   Username: Vincent
   Password: root
@@ -26,3 +27,5 @@ User2:
   Reference:
     Picture:
       - PictureUser2
+    Comment:
+      - User2
