@@ -1,13 +1,15 @@
-/a-dev/
-###> symfony/framework-bundle ###
-/.env
+/_Building/
+/.tmp.drivedownload/
+/.idea/
+/UML Diagrams/
+php_cs.cache
+
+.env
 /public/bundles/
 /var/
 /vendor/
-###< symfony/framework-bundle ###
 
-###> symfony/web-server-bundle ###
-/.web-server-pid
-###< symfony/web-server-bundle ###
-
-/node_modules/*
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
