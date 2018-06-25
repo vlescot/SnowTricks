@@ -50,12 +50,12 @@ class User
     /**
      * @var boolean
      */
-    private $validated;
+    private $validated = false;
 
     /**
      * @var boolean
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
      * @var Picture

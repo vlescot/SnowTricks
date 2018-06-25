@@ -34,7 +34,7 @@ class Comment
     /**
      * @var boolean
      */
-    private $validated;
+    private $validated = false;
 
     /**
      * @var Trick

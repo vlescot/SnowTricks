@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * @Route("/trick/{slug}", name="Trick")
+ * @Route("/{slug}", name="Trick")
  * @Method({"GET"})
  *
  * Class TrickPageAction
@@ -41,10 +41,9 @@ class TrickPageAction
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke($slug)
+    public function __invoke(Trick $trick)
     {
         $responder = $this->responder;
-        $trick = $this->repository->findOneBy(['slug' => $slug]);
         return $responder($trick);
     }
 }

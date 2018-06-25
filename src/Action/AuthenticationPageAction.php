@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * @Route("/auth/{modal}", name="authentication")
+ * @Route("/auth/{modal}", name="AuthenticationPages")
  * @Method({"GET"})
  *
  * Class AuthenticationPageAction

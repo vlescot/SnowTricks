@@ -52,7 +52,7 @@ class Trick
     /**
      * @var boolean
      */
-    private $validated;
+    private $validated = false;
 
     /**
      * @var Picture

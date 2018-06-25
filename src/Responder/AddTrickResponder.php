@@ -2,19 +2,22 @@
 
 namespace App\Responder;
 
+use App\Domain\Entity\Trick;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class HomePageResponder
+class AddTrickResponder
 {
     /**
-     * @Var Environment
+     * @var Environment
      */
     private $twig;
 
     /**
-     * HomePageResponder constructor.
-     * @param \Twig_Environment $twig
+     * AddTrickResponder constructor.
+     * @param Environment $twig
      */
     public function __construct(Environment $twig)
     {
@@ -22,17 +25,17 @@ class HomePageResponder
     }
 
     /**
-     * @param $tricks
+     * @param Form $form
      * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke($tricks)
+    public function __invoke(Form $form)
     {
         return new Response(
-            $this->twig->render('snowtricks/homepage.html.twig', [
-                'tricks' => $tricks,
+            $this->twig->render('CRUD/addTrick.html.twig', [
+                'form' => $form->createView(),
             ])
         );
     }

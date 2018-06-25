@@ -43,7 +43,6 @@ class HomePageAction
     {
         $responder = $this->responder;
         $tricks = $this->repository->findAll();
-
         return $responder($tricks);
     }
 }

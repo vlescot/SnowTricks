@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trick !{% endblock %}
+{% block title %}{{ trick.title }}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ asset('lib/lightbox/simpleLightbox.min.css') }}">
@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block body %}
+ {% spaceless %}
 
     <section class="container-fluid">
         <h3 class="text-center">Médias</h3>
@@ -46,11 +47,11 @@
                 <div class="trick-infos">
                     <p><small><strong>Groupe :</strong></small>
                         {% for group in trick.groups %}
-                            <a href="#" class="badge badge-dark">{{ group.name |capitalize }}</a>
+                            <span class="badge">{{ group.name |capitalize }}</span>
                         {% endfor %}
                     </p>
                     <p><small><strong>
-                                Auteur : {{ trick.author.username }}, le {{ trick.createdAt | date("F jS \\à g:ia") }}
+                        Auteur : {{ trick.author.username }}, le {{ trick.createdAt | date('d/m/Y à H:i') }}
                     </strong></small></p>
                 </div>
             </div>
@@ -83,7 +84,7 @@
                         </div>
                         <div class="col-10 comment-content">
                             <p class="comment">{{ comment.content }}</p>
-                            <p class="text-right infos"><strong>{{ comment.author.username }},  le {{ comment.createdAt|date("F jS \\à g:ia") }}</strong></p>
+                            <p class="text-right infos"><strong>{{ comment.author.username }},  le {{ comment.createdAt|date('d/m/Y à H:i') }}</strong></p>
                         </div>
                     </div>
                 {% endfor %}
@@ -93,8 +94,8 @@
     </div>
   </section>
 
+{% endspaceless %}
 {% endblock %}
-
 
 {% block javascript %}
     <script src="{{ asset('lib/lightbox/simpleLightbox.min.js') }}"></script>

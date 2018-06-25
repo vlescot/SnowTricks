@@ -122,6 +122,7 @@ header {
   height:100%;
   background-size:cover;
   margin-bottom: 30px;
+    box-shadow: 0px 0px 50px -8px rgba(0,0,0,0.75);
 }
 .contents-header {
   width: 60%;
@@ -194,15 +195,32 @@ footer #copyright {
   cursor: pointer;
 }
 
+.homepage h3, .homepage h4 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+#search-warning {
+    display: none;
+}
+
+.badge {
+    cursor: pointer;
+    background-color: #2f5e67;
+}
+.badge:hover {
+    background-color: #75CFE5;
+}
+
 .main-trick {
     display: none;
   margin-bottom: 30px;
-  -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.4);
-  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 0 8px 0 rgba(0,0,0,0.4);
+  box-shadow: 0 0 8px 0 rgba(0,0,0,0.4);
 }
 .main-trick-header {
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   -webkit-transition: background-color 0.4s linear;
   -moz-transition: background-color 0.4s linear;
   -o-transition: background-color 0.4s linear;
@@ -229,14 +247,18 @@ footer #copyright {
   display: inline-block;
 }
 .main-trick-content {
-
+    padding-bottom: 0.5em;
 }
+.main-trick-groups {
+    padding: 5px;
+    border-top: 1px solid #2f5e67;
+}
+
 .main-trick-administration {
   display: flex;
   justify-content: space-around;
   bottom: 0;
   padding: 10px;
-  border-top: 1px solid #2f5e67;
 }
 .main-trick-administration i {
   color: #2f5e67;
