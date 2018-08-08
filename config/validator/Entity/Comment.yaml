@@ -1,0 +1,20 @@
+App\Domain\Entity\Comment:
+    properties:
+        id:
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                - create_comment
+
+        content:
+            - NotBlank:
+                message: Le commentaire ne peut pas être vide.
+                groups:
+                - create_comment
+
+        createdAt:
+            - NotBlank: ~
+            - Length:
+                max: 255
+                groups:
+                - create_comment

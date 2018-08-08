@@ -1,12 +1,6 @@
 Group1:
   Name: Jump
-  Reference:
-    Trick:
-      - Trick1
-      - Trick2
 Group2:
   Name: Slide
-  Reference:
-    Trick:
-      - Trick2
-      - Trick3
+Group3:
+  Name: Rotation

@@ -1,0 +1,74 @@
+App\Domain\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: username
+            message: Ce nom d'utilisateur est déjà utilisé
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: email
+            message: Ce adresse e-mail est déjà utilisée
+
+    properties:
+
+        id:
+            - NotBlank: ~
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                    - userRegistration
+
+        username:
+            - NotBlank:
+                message: Le pseudo est obligatoire.
+                groups:
+                    - userRegistration
+            - Length:
+                min: 3
+                minMessage: Ce nom d'utilisateur est trop court
+                max: 255
+                maxMessage: Ce nom est trop long !!
+                groups:
+                    - userRegistration
+
+        password:
+            - NotBlank:
+                message: Un mot de passe est obligatoire.
+                groups:
+                    - userRegistration
+            - Length:
+                max: 64
+                groups:
+                    - userRegistration
+
+        email:
+            - NotBlank:
+                message: Un email est obligatoire.
+                groups:
+                    - userRegistration
+            - Email:
+                message: Cet email n'est pas valide.
+                groups:
+                    - userRegistration
+            - Length:
+                max: 255
+                groups:
+                    - userRegistration
+
+        createdAt:
+            - NotBlank:
+                groups:
+                    - userRegistration
+
+        roles:
+            - NotBlank:
+                groups:
+                    - userRegistration
+
+        enabled:
+            - NotBlank:
+                groups:
+                    - userRegistration
+
+        picture:
+            - Valid:
+                groups:
+                    - userRegistration

@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
-use App\Domain\DTO\GroupDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -27,40 +27,39 @@ class Group
      */
     private $tricks;
 
-    public function __construct()
-    {
+    /**
+     * Group constructor.
+     *
+     * @param string $name
+     * @throws \Exception
+     */
+    public function __construct(
+        string $name
+    ) {
         $this->id = Uuid::uuid4();
         $this->tricks = new ArrayCollection();
+
+        $this->name = $name;
     }
 
-    public function create(GroupDTO $groupDTO)
-    {
-        $this->name = $groupDTO->name;
-
-        $tricks = $groupDTO->tricks;
-        foreach ($tricks->getIterator() as $trick) {
-            $this->addTrick($trick);
-        }
-    }
-
-    public function addTrick(Trick $trick): self
+    /**
+     * @param Trick $trick
+     */
+    public function addTrick(Trick $trick)
     {
         if (!$this->tricks->contains($trick)) {
-            $this->tricks[] = $trick;
-            $trick->addGroup($this);
+            $this->tricks->add($trick);
         }
-
-        return $this;
     }
 
-    public function removeTrick(Trick $trick): self
+    /**
+     * @param Trick $trick
+     */
+    public function removeTrick(Trick $trick)
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
-            $trick->removeGroup($this);
         }
-
-        return $this;
     }
 
     /**
@@ -85,5 +84,10 @@ class Group
     public function getTricks(): \ArrayAccess
     {
         return $this->tricks;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

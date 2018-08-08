@@ -1,0 +1,52 @@
+App\Domain\Entity\Picture:
+
+    properties:
+
+        id:
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                    - edit_trick
+                    - userRegistration
+
+        path:
+            - NotBlank:
+                groups:
+                    - edit_trick
+                    - userRegistration
+            - Length:
+                min: 3
+                minMessage : Ce chemin est trop court.
+                max: 255
+                maxMessage : Ce chemin est trop long.
+                groups:
+                    - edit_trick
+                    - userRegistration
+
+        filename:
+            - NotBlank:
+                groups:
+                    - edit_trick
+                    - userRegistration
+            - Length:
+                min: 3
+                minMessage : Ce nom de fichier est trop court.
+                max: 255
+                maxMessage : Ce nom de fichier est trop long.
+                groups:
+                    - edit_trick
+                    - userRegistration
+
+        alt:
+            - NotBlank:
+                groups:
+                    - edit_trick
+                    - userRegistration
+            - Length:
+                min: 3
+                minMessage : Ce alt est trop court.
+                max: 255
+                maxMessage : Ce alt est trop long.
+                groups:
+                    - edit_trick
+                    - userRegistration

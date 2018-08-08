@@ -1,0 +1,40 @@
+{% extends 'authentication/base_modal.html.twig' %}
+
+{% block modal_head %}Connexion{% endblock %}
+
+{% block authentication_form %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="form-group form-control-sm">
+        {{ form_label(form._login, 'Votre identifiant :') }}
+        {{ form_widget(form._login, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Nom d\'utilisateur ou email'
+        }}) }}
+    </div>
+
+    <div class="form-group form-control-sm">
+        {{ form_label(form._password, 'Votre mot de passe :') }}
+        {{ form_widget(form._password, {'attr': {
+            'class': 'form-control',
+            'placeholder': 'Mot de passe'
+        }}) }}
+    </div>
+
+    {{ form_rest(form) }}
+
+    <div class="text-center">
+        <input class="btn btn-sm" type="submit" value="Se connecter">
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block footer_modal %}
+    <p><small class="text-muted"><span class="modal-link" onclick="displayAuthenticationModal('reset_password')">Mot de passe oublié</span> ?</small></p>
+    <p><small class="text-muted"><span class="modal-link" onclick="displayAuthenticationModal('registration')">Créer votre compte</span></small></p>
+
+{% endblock %}

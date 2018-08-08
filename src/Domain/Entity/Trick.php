@@ -1,11 +1,9 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
-use App\Domain\DTO\TrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\PersistentCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -50,19 +48,9 @@ class Trick
     private $author;
 
     /**
-     * @var boolean
-     */
-    private $validated = false;
-
-    /**
      * @var Picture
      */
     private $mainPicture;
-
-    /**
-     * @var \ArrayAccess
-     */
-    private $comments;
 
     /**
      * @var \ArrayAccess
@@ -80,160 +68,180 @@ class Trick
     private $groups;
 
     /**
-     * Trick constructor.
+     * @var \ArrayAccess
      */
-    public function __construct()
-    {
-        $this->id = Uuid::uuid4();
-        $this->createdAt = time();
-        $this->updatedAt = time();
+    private $comments;
 
-        $this->comments = new ArrayCollection();
+
+    /**
+     * Trick constructor.
+     *
+     * @param string $title
+     * @param string $description
+     * @param User $author
+     * @param Picture $mainPicture
+     * @param null $pictures
+     * @param array|null $videos
+     * @param \ArrayAccess|null $groups
+     * @throws \Exception
+     */
+    public function __construct(
+        string $title,
+        string $description,
+        User $author,
+        Picture $mainPicture,
+        $pictures = null,
+        array $videos = null,
+        \ArrayAccess $groups = null
+    ) {
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+
+        $this->id = Uuid::uuid4();
+        $this->title = $title;
+        $this->slug = strtolower(str_replace(' ', '_', $title));
+        $this->createdAt = time();
+        $this->updatedAt = time();
+        $this->description = $description;
+        $this->mainPicture = $mainPicture;
+        $this->setAuthor($author);
+
+        foreach ($pictures as $picture) {
+            $this->pictures->add($picture);
+        }
+        foreach ($videos as $video) {
+            $this->videos->add($video);
+            $video->setTrick($this);
+        }
+        foreach ($groups->getIterator() as $group) {
+            $this->addGroup($group);
+        }
     }
 
     /**
-     * @param TrickDTO $trickDTO
+     * @param string $title
+     * @param string $description
+     * @param Picture $mainPicture
+     * @param null $pictures
+     * @param array|null $videos
+     * @param \ArrayAccess|null $groups
      */
-    public function creation(TrickDTO $trickDTO)
+    public function update(
+        string $title,
+        string $description,
+        Picture $mainPicture,
+        $pictures = null,
+        array $videos = null,
+        \ArrayAccess $groups = null
+    ) {
+        $this->title = $title;
+        $this->slug = strtolower(str_replace(' ', '_', $title));
+        $this->updatedAt = time();
+        $this->description = $description;
+        $this->mainPicture = $mainPicture;
+        $this->updatePicture($pictures);
+        $this->updateVideo($videos);
+        $this->updateGroup($groups);
+    }
+
+    /**
+     * @param $pictures
+     */
+    private function updatePicture($pictures)
     {
-        $this->title = $trickDTO->title;
-        $this->slug = $trickDTO->slug;
-        $this->description = $trickDTO->description;
-        $this->validated = $trickDTO->validated;
-        $this->author = $trickDTO->author;
-        $this->mainPicture = $trickDTO->mainPicture;
-
-        if ($trickDTO->pictures) {
-            $this->pictures = $trickDTO->pictures;
+        foreach ($pictures as $key => $picture) {
+            if ($this->pictures->containsKey($key)) {
+                $this->pictures->set($key, $picture);
+            } else {
+                $this->pictures->add($picture);
+            }
         }
-
-        if ($trickDTO->videos) {
-            $this->videos = $trickDTO->videos;
-        }
-
-        if ($trickDTO->groups) {
-            foreach ($trickDTO->groups->getIterator() as $group) {
-                $this->addGroup($group);
+        foreach ($this->pictures->getIterator() as $key => $picture) {
+            if (!isset($pictures[$key])) {
+                $this->pictures->remove($key);
             }
         }
     }
 
-
     /**
-     * @param Comment $comment
-     *
-     * @return Trick
+     * @param $videos
      */
-    public function addComment(Comment $comment): self
+    private function updateVideo(array $videos)
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
+        foreach ($videos as $key => $video) {
+            if ($this->videos->containsKey($key)) {
+                $this->videos->set($key, $video);
+            } else {
+                $this->videos->add($video);
+            }
         }
-
-        return $this;
+        foreach ($this->videos->getIterator() as $key => $video) {
+            if (!isset($videos[$key])) {
+                $this->videos->remove($key);
+            }
+        }
     }
 
     /**
-     * @param Comment $comment
-     *
-     * @return Trick
+     * @param $groups
      */
-    public function removeComment(Comment $comment): self
+    private function updateGroup($groups)
     {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
+        foreach ($groups as $key => $group) {
+            if ($this->groups->containsKey($key)) {
+                $this->groups->set($key, $group);
+            } else {
+                $this->addGroup($group);
+            }
         }
-
-        return $this;
+        foreach ($this->groups->getIterator() as $key => $group) {
+            if (!isset($groups[$key])) {
+                $this->removeGroup($group);
+            }
+        }
     }
 
     /**
-     * @param Picture $picture
-     *
-     * @return Trick
+     * @param User $author
      */
-    public function addPicture(Picture $picture): self
+    private function setAuthor(User $author)
     {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Picture $picture
-     *
-     * @return Trick
-     */
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->contains($picture)) {
-            $this->pictures->removeElement($picture);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Video $video
-     *
-     * @return Trick
-     */
-    public function addVideo(Video $video): self
-    {
-        if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Video $video
-     *
-     * @return Trick
-     */
-    public function removeVideo(Video $video): self
-    {
-        if ($this->videos->contains($video)) {
-            $this->videos->removeElement($video);
-        }
-
-        return $this;
+        $this->author = $author;
+        $author->addTrick($this);
     }
 
     /**
      * @param Group $group
-     *
-     * @return Trick
      */
-    public function addGroup(Group $group): self
+    private function addGroup(Group $group)
     {
         if (!$this->groups->contains($group)) {
-            $this->groups[] = $group;
+            $this->groups->add($group);
             $group->addTrick($this);
         }
-
-        return $this;
     }
 
     /**
      * @param Group $group
-     *
-     * @return Trick
      */
-    public function removeGroup(Group $group): self
+    private function removeGroup(Group $group)
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
             $group->removeTrick($this);
         }
+    }
 
-        return $this;
+    /**
+     * @param Comment $comment
+     */
+    public function addComment(Comment $comment)
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
     }
 
     /**
@@ -290,14 +298,6 @@ class Trick
     public function getAuthor(): User
     {
         return $this->author;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isValidated(): bool
-    {
-        return $this->validated;
     }
 
     /**

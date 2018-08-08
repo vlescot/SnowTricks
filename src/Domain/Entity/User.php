@@ -1,16 +1,17 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
-use App\Domain\DTO\UserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class User.
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var UuidInterface
@@ -50,12 +51,7 @@ class User
     /**
      * @var boolean
      */
-    private $validated = false;
-
-    /**
-     * @var boolean
-     */
-    private $enabled = true;
+    private $enabled;
 
     /**
      * @var Picture
@@ -72,90 +68,90 @@ class User
      */
     private $tricks;
 
+
     /**
      * User constructor.
+     *
+     * @throws \Exception
      */
     public function __construct()
     {
         $this->id = Uuid::uuid4();
-
         $this->comments = new ArrayCollection();
         $this->tricks = new ArrayCollection();
-
         $this->createdAt = time();
-        $this->validated = false;
+        $this->roles = ['ROLE_USER'];
+    }
+
+    /**
+     * @param string $username
+     * @param string $email
+     * @param string $password
+     * @param Picture|null $picture
+     */
+    public function registration(
+        string $username,
+        string $email,
+        string $password,
+        Picture $picture = null
+    ) {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->picture = $picture;
+        $this->token = hash('sha512', uniqid($username, true));
         $this->enabled = false;
     }
 
     /**
-     * @param UserDTO $userDTO
+     * @param string $email
+     * @param string $password
+     * @param Picture|null $picture
      */
-    public function registration(UserDTO $userDTO)
+    public function update(
+        string $email,
+        string $password,
+        Picture $picture = null
+    ) {
+        $this->email = $email;
+        $this->password = $password;
+        $this->picture = $picture;
+    }
+
+    /**
+     * @param bool $isEnabled
+     */
+    public function enabled(bool $isEnabled)
     {
-        $this->username = $userDTO->username;
-        $this->password = $userDTO->password;
-        $this->email = $userDTO->email;
-        $this->validated = $userDTO->validated;
-        $this->token = $userDTO->token;
-        $this->roles = $userDTO->roles;
-        $this->enabled = $userDTO->enabled;
-        $this->picture = $userDTO->picture;
+        $this->enabled = $isEnabled;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function changePassword(string $password)
+    {
+        $this->password = $password;
     }
 
     /**
      * @param Trick $trick
-     *
-     * @return $this
      */
-    public function addTrick(Trick $trick): self
+    public function addTrick(Trick $trick)
     {
         if (!$this->tricks->contains($trick)) {
-            $this->tricks[] = $trick;
+            $this->tricks->add($trick);
         }
-
-        return $this;
-    }
-
-    /**
-     * @param Trick $trick
-     *
-     * @return User
-     */
-    public function removeTrick(Trick $trick): self
-    {
-        if ($this->tricks->contains($trick)) {
-            $this->tricks->removeElement($trick);
-        }
-
-        return $this;
     }
 
     /**
      * @param Comment $comment
-     *
-     * @return $this
      */
-    public function addComment(Comment $comment): self
+    public function addComment(Comment $comment)
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
         }
-
-        return $this;
-    }
-
-    /**
-     * @param Comment $comment
-     *
-     * @return User
-     */
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-        }
-
-        return $this;
     }
 
     /**
@@ -207,19 +203,11 @@ class User
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRoles(): string
+    public function getRoles(): array
     {
-        return $this->roles;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isValidated(): bool
-    {
-        return $this->validated;
+        return ['ROLE_USER'];
     }
 
     /**
@@ -232,9 +220,17 @@ class User
 
     /**
      * @return Picture
+     * @throws \Exception
      */
     public function getPicture(): Picture
     {
+        if (null === $this->picture) {
+            return new Picture(
+                '/image/user/',
+                'user_default.png',
+                'default-member-picture'
+            );
+        }
         return $this->picture;
     }
 
@@ -252,5 +248,20 @@ class User
     public function getTricks(): \ArrayAccess
     {
         return $this->tricks;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+//        $this->password = null;
+//        $this->username = null;
+        $this->token = null;
     }
 }

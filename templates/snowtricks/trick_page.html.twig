@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ trick.title }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('lib/lightbox/simpleLightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/trick_page.css') }}">
+{% endblock %}
+
+{% block header %}
+  <header style="background-image: url('{{ asset(trick.mainPicture.webPath) }}')">
+    <div class="contents-header">
+      <h1 class="header-title text-center">{{ trick.title }}</h1>
+    </div>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+    <section class="container" id="trick-description">
+        <div class="row">
+            <div class="col-10 mx-auto text-right">
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('UpdateTrick', {'slug': trick.slug }) }}">
+                        <button class="btn btn-sm">Modifie cette figure</button>
+                    </a>
+                {% else %}
+                    <button class="btn btn-sm" onclick="displayAuthenticationModal('login')">Modifie cette figure</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <h3 class="text-center">Description</h3>
+                {{ trick.description | raw }}
+                <div class="trick-infos">
+                    <p><small><strong>
+                        Auteur : {{ trick.author.username }}, le {{ trick.createdAt | date('d/m/Y à H:i') }}
+                    </strong></small></p>
+                    {% if trick.groups | length == 0 %}
+                        <p><small><strong>Aucun groupe de figure</strong></small></p>
+                    {% else %}
+                        <p><small><strong>Groupes de figure : </strong></small>
+                            {% for group in trick.groups %}
+                                <span class="badge">{{ group.name |capitalize }}</span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h3 class="text-center">Médias</h3>
+        <div class="row justify-content-md-center">
+            {% for picture in trick.pictures %}
+              <div class="col-6 col-sm-4 col-md-3 col-lg-2 media imageGallery1">
+                <a href="{{ asset(picture.webPath) }}">
+                  <img src="{{ asset(picture.webPath) }}" alt="{{ picture.alt }}" class="rounded img-fluid"/>
+                </a>
+              </div>
+			{% endfor %}
+        </div>
+        <div class="row justify-content-md-center">
+        {% for video in trick.videos %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 media">
+                <div class="embed-responsive embed-responsive-4by3">
+                    {{ video.iFrame | raw }}
+                </div>
+            </div>
+        {% endfor %}
+		</div>
+	</section>
+
+  <section id="comments">
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-1 offset-lg-2 col-md-10 col-lg-8 comments-container">
+            <div class="col-12">
+                <h3 class="text-center">Commentaires</h3>
+
+                {% if is_granted('ROLE_USER') %}
+                    <div class="form-group">
+                        {{ form_start(form) }}
+                        <div class="form-inline">
+                            {{ form_widget(form.content, {'attr': {
+                                'class': 'form-control col-10',
+                                'placeholder': 'Écrit un commentaire...',
+                                'required': 'true',
+                                'rows': '1'
+                            }}) }}
+                            <button type="submit" class="btn btn-primary col-2">Poster</button>
+                            {{ form_rest(form) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <p class="text-center small">Connecte toi pour écrire un commentaire</p>
+                    </div>
+                {% endif %}
+
+                {% if trick.comments is empty %}
+                    <p class="text-center">Il n'y a pas encore de commentaires...</p>
+                {% else %}
+                    {% for comment in trick.comments %}
+                        <div class="row comment-container" style="margin-right: 0;">
+                            <div class="col-2 avatar">
+                                <img src="{{ asset( comment.author.picture.webPath) }}"
+                                     alt="{{ comment.author.picture.alt }}" class="rounded img-fluid">
+                            </div>
+                            <div class="col-10 comment-content">
+                                <p class="comment">{{ comment.content }}</p>
+                                <p class="text-right infos"><strong>{{ comment.author.username }},  le {{ comment.createdAt | date('d/m/Y à H:i') }}</strong></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+            <section id="pagination-container">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" id="pagination-previous">
+                            <a class="page-link"><<</a>
+                        </li>
+                        <li class="page-item num-page" >
+                            <a class="page-link">1</a>
+                        </li>
+                        <li class="page-item" id="pagination-next">
+                            <a class="page-link">>></a>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('lib/lightbox/simpleLightbox.min.js') }}"></script>
+    <script src="{{ asset('js/trick_page.js') }}"></script>
+{% endblock %}

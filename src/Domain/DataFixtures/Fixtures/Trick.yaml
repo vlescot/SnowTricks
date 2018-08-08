@@ -1,52 +1,77 @@
 Trick1:
   Title: Grab
   Slug: grab
-  Description: Vestibulum nec dui lorem. Sed eget turpis est. Morbi feugiat faucibus est sed bibendum. Aenean ut tincidunt tortor. Cras blandit neque iaculis diam euismod auctor. Vestibulum felis nisi, dignissim et ligula at, ornare semper metus. Duis luctus in nisi quis pretium. Integer condimentum, justo sed congue imperdiet, diam mi varius nisi, ut convallis urna dolor sed ex. Vestibulum viverra lacus quis quam malesuada luctus. Aliquam eget bibendum tortor. Curabitur finibus lorem velit, nec vehicula leo malesuada vel. Donec quis tortor ac dui vestibulum vestibulum. Morbi scelerisque purus et enim varius, non gravida turpis tincidunt. Proin eu vestibulum lorem. Donec eget quam quis ante mollis facilisis. Fusce venenatis dignissim diam, eget tristique urna accumsan ut.
-  Validated: true
+  Description: <p>Vestibulum nec dui lorem. Sed eget turpis est. Morbi feugiat faucibus est sed bibendum. Aenean ut tincidunt tortor. Cras blandit neque iaculis diam euismod auctor. Vestibulum felis nisi, dignissim et ligula at, ornare semper metus. Duis luctus in nisi quis pretium. Integer condimentum, justo sed congue imperdiet, diam mi varius nisi, ut convallis urna dolor sed ex. Vestibulum viverra lacus quis quam malesuada luctus. Aliquam eget bibendum tortor. Curabitur finibus lorem velit, nec vehicula leo malesuada vel. Donec quis tortor ac dui vestibulum vestibulum. Morbi scelerisque purus et enim varius, non gravida turpis tincidunt. Proin eu vestibulum lorem. Donec eget quam quis ante mollis facilisis. Fusce venenatis dignissim diam, eget tristique urna accumsan ut.</p>
   Reference:
-    Author:
-      - User1
+    Author: User1
     Comment:
       - Comment1
-    MainPicture:
-      - MainPictureGrab
+    MainPicture: MainPictureGrab
     Picture:
       - PictureGrab1
       - PictureGrab2
     Video:
       - Video1
+    Group:
+      - Group1
+      - Group3
 Trick2:
   Title: Spins
   Slug: spins
-  Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet orci et sapien tristique, sed feugiat neque aliquet. Quisque cursus sodales massa at venenatis. In hac habitasse platea dictumst. Curabitur maximus tempus urna, vitae ullamcorper ligula placerat vitae. Nulla est lectus, vehicula vitae tempor id, pretium eu ante. Nulla egestas justo non sapien molestie, quis mollis enim malesuada. Nunc dui nisi, elementum ac tempor a, viverra quis odio. Integer augue neque, mattis vitae lobortis vel, pulvinar ac mauris. In cursus pulvinar posuere. Vivamus in auctor quam. Maecenas at nunc vel ligula porttitor auctor eget in dolor. Nam posuere ligula et dignissim interdum.
-  Validated: true
+  Description: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet orci et sapien tristique, sed feugiat neque aliquet. Quisque cursus sodales massa at venenatis. In hac habitasse platea dictumst. Curabitur maximus tempus urna, vitae ullamcorper ligula placerat vitae. Nulla est lectus, vehicula vitae tempor id, pretium eu ante. Nulla egestas justo non sapien molestie, quis mollis enim malesuada. Nunc dui nisi, elementum ac tempor a, viverra quis odio. Integer augue neque, mattis vitae lobortis vel, pulvinar ac mauris. In cursus pulvinar posuere. Vivamus in auctor quam. Maecenas at nunc vel ligula porttitor auctor eget in dolor. Nam posuere ligula et dignissim interdum.</p>
   Reference:
-    Author:
-      - User2
+    Author: User2
     Comment:
       - Comment2
-    MainPicture:
-      - MainPictureSpins
+    MainPicture: MainPictureSpins
     Picture:
       - PictureSpins1
       - PictureSpins2
       - PictureSpins3
     Video:
       - Video2
+      - Video4
+    Group:
+      - Group1
+      - Group2
 Trick3:
   Title: Japan
   Slug: japan
-  Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?
-  Validated: true
+  Description: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?</p>
   Reference:
-    Author:
-      - User1
+    Author: User1
     Comment:
       - Comment3
-    MainPicture:
-      - MainPictureJapan
+    MainPicture: MainPictureJapan
     Picture:
       - PictureJapan1
       - PictureJapan2
     Video:
       - Video3
+    Group:
+      - Group2
+
+#Trick4
+Trick4:
+  Title: Try
+  Slug: try
+  Description: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+  Reference:
+    Author: User1
+    MainPicture: MainTry
+    Picture:
+      - Try1
+      - Try2
+      - Try3
+    Video:
+      - Video1
+      - Video2
+      - Video3
+      - Video4
+    Comment:
+      - Comment1
+      - Comment2
+      - Comment3
+    Group:
+      - Group2
+      - Group3

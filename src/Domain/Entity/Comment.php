@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
-use App\Domain\DTO\CommentDTO;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -15,44 +15,58 @@ class Comment
      * @var UuidInterface
      */
     private $id;
-
     /**
      * @var string
      */
     private $content;
-
-    /**
-     * @var User
-     */
-    private $author;
-
     /**
      * @var string
      */
     private $createdAt;
-
     /**
-     * @var boolean
+     * @var User
      */
-    private $validated = false;
-
+    private $author;
     /**
      * @var Trick
      */
     private $trick;
 
-    public function __construct()
-    {
+    /**
+     * Comment constructor.
+     *
+     * @param string $content
+     * @param User $author
+     * @param Trick $trick
+     * @throws \Exception
+     */
+    public function __construct(
+        string $content,
+        User $author,
+        Trick $trick
+    ) {
         $this->id = Uuid::uuid4();
         $this->createdAt = time();
+        $this->content = $content;
+        $this->setAuthor($author);
+        $this->setTrick($trick);
     }
 
-    public function add(CommentDTO $commentDTO)
+    /**
+     * @param Trick $trick
+     */
+    private function setTrick(Trick $trick)
     {
-        $this->content = $commentDTO->content;
-        $this->validated = $commentDTO->validated;
-        $this->author = $commentDTO->author;
-        $this->trick = $commentDTO->trick;
+        $this->trick = $trick;
+    }
+
+    /**
+     * @param User $author
+     */
+    private function setAuthor(User $author)
+    {
+        $this->author = $author;
+        $author->addComment($this);
     }
 
     /**
@@ -82,17 +96,9 @@ class Comment
     /**
      * @return string
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isValidated(): bool
-    {
-        return $this->validated;
     }
 
     /**

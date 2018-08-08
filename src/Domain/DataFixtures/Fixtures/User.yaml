@@ -4,11 +4,11 @@ User1:
   Email: floyd-24@hotmail.com
   Validated: true
   Token: azerty
-  Roles: admin
+  Roles:
+    - admin
   Enabled: true
   Reference:
-    Picture:
-      - PictureUser1
+    Picture: PictureUser1
     Comment:
        - Comment2
        - Comment3
@@ -18,14 +18,14 @@ User1:
        - Trick3
 User2:
   Username: Vincent
-  Password: root
+  Password: azerty
   Email: vincent.lescot@gmail.com
   Validated: true
   Token: ytreza
-  Roles: admin
+  Roles:
+    - admin
   Enabled: true
   Reference:
-    Picture:
-      - PictureUser2
+    Picture: PictureUser2
     Comment:
       - User2

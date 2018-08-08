@@ -1,15 +1,14 @@
-/_Building/
-/.tmp.drivedownload/
+/bin/.phpunit/
 /.idea/
-/UML Diagrams/
-/.php_cs.cache
+/.tmp.drivedownload/
+/_Building/
+/_UML Diagrams/
 
-/.env
-/public/bundles/
+
 /var/
 /vendor/
 
-###> symfony/phpunit-bridge ###
-.phpunit
+/.phpunit
 /phpunit.xml
-###< symfony/phpunit-bridge ###
+/.php_cs.cache
+/.env

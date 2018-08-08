@@ -1,0 +1,13 @@
+App\Domain\Entity\Video:
+
+    properties:
+        id:
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                    - edit_trick
+        iFrame:
+            - NotBlank:
+                message: Nous avons besoin de l'iFrame.
+                groups:
+                    - edit_trick

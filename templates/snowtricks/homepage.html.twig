@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block css %}
     <link rel="stylesheet" href="{{ asset('lib/jqueryUi/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 {% endblock %}
 {% block title %}SnowTricks, la communauté !{% endblock %}
 
 {% block header %}
-	<header style="background-image: url('{{ asset('img/welcome.jpg') }}')">
+	<header style="background-image: url('{{ asset('image/welcome.jpg') }}')">
 		<div class="contents-header">
 			<h1 class="header-title text-center">SnowTricks</h1>
 			<div class="sub-title text-center">
@@ -16,39 +17,41 @@
 {% endblock %}
 
 {% block body %}
-    {% spaceless %}
+
     <i class="fas fa-arrow-up fa-3x"></i>
 	<div class="container homepage" id="top">
-        <div class="search d-flex justify-content-end">
-            <div class="form-group row">
-                <div class="">
-                    <input type="text" id="search" placeholder="Chercher un trick" class="form-control">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-center"><label for="search">Rechercher un trick</label></h5>
+                <div class="form-inline search-form d-flex justify-content-center">
+                    <input type="text" id="search" class="form-control form-control-sm">
+                    <button class="btn btn-sm" id="submit" type="submit"><i class="fas fa-search"></i></button>
                 </div>
-                <input id="submit" type="submit" value="OK" class="btn btn-outline-info">
+                <div  class="d-flex justify-content-end" role="alert">
+                    <div id="search-warning" class="alert alert-warning col-8 col-sm-6 col-md-4 col-lg-3">
+                        <strong>Ce trick est inconnu...</strong>
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-center">Afficher par groupe</h5>
+                <div class="main-groups" style="margin: 1em;">
+                    <div class="h5 d-flex justify-content-center">
+                        <span class="badge">Tous</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div  class="d-flex justify-content-end" role="alert">
-            <div id="search-warning" class="alert alert-warning col-8 col-sm-6 col-md-4 col-lg-3">
-                <strong>Ce trick est inconnu...</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-        </div>
-        <h4 class="text-center">Les groupes</h4>
-        <div class="main-groups" style="margin: 1em;">
-            <div class="h5 d-flex justify-content-center">
-                <span class="badge">Tous</span>
-            </div>
-        </div>
-        <h3 class="text-center">Les Tricks</h3>
         <div class="row main-tricks d-flex justify-content-around">
             {# Snowtrick Thumbnail #}
 			{% include 'snowtricks/trick_thumbnail.html.twig' with tricks %}
 		</div>
 	</div>
-    {% endspaceless %}
+
 {% endblock %}
 
 {% block javascript %}
     <script src="{{ asset('lib/jqueryUi/jquery-ui.min.js') }}"></script>
-	<script src="{{ asset('js/homePage.js') }}"></script>
+	<script src="{{ asset('js/homepage.js') }}"></script>
 {% endblock %}

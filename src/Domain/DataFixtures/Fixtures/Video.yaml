@@ -1,18 +1,19 @@
 Video1:
-  Url: https://www.youtube.com/embed/6Q7kljjRE6U
-  Platform: Youtube
+  iFrame: <iframe class="embed-responsive-item rounded" src="https://www.youtube.com/embed/6Q7kljjRE6U" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   Reference:
-    Trick:
-      - Trick1
+    Trick: Trick1
+
 Video2:
-  Url: https://www.youtube.com/embed/cVKamPWu_Sc
-  Platform: Youtube
+  iFrame: <iframe class="embed-responsive-item rounded" src="https://www.youtube.com/embed/cVKamPWu_Sc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   Reference:
-    Trick:
-      - Trick2
+    Trick: Trick2
+
 Video3:
-  Url: https://www.youtube.com/embed/nMAvJtpNvJI
-  Platform: Youtube
+  iFrame: <iframe class="embed-responsive-item rounded" src="https://www.youtube.com/embed/nMAvJtpNvJI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   Reference:
-    Trick:
-      - Trick3
+    Trick: Trick3
+
+Video4:
+  iFrame: <iframe class="embed-responsive-item rounded" src="https://www.youtube.com/embed/nMAvJtpNvJI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  Reference:
+    Trick: Trick2

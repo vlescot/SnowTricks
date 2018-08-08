@@ -1,24 +1,36 @@
 Comment1:
   Content: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-  Validated: true
   Reference:
-    Author:
-      - User2
-    Trick:
-      - Trick1
+    Author: User2
+    Trick: Trick1
+
 Comment2:
   Content: Lorem consectetur adipisicing elit.
-  Validated: true
   Reference:
-    Author:
-      - User1
-    Trick:
-      - Trick2
+    Author: User1
+    Trick: Trick2
+
+#Trick4
 Comment3:
   Content: Lorem consectetur adipisicing elit.
-  Validated: true
   Reference:
-    Author:
-      - User1
-    Trick:
-      - Trick3
+    Author: User1
+    Trick: Trick4
+
+Comment4:
+  Content: Lorem consectetur adipisicing elit.
+  Reference:
+    Author: User1
+    Trick: Trick4
+
+Comment5:
+  Content: Lorem consectetur adipisicing elit.
+  Reference:
+    Author: User1
+    Trick: Trick4
+
+Comment6:
+  Content: Lorem consectetur adipisicing elit.
+  Reference:
+    Author: User1
+    Trick: Trick4

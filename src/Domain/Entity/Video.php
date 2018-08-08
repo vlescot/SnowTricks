@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
-use App\Domain\DTO\VideoDTO;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -19,28 +19,39 @@ class Video
     /**
      * @var string
      */
-    private $url;
-
-    /**
-     * @var string
-     */
-    private $platform;
+    private $iFrame;
 
     /**
      * @var Trick
      */
     private $trick;
 
-    public function __construct()
+    /**
+     * Video constructor.
+     *
+     * @param string $iFrame
+     * @throws \Exception
+     */
+    public function __construct(string $iFrame)
     {
         $this->id = Uuid::uuid4();
+        $this->iFrame = $iFrame;
     }
 
-    public function add(VideoDTO $videoDTO)
+    /**
+     * @param string $iFrame
+     */
+    public function update(string $iFrame)
     {
-        $this->url = $videoDTO->url;
-        $this->platform = $videoDTO->platform;
-        $this->trick = $videoDTO->trick;
+        $this->iFrame = $iFrame;
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick)
+    {
+        $this->trick = $trick;
     }
 
     /**
@@ -52,26 +63,10 @@ class Video
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getUrl(): string
+    public function getIFrame(): ?string
     {
-        return $this->url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPlatform(): string
-    {
-        return $this->platform;
-    }
-
-    /**
-     * @return Trick
-     */
-    public function getTrick(): Trick
-    {
-        return $this->trick;
+        return $this->iFrame;
     }
 }

@@ -1,17 +1,44 @@
 <nav class="navbar navbar-expand-lg navbar-perso py-1" id="mainNav">
   <div class="container">
-    <a class="navbar-brand" href="http://127.0.0.1:8000">SnowTricks</a>
+    <a class="navbar-brand" href="{{ path('Home') }}"><img src="{{ asset('image/logo.png') }}" alt="LOGO"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        {% if is_granted('ROLE_USER') %}
         <li class="nav-item">
-          <span class="nav-link">Groupes</span>
+        <a href="{{ path('CreateTrick') }}">
+          <span class="nav-link">Créer un Trick</span>
+        </a>
         </li>
         <li class="nav-item">
-          <span class="nav-link" onclick="displayModal('connection')">Connexion</span>
+            <a href="{{ path('Logout') }}">
+                <span class="nav-link">Déconnexion</span>
+            </a>
         </li>
+        <li class="nav-item">
+            <span class="nav-link navbar-avatar" onclick="displayAuthenticationModal('update_user')">
+                <img class="img-circle" src="{{ asset(app.user.picture.webpath) }}" alt="image-membre">
+            </span>
+        </li>
+        {% else %}
+        <li class="nav-item">
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('CreateTrick') }}">
+                <span class="nav-link">Créer un Trick</span>
+            </a>
+        {% else %}
+            <span class="nav-link" onclick="displayAuthenticationModal('login')">Créer un Trick</span>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+            <span class="nav-link" onclick="displayAuthenticationModal('login')">Se connecter</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link" onclick="displayAuthenticationModal('registration')">S'inscrire</span>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>

@@ -8,9 +8,8 @@
 
         <id name="id" type="uuid" />
         <field name="path" type="string" />
-        <field name="fileName" column="file_name" type="string"/>
+        <field name="filename" column="file_name" type="string"/>
         <field name="alt" type="string" />
-        <many-to-one field="trick" target-entity="App\Domain\Entity\Trick" inversed-by="pictures" />
-    </entity>
 
+    </entity>
 </doctrine-mapping>

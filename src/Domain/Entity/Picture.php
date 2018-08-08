@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
-use App\Domain\DTO\PictureDTO;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -24,7 +24,7 @@ class Picture
     /**
      * @var string
      */
-    private $fileName;
+    private $filename;
 
     /**
      * @var string
@@ -32,23 +32,35 @@ class Picture
     private $alt;
 
     /**
-     * @var Trick
+     * Picture constructor.
+     *
+     * @param string $path
+     * @param string $filename
+     * @param string $alt
+     * @throws \Exception
      */
-    private $trick;
-
-    public function __construct()
-    {
+    public function __construct(
+        string $path,
+        string $filename,
+        string $alt
+    ) {
         $this->id = Uuid::uuid4();
+
+        $this->path = $path;
+        $this->filename = $filename;
+        $this->alt = $alt;
     }
 
-    public function add(PictureDTO $pictureDTO)
-    {
-        $this->path = $pictureDTO->path;
-        $this->fileName = $pictureDTO->fileName;
-        $this->alt = $pictureDTO->alt;
-        if ($pictureDTO->trick) {
-            $this->trick = $pictureDTO->trick;
-        }
+    /**
+     * @param string $path
+     * @param string $alt
+     */
+    public function update(
+        string $path,
+        string $alt
+    ) {
+        $this->path = $path;
+        $this->alt = $alt;
     }
 
     /**
@@ -70,9 +82,9 @@ class Picture
     /**
      * @return string
      */
-    public function getFileName(): string
+    public function getFilename(): string
     {
-        return $this->fileName;
+        return $this->filename;
     }
 
     /**
@@ -84,10 +96,10 @@ class Picture
     }
 
     /**
-     * @return Trick
+     * @return string
      */
-    public function getTrick(): Trick
+    public function getWebPath(): string
     {
-        return $this->trick;
+        return $this->path . '/' . $this->filename;
     }
 }

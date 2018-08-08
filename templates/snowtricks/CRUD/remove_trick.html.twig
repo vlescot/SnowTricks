@@ -1,0 +1,30 @@
+<div class="modal fade" role="dialog" id={{ slug }}>
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">
+                    Es-tu sûr de vouloir supprimer la figure {{ title |title }} ?
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-around">
+                    <button id="cancel-remove" class="btn" style="font-weight: bold">Annuler</button>
+                    <button id="remove-trick" class="btn" style="font-weight: bold">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$( document ).on("click", "#remove-trick", function () {
+    slug = $(".modal").attr("id");
+    $.post('/' + slug + '/supprimer', {'slug': slug}, function (data, status) {
+        console.log(data);
+        console.log(status);
+    });
+});
+$( document ).on("click", "#cancel-remove", function () {
+    $(".modal").modal("hide");
+});
+</script>

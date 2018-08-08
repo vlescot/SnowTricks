@@ -1,9 +1,7 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Domain\DTO;
-
-use App\Domain\Entity\Trick;
-use App\Domain\Entity\User;
 
 /**
  * Class PictureDTO.
@@ -11,40 +9,16 @@ use App\Domain\Entity\User;
 class PictureDTO
 {
     /**
-     * @var string
+     * @var \SplFileInfo
      */
-    public $path;
-
-    /**
-     * @var string
-     */
-    public $fileName;
-
-    /**
-     * @var string
-     */
-    public $alt;
-
-    /**
-     * @var Trick
-     */
-    public $trick;
+    public $file;
 
     /**
      * PictureDTO constructor.
-     * @param string $path
-     * @param string $fileName
-     * @param string $alt
+     * @param $file
      */
-    public function __construct(
-        string $path,
-        string $fileName,
-        string $alt,
-        Trick $trick = null
-    ) {
-        $this->path = $path;
-        $this->fileName = $fileName;
-        $this->alt = $alt;
-        $this->trick = $trick;
+    public function __construct(\SplFileInfo $file = null)
+    {
+        $this->file = $file;
     }
 }

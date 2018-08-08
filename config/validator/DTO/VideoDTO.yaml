@@ -1,0 +1,7 @@
+App\Domain\DTO\VideoDTO:
+    properties:
+        iFrame:
+            - NotBlank:
+                message: Nous avons besoin de l'iFrame.
+                groups:
+                    - trickDTO

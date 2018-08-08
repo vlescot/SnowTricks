@@ -1,29 +1,41 @@
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    locale: 'en'
 
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $publicFolder: '%kernel.project_dir%/public'
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
+    doctrine_migrations:
+        resource: '%kernel.root_dir%/Domain/Migrations'
+        namespace: 'App\Domain\Migrations\'
+#    doctrine_migrations:
+#        dir_name: '%kernel.project_dir%/src/Domain/Migrations'
+#        namespace: 'DoctrineMigrations'
+
     App\:
         resource: '../src/*'
         exclude: '../src/{Kernel.php}'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Action\:
-        resource: '../src/Action'
+    App\UI\Action\:
+        resource: '../src/UI/Action'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    app.security.login_form_authenticator:
+        class: App\UI\Security\LoginFormAuthenticator
 
-#    App\Action\
+    app.security.access_denied_handler:
+        class: App\UI\Security\AccessDeniedHandler
+
+    App\Service\Image\ImageUploadWarmer:
+        arguments:
+            $trickFolder: '/image/trick'
+            $userFolder: '/image/user'
+
+    App\Service\Image\ImageThumbnailCreator:
+        arguments:
+            $thumbnailsWidth: '400'
+            $thumbnailsAltPrefix: 'thumbnail-'

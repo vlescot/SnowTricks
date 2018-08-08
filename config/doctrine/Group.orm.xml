@@ -8,7 +8,7 @@
 
         <id name="id" type="uuid" />
         <field name="name" type="string" unique="true" />
-        <many-to-many field="tricks" mapped-by="groups" target-entity="Trick">
+        <many-to-many field="tricks" mapped-by="groups" target-entity="Trick" orphan-removal="true">
             <order-by>
                 <order-by-field name="title" direction="ASC" />
             </order-by>

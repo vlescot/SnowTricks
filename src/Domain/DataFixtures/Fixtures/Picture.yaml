@@ -1,91 +1,104 @@
 MainPictureGrab:
   filename   : main1.jpg
-  path       : img/trick/grab/
+  path       : /image/trick/grab
   alt        : main_grab
   Reference:
-    MainTrick:
-      - Trick1
+    MainTrick: Trick1
+
 PictureGrab1 :
   filename   : 1.jpg
-  path       : img/trick/grab/
+  path       : /image/trick/grab
   alt        : grab1
   Reference:
-    Trick:
-      - Trick1
+    Trick    : Trick1
+
 PictureGrab2 :
   filename   : 2.jpg
-  path       : img/trick/grab/
+  path       : /image/trick/grab
   alt        : grab2
   Reference:
-    Trick:
-      - Trick1
-MainPictureSpins:
+    Trick    : Trick1
+
+MainPictureSpins :
   filename   : main3.jpg
-  path       : img/trick/spins/
+  path       : /image/trick/spins
   alt        : main_spins
   Reference:
-    MainTrick:
-      - Trick2
+    MainTrick : Trick2
+
 PictureSpins1 :
   filename   : 1.jpg
-  path       : img/trick/spins/
+  path       : /image/trick/spins
   alt        : spins1
   Reference:
-    Trick:
-      - Trick2
+    Trick    : Trick2
+
 PictureSpins2 :
   filename   : 2.jpg
-  path       : img/trick/spins/
+  path       : /image/trick/spins
   alt        : spins2
   Reference:
-    Trick:
-      - Trick2
+    Trick    : Trick2
+
 PictureSpins3 :
   filename   : 3.jpg
-  path       : img/trick/spins/
+  path       : /image/trick/spins
   alt        : spins3
   Reference:
-    Trick:
-      - Trick2
-MainPictureJapan:
+    Trick    : Trick2
+
+MainPictureJapan :
   filename   : main2.jpg
-  path       : img/trick/japan/
+  path       : /image/trick/japan
   alt        : main_japan
   Reference:
-    MainTrick:
-      - Trick3
+    MainTrick : Trick3
+
 PictureJapan1:
   filename   : 1.jpg
-  path       : img/trick/japan/
+  path       : /image/trick/japan
   alt        : japan2
   Reference:
-    Trick:
-      - Trick3
+    Trick    : Trick3
+
 PictureJapan2 :
   filename   : 2.jpg
-  path       : img/trick/japan/
+  path       : /image/trick/japan
   alt        : japan3
   Reference:
-    Trick:
-      - Trick3
+    Trick    : Trick3
+
 PictureUser1:
   filename   : a1.jpg
-  path       : img/user/
+  path       : /image/user
   alt        : user1
   Reference:
-    User:
-      - User1
+    User     : User1
+
 PictureUser2:
   filename   : a2.jpg
-  path       : img/user/
+  path       : /image/user
   alt        : user2
   Reference:
-    User:
-      - User2
-PictureUser3:
-  filename   : a3.jpg
-  path       : img/user/
-  alt        : user3
-  Reference:
-    User:
-      - User3
+    User     : User2
+
+MainTry:
+  filename   : b1.png
+  path       : /image/trick/try
+  alt        : try-image
+
+#Trick4
+Try1:
+  filename   : b2.png
+  path       : /image/trick/try
+  alt        : try-image
+
+Try2:
+  filename   : b3.png
+  path       : /image/trick/try
+  alt        : try-image
+
+Try3:
+  filename   : b4.png
+  path       : /image/trick/try
+  alt        : try-image

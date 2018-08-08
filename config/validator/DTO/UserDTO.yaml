@@ -1,0 +1,52 @@
+App\Domain\DTO\Comment:
+    properties:
+
+        username:
+            - NotBlank:
+                message: Le pseudo est obligatoire.
+                groups:
+                    - userDTO
+            - Length:
+                min: 3
+                minMessage: Ce nom d'utilisateur est trop court
+                max: 255
+                maxMessage: Ce nom est trop long !!
+                groups:
+                    - userDTO
+
+        password:
+            - NotBlank:
+                message: Un mot de passe est obligatoire.
+                groups:
+                    - userDTO
+                    - updateUserDTO
+            - Length:
+                min: 8
+                minMessage: Votre mot de passe est trop court
+                max: 64
+                groups:
+                    - userDTO
+                    - updateUserDTO
+
+        email:
+            - NotBlank:
+                message: Un email est obligatoire.
+                groups:
+                    - userDTO
+                    - updateUserDTO
+            - Email:
+                message: Cet email n'est pas valide.
+                groups:
+                    - userDTO
+                    - updateUserDTO
+            - Length:
+                max: 255
+                groups:
+                    - userDTO
+                    - updateUserDTO
+
+        pictures:
+            - Valid:
+                groups:
+                    - userDTO
+                    - updateUserDTO

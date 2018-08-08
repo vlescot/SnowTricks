@@ -1,0 +1,14 @@
+App\Domain\DTO\GroupDTO:
+    properties:
+        name:
+            - NotBlank:
+                message: Le groupe doit avoir un nom.
+                groups:
+                    - trickDTO
+            - Length:
+                min: 3
+                minMessage : Le nom du groupe est trop court.
+                max: 255
+                maxMessage : Le nom du groupe est trop long.
+                groups:
+                    - trickDTO
