@@ -24,22 +24,22 @@ class PictureBuilder
     /**
      * @var ImageThumbnailCreator
      */
-    private $imageThumbnailCreator;
+    private $thumbnailCreator;
 
     /**
      * PictureBuilder constructor.
      *
      * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $imageThumbnailCreator
+     * @param ImageThumbnailCreator $thumbnailCreator
      * @param ImageUploadWarmer $imageUploadWarmer
      */
     public function __construct(
         ImageUploader $imageUploader,
-        ImageThumbnailCreator $imageThumbnailCreator,
+        ImageThumbnailCreator $thumbnailCreator,
         ImageUploadWarmer $imageUploadWarmer
     ) {
         $this->imageUploader = $imageUploader;
-        $this->imageThumbnailCreator = $imageThumbnailCreator;
+        $this->thumbnailCreator = $thumbnailCreator;
         $this->imageUploadWarmer = $imageUploadWarmer;
     }
 
@@ -60,9 +60,9 @@ class PictureBuilder
                 }
             }
             return $pictures;
-        } else {
-            return $this->createPicture($picturesDTO, $isThumbnailToCreate);
         }
+
+        return $this->createPicture($picturesDTO, $isThumbnailToCreate);
     }
 
     /**
@@ -83,7 +83,7 @@ class PictureBuilder
 
         if ($isThumbnailToCreate) {
             $picturePathName = $pictureInfo['path'] .'/'. $pictureInfo['filename'];
-            $this->imageThumbnailCreator->addThumbnailToCreate($picturePathName);
+            $this->thumbnailCreator->addThumbnailToCreate($picturePathName);
         }
 
         return new Picture(

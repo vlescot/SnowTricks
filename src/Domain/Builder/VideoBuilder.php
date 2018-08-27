@@ -21,9 +21,9 @@ class VideoBuilder
                 $videos[] = $this->createEntity($videoDTO);
             }
             return $videos;
-        } else {
-            return $this->createEntity($videosDTO);
         }
+
+        return $this->createEntity($videosDTO);
     }
 
     public function createEntity(VideoDTO $videoDTO)

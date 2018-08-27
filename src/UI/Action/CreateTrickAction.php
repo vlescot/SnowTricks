@@ -15,7 +15,7 @@ use App\UI\Form\Handler\CreateTrickHandler;
 use App\UI\Responder\CreateTrickResponder;
 
 /**
- * @Route("/snowtrick/creer", name="CreateTrick")
+ * @Route("/figure/creer", name="CreateTrick")
  * @Method({"GET", "POST"})
  *
  * Class AddTrickAction

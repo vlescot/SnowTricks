@@ -111,7 +111,7 @@ class UpdateTrickHandler
                 return false;
             }
 
-            $this->trickRepository->save($trick);
+//            $this->trickRepository->save($trick);
 
             $this->imageUploader->uploadFiles();
             $this->imageRemover->removeFiles();

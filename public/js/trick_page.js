@@ -5,22 +5,24 @@ $(".badge").on("click", function () {
 $('.imageGallery1 a').simpleLightbox();
 
 function setPaginationDisabled(currentPage){
-    paginationPrevious = $("#pagination-previous");
+    let paginationPrevious = $("#pagination-previous");
     switch (currentPage) {
         case 1:     $(paginationPrevious).attr("class", "page-item disabled");      break;
         default:    $(paginationPrevious).attr("class", "page-item able-link");
     }
 
-    paginationNext = $("#pagination-next");
+    let paginationNext = $("#pagination-next");
     switch (currentPage) {
         case nbPage:    $(paginationNext).attr("class", "page-item disabled");  break;
         default:    $(paginationNext).attr("class", "page-item able-link");
     }
 
-    pageItem = $(".page-item");
+    let pageItem = $(".page-item");
+
     pageItem.each(function () {
-        value = $(this).find("a").html();
-        pageItemId = $(this).attr('id');
+        let value = $(this).find("a").html();
+        let pageItemId = $(this).attr('id');
+
         if (pageItemId !== "pagination-previous" && pageItemId !== "pagination-next") {
             switch (parseInt(value)) {
                 case currentPage    :   $(this).attr("class", "page-item num-page disabled"); break;
@@ -31,10 +33,10 @@ function setPaginationDisabled(currentPage){
 }
 
 function setPagination (){
-    paginationList = $(".pagination");
-    numPage = $(".num-page");
+    let paginationList = $(".pagination");
+    let numPage = $(".num-page");
     for (i = 2; i <= nbPage; i++) {
-        addNumPage = numPage.clone();
+        let addNumPage = numPage.clone();
         addNumPage.find("a").html(i);
         $(paginationList).find("li:nth-last-child(2)").after(addNumPage);
     }
@@ -42,6 +44,7 @@ function setPagination (){
 }
 
 function showPage(currentPage) {
+    let commentContainers = $(".comment-container");
     commentContainers.hide();
     commentContainers.each(function(n) {
         if (n >= commentsByPage * (currentPage - 1) && n < commentsByPage * currentPage)
@@ -63,13 +66,13 @@ $(document).on("click", " .able-link", function () {
 
 
 $(document).ready(function () {
-    commentContainers = $(".comment-container");
+    let commentContainers = $(".comment-container");
     currentPage = 1;
     commentsByPage = 5;
     nbPage = Math.ceil(commentContainers.length / commentsByPage);
 
     setPagination();
-    showPage(1);
+    showPage(currentPage);
 
     $("#comments textarea").val('');
 });

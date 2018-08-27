@@ -80,6 +80,7 @@ class ResetPasswordAction
 
         $this->resetPasswordHandler->handle($form);
 
+        // TODO
         return new RedirectResponse($request->headers->get('referer'));
     }
 }

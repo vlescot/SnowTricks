@@ -59,11 +59,11 @@ class CreateTrickResponder
     public function __invoke($redirect = true, FormInterface $form = null)
     {
         $response = $redirect
-            ?   new Response(
-                    $this->twig->render('CRUD/create_trick.html.twig', ['form' => $form->createView()] )
-                )
-            :   new RedirectResponse(
-                    $this->urlGenerator->generate('Trick', ['slug' => $this->session->get('slug')] )
+            ?   new RedirectResponse(
+                $this->urlGenerator->generate('Trick', ['slug' => $this->session->get('slug')] )
+            )
+            :   new Response(
+                    $this->twig->render('snowtricks/CRUD/create_trick.html.twig', ['form' => $form->createView()] )
             )
         ;
 

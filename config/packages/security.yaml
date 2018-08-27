@@ -26,6 +26,6 @@ security:
         - { path: /creer,                  roles: ROLE_USER }
         - { path: /modifier,               roles: ROLE_USER }
         - { path: /supprimer,              roles: ROLE_USER }
-        - { path: /update_user,            roles: ROLE_USER }
-        - { path: /change_password,        roles: ROLE_USER }
+        - { path: /update_user,            roles: [ROLE_USER, ROLE_WAITING_USER] }
+        - { path: /change_password,        roles: [ROLE_USER, ROLE_WAITING_USER] }
         - { path: ^/profile,               roles: ROLE_ADMIN }

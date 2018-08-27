@@ -40,7 +40,8 @@ class ModalResponder
             $this->twig->render('authentication/'. $modal .'.html.twig', [
                 'form' => $form->createView(),
                 'modal' => $modal,
-                'last_username' => $lastUsername
+                'last_username' => $lastUsername,
+                'base' => $va ?? null
             ])
         );
     }

@@ -11,7 +11,7 @@ class VideoCollectionUpdatePrepare
     /**
      * @var VideoCollectionChecker
      */
-    private $videoCollectionChecker;
+    private $videoChecker;
 
     /**
      * @var VideoBuilder
@@ -21,14 +21,14 @@ class VideoCollectionUpdatePrepare
     /**
      * VideoCollectionLeader constructor.
      *
-     * @param VideoCollectionChecker $videoCollectionChecker
+     * @param VideoCollectionChecker $videoChecker
      * @param VideoBuilder $createVideoBuilder
      */
     public function __construct(
-        VideoCollectionChecker $videoCollectionChecker,
+        VideoCollectionChecker $videoChecker,
         VideoBuilder $createVideoBuilder
     ) {
-        $this->videoCollectionChecker = $videoCollectionChecker;
+        $this->videoChecker = $videoChecker;
         $this->createVideoBuilder = $createVideoBuilder;
     }
 
@@ -39,17 +39,17 @@ class VideoCollectionUpdatePrepare
      */
     public function prepare(array $videos, array $videosDTO)
     {
-        $this->videoCollectionChecker->compare($videos, $videosDTO);
+        $this->videoChecker->compare($videos, $videosDTO);
 
-        foreach ($this->videoCollectionChecker->getDeletedObject() as $key => $video) {
+        foreach ($this->videoChecker->getDeletedObject() as $key => $video) {
             unset($videos[$key]);
         }
 
-        foreach ($this->videoCollectionChecker->getDirtyObject() as $key => $videoDTO) {
+        foreach ($this->videoChecker->getDirtyObject() as $key => $videoDTO) {
             $videos[$key] = $this->createVideoBuilder->create($videoDTO, false);
         }
 
-        foreach ($this->videoCollectionChecker->getNewObject() as $key => $videoDTO) {
+        foreach ($this->videoChecker->getNewObject() as $videoDTO) {
             $videos[] = $this->createVideoBuilder->create($videoDTO, false);
         }
 

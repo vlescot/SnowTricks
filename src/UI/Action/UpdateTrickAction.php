@@ -76,7 +76,6 @@ class UpdateTrickAction
     public function __invoke(Request $request, UpdateTrickResponder $responder): Response
     {
         $trick = $this->trickRepository->findOneBy( ['slug' => $request->attributes->get('slug')] );
-
         $trickDTO = $this->trickDTOFactory->create($trick);
 
         $form = $this->formFactory->create(UpdateTrickType::class, $trickDTO)

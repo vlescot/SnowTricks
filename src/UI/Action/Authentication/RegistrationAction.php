@@ -82,6 +82,7 @@ class RegistrationAction
 
         if ($this->registrationHandler->handle($form)) {
             $user = $this->userRepository->loadUserByUsername($form->get('username')->getData());
+
             $this->mailer->sendMail(
                 $user->getEmail(),
                 'SnowTricks - Bienvenue sur notre site',

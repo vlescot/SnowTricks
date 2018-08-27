@@ -49,11 +49,6 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @var boolean
-     */
-    private $enabled;
-
-    /**
      * @var Picture
      */
     private $picture;
@@ -80,7 +75,6 @@ class User implements UserInterface
         $this->comments = new ArrayCollection();
         $this->tricks = new ArrayCollection();
         $this->createdAt = time();
-        $this->roles = ['ROLE_USER'];
     }
 
     /**
@@ -100,7 +94,7 @@ class User implements UserInterface
         $this->password = $password;
         $this->picture = $picture;
         $this->token = hash('sha512', uniqid($username, true));
-        $this->enabled = false;
+        $this->roles = ['ROLE_WAITING_USER'];
     }
 
     /**
@@ -119,11 +113,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param bool $isEnabled
+     * @param array $roles
      */
-    public function enabled(bool $isEnabled)
+    public function setRoles(array $roles)
     {
-        $this->enabled = $isEnabled;
+        $this->roles = $roles;
     }
 
     /**
@@ -208,14 +202,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         return ['ROLE_USER'];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
     }
 
     /**

@@ -17,12 +17,12 @@ class UpdateTrickBuilder
     /**
      * @var PictureCollectionUpdatePrepare
      */
-    private $pictureCollectionUpdatePrepare;
+    private $pictureUpdatePrepare;
 
     /**
      * @var VideoCollectionUpdatePrepare
      */
-    private $videoCollectionUpdatePrepare;
+    private $videoUpdatePrepare;
 
     /**
      * @var ImageUploadWarmer
@@ -52,8 +52,8 @@ class UpdateTrickBuilder
     /**
      * UpdateTrickBuilder constructor.
      *
-     * @param PictureCollectionUpdatePrepare $pictureCollectionUpdatePrepare
-     * @param VideoCollectionUpdatePrepare $videoCollectionUpdatePrepare
+     * @param PictureCollectionUpdatePrepare $pictureUpdatePrepare
+     * @param VideoCollectionUpdatePrepare $videoUpdatePrepare
      * @param ImageUploadWarmer $imageUploadWarmer
      * @param ImageRemover $imageRemover
      * @param FolderChanger $folderChanger
@@ -61,16 +61,16 @@ class UpdateTrickBuilder
      * @param PictureBuilder $pictureBuilder
      */
     public function __construct(
-        PictureCollectionUpdatePrepare $pictureCollectionUpdatePrepare,
-        VideoCollectionUpdatePrepare $videoCollectionUpdatePrepare,
+        PictureCollectionUpdatePrepare $pictureUpdatePrepare,
+        VideoCollectionUpdatePrepare $videoUpdatePrepare,
         ImageUploadWarmer $imageUploadWarmer,
         ImageRemover $imageRemover,
         FolderChanger $folderChanger,
         GroupBuilder $groupBuilder,
         PictureBuilder $pictureBuilder
     ) {
-        $this->pictureCollectionUpdatePrepare = $pictureCollectionUpdatePrepare;
-        $this->videoCollectionUpdatePrepare = $videoCollectionUpdatePrepare;
+        $this->pictureUpdatePrepare = $pictureUpdatePrepare;
+        $this->videoUpdatePrepare = $videoUpdatePrepare;
         $this->imageUploadWarmer = $imageUploadWarmer;
         $this->imageRemover = $imageRemover;
         $this->folderChanger = $folderChanger;
@@ -109,8 +109,8 @@ class UpdateTrickBuilder
             $trickDTO->title,
             $trickDTO->description,
             $mainPicture ?? $trick->getMainPicture(),
-            $this->pictureCollectionUpdatePrepare->prepare($trick->getPictures()->toArray(), $trickDTO->pictures),
-            $this->videoCollectionUpdatePrepare->prepare($trick->getVideos()->toArray(), $trickDTO->videos),
+            $this->pictureUpdatePrepare->prepare($trick->getPictures()->toArray(), $trickDTO->pictures),
+            $this->videoUpdatePrepare->prepare($trick->getVideos()->toArray(), $trickDTO->videos),
             $this->groupBuilder->create($trickDTO->groups, $trickDTO->newGroups)
         );
 

@@ -41,7 +41,7 @@ class RegistrationHandler
     /**
      * @var ImageThumbnailCreator
      */
-    private $imageThumbnailCreator;
+    private $thumbnailCreator;
 
     /**
      * RegistrationHandler constructor.
@@ -51,7 +51,7 @@ class RegistrationHandler
      * @param UserBuilder $userBuilder
      * @param SessionInterface $session
      * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $imageThumbnailCreator
+     * @param ImageThumbnailCreator $thumbnailCreator
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -59,14 +59,14 @@ class RegistrationHandler
         UserBuilder $userBuilder,
         SessionInterface $session,
         ImageUploader $imageUploader,
-        ImageThumbnailCreator $imageThumbnailCreator
+        ImageThumbnailCreator $thumbnailCreator
     ) {
         $this->validator = $validator;
         $this->userRepository = $userRepository;
         $this->userBuilder = $userBuilder;
         $this->session = $session;
         $this->imageUploader = $imageUploader;
-        $this->imageThumbnailCreator = $imageThumbnailCreator;
+        $this->thumbnailCreator = $thumbnailCreator;
     }
 
 
@@ -93,7 +93,7 @@ class RegistrationHandler
             $this->userRepository->save($user);
 
             $this->imageUploader->uploadFiles();
-            $this->imageThumbnailCreator->createThumbnails();
+            $this->thumbnailCreator->createThumbnails();
 
             $this->session->getFlashBag()->add('success', 'Bienvenue parmis nous, ' . $form->get('username')->getData() . '. Un e-mail vient de t\'être envoyé pour confirmé ton compte');
 

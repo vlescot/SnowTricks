@@ -13,4 +13,21 @@ class PictureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Picture::class);
     }
+
+    /**
+     * @param string $fileName
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function removeByFilename(string $fileName)
+    {
+        $picture = $this->createQueryBuilder('p')
+            ->where('p.filename = :filename')
+            ->setParameter('filename', $fileName)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $this->getEntityManager()->remove($picture);
+    }
 }

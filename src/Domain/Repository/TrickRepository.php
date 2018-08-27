@@ -6,7 +6,6 @@ namespace App\Domain\Repository;
 use App\Domain\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\Query\ResultSetMapping;
 
 class TrickRepository extends ServiceEntityRepository
 {

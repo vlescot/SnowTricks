@@ -12,7 +12,7 @@ class PictureCollectionUpdatePrepare
     /**
      * @var PictureCollectionChecker
      */
-    private $pictureCollectionChecker;
+    private $pictureChecker;
 
     /**
      * @var ImageRemover
@@ -27,16 +27,16 @@ class PictureCollectionUpdatePrepare
     /**
      * PictureCollectionLeader constructor.
      *
-     * @param PictureCollectionChecker $pictureCollectionChecker
+     * @param PictureCollectionChecker $pictureChecker
      * @param ImageRemover $imageRemover
      * @param PictureBuilder $createPictureBuilder
      */
     public function __construct(
-        PictureCollectionChecker $pictureCollectionChecker,
+        PictureCollectionChecker $pictureChecker,
         ImageRemover $imageRemover,
         PictureBuilder $createPictureBuilder
     ) {
-        $this->pictureCollectionChecker = $pictureCollectionChecker;
+        $this->pictureChecker = $pictureChecker;
         $this->imageRemover = $imageRemover;
         $this->createPictureBuilder = $createPictureBuilder;
     }
@@ -51,19 +51,19 @@ class PictureCollectionUpdatePrepare
      */
     public function prepare(array $pictures, array $picturesDTO)
     {
-        $this->pictureCollectionChecker->compare($pictures, $picturesDTO);
+        $this->pictureChecker->compare($pictures, $picturesDTO);
 
-        foreach ($this->pictureCollectionChecker->getDeletedObject() as $key => $picture) {
+        foreach ($this->pictureChecker->getDeletedObject() as $key => $picture) {
             $this->imageRemover->addFileToRemove($picture->getWebPath());
             unset($pictures[$key]);
         }
 
-        foreach ($this->pictureCollectionChecker->getDirtyObject() as $key => $pictureDTO) {
+        foreach ($this->pictureChecker->getDirtyObject() as $key => $pictureDTO) {
             $this->imageRemover->addFileToRemove($pictures[$key]->getWebPath());
             $pictures[$key] = $this->createPictureBuilder->create($pictureDTO, false);
         }
 
-        foreach ($this->pictureCollectionChecker->getNewObject() as $key => $pictureDTO) {
+        foreach ($this->pictureChecker->getNewObject() as $key => $pictureDTO) {
             $pictures[] = $this->createPictureBuilder->create($pictureDTO, false);
         }
 

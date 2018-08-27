@@ -42,7 +42,7 @@ class UpdateUserHandler
     /**
      * @var ImageThumbnailCreator
      */
-    private $imageThumbnailCreator;
+    private $thumbnailCreator;
 
     /**
      * UpdateUserHandler constructor.
@@ -52,7 +52,7 @@ class UpdateUserHandler
      * @param SessionInterface $session
      * @param UserRepository $userRepository
      * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $imageThumbnailCreator
+     * @param ImageThumbnailCreator $thumbnailCreator
      */
     public function __construct(
         UpdateUserBuilder $updateUserBuilder,
@@ -60,14 +60,14 @@ class UpdateUserHandler
         SessionInterface $session,
         UserRepository $userRepository,
         ImageUploader $imageUploader,
-        ImageThumbnailCreator $imageThumbnailCreator
+        ImageThumbnailCreator $thumbnailCreator
     ) {
         $this->updateUserBuilder = $updateUserBuilder;
         $this->validator = $validator;
         $this->session = $session;
         $this->userRepository = $userRepository;
         $this->imageUploader = $imageUploader;
-        $this->imageThumbnailCreator = $imageThumbnailCreator;
+        $this->thumbnailCreator = $thumbnailCreator;
     }
 
 
@@ -96,7 +96,7 @@ class UpdateUserHandler
             $this->userRepository->save($user);
 
             $this->imageUploader->uploadFiles();
-            $this->imageThumbnailCreator->createThumbnails();
+            $this->thumbnailCreator->createThumbnails();
 
             $this->session->getFlashBag()->add('success', 'Ton profil a bien été mise à jour');
 

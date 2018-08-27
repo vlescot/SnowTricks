@@ -5,8 +5,7 @@ User1:
   Validated: true
   Token: azerty
   Roles:
-    - admin
-  Enabled: true
+    - ROLE_USER
   Reference:
     Picture: PictureUser1
     Comment:
@@ -23,8 +22,7 @@ User2:
   Validated: true
   Token: ytreza
   Roles:
-    - admin
-  Enabled: true
+    - ROLE_USER
   Reference:
     Picture: PictureUser2
     Comment:

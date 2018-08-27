@@ -8,7 +8,7 @@ h1 {
 }
 
 .trick label:not(.form-check-label), .trick legend {
-    font-size: 16px !important;
+    font-size: 16px;
     font-weight: 500;
 }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\UI\Action\Authentication;
 
 use App\Domain\Repository\UserRepository;
+use App\UI\Responder\Authentication\ConfirmationResponder;
 use App\UI\Security\LoginFormAuthenticator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,14 +70,14 @@ class ConfirmationAction
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function __invoke(Request $request, $response): Response
+    public function __invoke(Request $request, ConfirmationResponder $response): Response
     {
         $token = $request->attributes->get('token');
 
         $user = $this->userRepository->loadUserByToken($token);
 
         if (null !== $user) {
-            $user->enabled(true);
+            $user->setRoles(['ROLE_USER']);
             $this->userRepository->save($user);
 
             return $this->authenticationHandler

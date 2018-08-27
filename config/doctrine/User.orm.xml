@@ -14,7 +14,6 @@
         <field name="token" type="string" length="128" />
         <field name="createdAt" column="date_creation" type="string" />
         <field name="roles" type="array" />
-        <field name="enabled" type="boolean" />
 
         <one-to-one field="picture" target-entity="Picture">
             <cascade>

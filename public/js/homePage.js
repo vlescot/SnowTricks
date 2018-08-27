@@ -1,5 +1,7 @@
-let search = $("#search");
+"use strict";
 
+let search = $("#search");
+//
 // $( document ).on("click", "#remove-trick", function () {
 //     slug = $(".modal").attr("id");
 //     console.log(slug);
@@ -25,10 +27,13 @@ function displayRemoveTrickModal(modalName) {
 function trickThumbnailHeight() {
     let trickHeight = [];
     let thumbnailTrickHeader = $(".main-trick-header");
+
     thumbnailTrickHeader.each(function () {
         trickHeight.push($(this).height());
     });
+
     let maxHeight = Math.max.apply(Math, trickHeight);
+
     thumbnailTrickHeader.height(maxHeight);
 }
 
@@ -59,9 +64,11 @@ $(document).on({
 
 
 function redirectToTrick(){
-    input = $("#search");
+    let input = $("#search");
     let search = input.val().trim().toLowerCase();
+
     search = search[0].toUpperCase() + search.substr(1);
+
     if ($.inArray(search,tricks) !== -1){
         window.location.replace(window.location.origin + '/' + search);
     } else {
@@ -179,7 +186,7 @@ $(document).on("click", ".badge", function () {
  **/
 
 
-mainTrick = $(".main-trick");
+let mainTrick = $(".main-trick");
 // Adding Thumbnail Tricks
 if (mainTrick.length > 0) // Define the concerning page
 {

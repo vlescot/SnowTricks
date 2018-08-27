@@ -54,7 +54,7 @@ class TrickDTOFactory
             $videosDTO [] = $this->videoDTOFactory->create($video);
         }
 
-        return $trickDTO = new TrickDTO(
+        return new TrickDTO(
             $trick->getTitle(),
             $trick->getDescription(),
             $mainPictureDTO,

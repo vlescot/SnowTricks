@@ -155,24 +155,24 @@ header {
     font-size: 18px;
 }
 .header-title {
-    font-weight: 400 !important;
+    font-weight: 400;
 }
 
 @media (max-width: 576px){
-    .header-title {   font-size: 38px !important;  }
-    .sub-title {      font-size: 14px !important; }
+    .header-title {   font-size: 38px;  }
+    .sub-title {      font-size: 14px; }
 }
 @media (min-width: 577px) and (max-width: 768px){
-    .header-title {   font-size: 42px !important;}
-    .sub-title {      font-size: 16px !important; }
+    .header-title {   font-size: 42px;}
+    .sub-title {      font-size: 16px; }
 }
 @media (min-width: 769px) and (max-width: 992px){
-    .header-title {   font-size: 52px !important;}
-    .sub-title {      font-size: 18px !important; }
+    .header-title {   font-size: 52px;}
+    .sub-title {      font-size: 18px; }
 }
 @media (min-width: 993px) {
-    .header-title {   font-size: 52px !important;}
-    .sub-title {      font-size: 22px !important; }
+    .header-title {   font-size: 52px;}
+    .sub-title {      font-size: 22px; }
 }
 
 
