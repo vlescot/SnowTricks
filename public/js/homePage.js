@@ -17,7 +17,7 @@ let search = $("#search");
 
 function displayRemoveTrickModal(modalName) {
     $(".modal-backdrop").remove();
-    $("#modal-container").load( '/' + modalName + '/supprimer', function(){
+    $("#modal-container").load( "/" + modalName + "/supprimer", function(){
         $("#" + modalName).modal({show:true});
     });
 }
@@ -44,23 +44,23 @@ function trickThumbnailHeight() {
 $(document).on({
     mouseenter: function () {
         $(".img", this).animate({
-            left: '-10px',
-            top: '-10px',
-            marginBottom: '-20px',
-            height: '+=20px',
-            width: '+=20px',
+            left: "-10px",
+            top: "-10px",
+            marginBottom: "-20px",
+            height: "+=20px",
+            width: "+=20px",
         });
     },
     mouseleave: function () {
         $(".img", this).animate({
-            left: '0px',
-            top: '0px',
-            marginBottom: '0px',
-            height: '-=20px',
-            width: '-=20px',
+            left: "0px",
+            top: "0px",
+            marginBottom: "0px",
+            height: "-=20px",
+            width: "-=20px",
         });
     }
-}, '.main-trick a');
+}, ".main-trick a");
 
 
 function redirectToTrick(){
@@ -70,7 +70,7 @@ function redirectToTrick(){
     search = search[0].toUpperCase() + search.substr(1);
 
     if ($.inArray(search,tricks) !== -1){
-        window.location.replace(window.location.origin + '/' + search);
+        window.location.replace(window.location.origin + "/" + search);
     } else {
         input.val("");
         $("#search-warning").css("opacity", "1").show(400);
@@ -161,7 +161,7 @@ groups.sort();
 let i;
 for (i = 0; i < groups.length; ++i) {
 
-    let span = $('<span>', { class: "badge"});
+    let span = $("<span>", { class: "badge"});
     if (i % 8 === 0 && i !== 0) {
         container = $(".main-groups div").first().clone().html("");
         $(".main-groups").append(container);
@@ -192,7 +192,7 @@ if (mainTrick.length > 0) // Define the concerning page
 {
     // Show more thumbnails when scrolling at the bottom of the page
     let n = 16;
-    let $spinner = $('.fa-spinner');
+    let $spinner = $(".fa-spinner");
 
     mainTrick.slice(0, n).css("display", "block");
 
@@ -218,7 +218,7 @@ $(function(){
 
 // Scrolling animation for the fa-arrow-up element
 $(".fa-arrow-up").click(function () {
-    $('html, body').animate({scrollTop: $("#top").offset().top - 20}, 500);
+    $("html, body").animate({scrollTop: $("#top").offset().top - 20}, 500);
 });
 
 

@@ -2,7 +2,7 @@ $(".badge").on("click", function () {
     localStorage.setItem("badge", $(this).html());
     window.location.replace(window.location.origin + "#tricks");
 });
-$('.imageGallery1 a').simpleLightbox();
+$(".imageGallery1 a").simpleLightbox();
 
 function setPaginationDisabled(currentPage){
     let paginationPrevious = $("#pagination-previous");
@@ -21,7 +21,7 @@ function setPaginationDisabled(currentPage){
 
     pageItem.each(function () {
         let value = $(this).find("a").html();
-        let pageItemId = $(this).attr('id');
+        let pageItemId = $(this).attr("id");
 
         if (pageItemId !== "pagination-previous" && pageItemId !== "pagination-next") {
             switch (parseInt(value)) {
@@ -74,5 +74,5 @@ $(document).ready(function () {
     setPagination();
     showPage(currentPage);
 
-    $("#comments textarea").val('');
+    $("#comments textarea").val("");
 });

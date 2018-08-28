@@ -5,7 +5,7 @@
  **/
 function displayAuthenticationModal(modalName) {
     $(".modal-backdrop").remove();
-    $("#modal-container").load( '/authentication/' + modalName, function(){
+    $("#modal-container").load( "/authentication/" + modalName, function(){
         $("#" + modalName).modal({show:true});
     });
 }
@@ -13,7 +13,7 @@ function displayAuthenticationModal(modalName) {
 /**
  * 		AJAX LOADING SPINNER
  **/
-let $spinner = $('.fa-spinner').hide();
+let $spinner = $(".fa-spinner").hide();
 $(document)
     .ajaxStart(function () { $spinner.show(); })
     .ajaxStop(function () { $spinner.hide(); });

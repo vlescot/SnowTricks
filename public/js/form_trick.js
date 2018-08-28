@@ -38,11 +38,11 @@ function pictureContainerHeight() {
  */
 function addContainer (container) {
     let wrapper = container.closest(".wrapper");
-    let prototype = wrapper.data('prototype');
-    let index = wrapper.data('index');
+    let prototype = wrapper.data("prototype");
+    let index = wrapper.data("index");
 
     prototype = prototype.replace(/__name__/g, index);
-    wrapper.data('index', index + 1);
+    wrapper.data("index", index + 1);
 
     wrapper.prepend(prototype);
     toggleButton(container);
@@ -67,11 +67,11 @@ function displayIFrame (textArea) {
 
 function setGroupField(container) {
     let wrapper = container.closest(".wrapper");
-    let prototype = wrapper.data('prototype');
-    let index = wrapper.data('index');
+    let prototype = wrapper.data("prototype");
+    let index = wrapper.data("index");
 
     prototype = prototype.replace(/__name__/g, index);
-    wrapper.data('index', index + 1);
+    wrapper.data("index", index + 1);
 
     let newInput = $(prototype).find("input");
     wrapper.prepend(newInput);
@@ -106,7 +106,7 @@ function setPositionVideoInfo () {
  * Create field for CollectionType when empty (creation of a entity)
  */
 function setFirstCollectionField (container){
-    let elem = container.attr('class');
+    let elem = container.attr("class");
 
     if (elem.indexOf("picture-container") !== -1) {
         if (container.find("input").length === 0) {
@@ -152,12 +152,12 @@ function createGroup (){
 
         // Replace the id of the input field with the new index
         let attrClass = $("input", newCheckbox).attr("class");
-        let attrId = 'create_group_checkbox' + newIndex + 1;
+        let attrId = "create_group_checkbox" + newIndex + 1;
 
         // Set attributes
         $("input", newCheckbox).attr({
             id: attrId,
-            class: attrClass + ' create_group_checkbox',
+            class: attrClass + " create_group_checkbox",
             checked: true,
             value: groupName
         });
@@ -177,7 +177,7 @@ function createGroup (){
 function displayAlert(errors) {
     let alertDiv = $("#field-warning");
 
-    $('html, body').animate({scrollTop: alertDiv.offset().top}, 500);
+    $("html, body").animate({scrollTop: alertDiv.offset().top}, 500);
 
     alertDiv.text("");
     $.each(errors, function () {
@@ -268,7 +268,7 @@ $(document).on("change", ":input[type=file]", function () {
     reader.onload = function (e) {
 
         $(input.closest(".picture-load")).find("label img")
-            .attr('src', e.target.result);
+            .attr("src", e.target.result);
     };
     reader.readAsDataURL(input.files[0]);
     pictureContainerHeight();
@@ -333,8 +333,8 @@ $("form").submit(function () {
     removeEmptyFields();
 });
 
-$('#video-info').popover({
-    trigger: 'focus'
+$("#video-info").popover({
+    trigger: "focus"
 });
 
 $(document).on("change", ".iframe-textarea", function () {
