@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\UI\Form\Handler;
 
 use App\Domain\Repository\UserRepository;
-use App\Service\Mailer;
+use App\UI\Service\Mailer;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -64,17 +64,14 @@ class ResetPasswordHandler
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
 
-            $login = $form->get('login')->getData();
-
-            if ($user = $this->userProvider->loadUserByUsername($login)) {
-                $user->enabled(false);
-                $this->userRepository->save($user);
-
+            if ($user = $this->userProvider->loadUserByUsername($username)) {
                 $this->mailer->sendMail(
                     $user->getEmail(),
                     'SnowTrick - Mot de pas oublié',
-                    'email_member_reset_password.html.twig', [
+                    'email_member_reset_password.html.twig',
+                    [
                         'username' => $user->getUsername(),
                         'token' => $user->getToken()
                     ]

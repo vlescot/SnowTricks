@@ -14,7 +14,7 @@
 {% block body %}
 <div class="container">
 
-    <a href="{{ url('Home') }}" role="button" class="btn btn-back btn-sm"><i class="fas fa-undo"></i> Retour</a>
+    <a href="{{ path('Trick', {'slug': slug }) }}" role="button" class="btn btn-back btn-sm"><i class="fas fa-undo"></i> Retour</a>
 
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 

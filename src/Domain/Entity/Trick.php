@@ -176,6 +176,7 @@ class Trick
             } else {
                 $this->videos->add($video);
             }
+            $video->setTrick($this);
         }
         foreach ($this->videos->getIterator() as $key => $video) {
             if (!isset($videos[$key])) {

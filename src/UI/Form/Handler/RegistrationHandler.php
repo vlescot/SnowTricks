@@ -5,8 +5,8 @@ namespace App\UI\Form\Handler;
 
 use App\Domain\Builder\UserBuilder;
 use App\Domain\Repository\UserRepository;
-use App\Service\Image\ImageThumbnailCreator;
-use App\Service\Image\ImageUploader;
+use App\UI\Service\Image\ImageThumbnailCreator;
+use App\UI\Service\Image\ImageUploader;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -83,6 +83,7 @@ class RegistrationHandler
             $user = $this->userBuilder->create($form->getData());
 
             $errors = $this->validator->validate($user, null, ['userRegistration', 'User']);
+
             if (\count($errors) > 0) {
                 foreach ($errors as $violation) {
                     $this->session->getFlashBag()->add('warning', $violation->getMessage());
@@ -95,7 +96,7 @@ class RegistrationHandler
             $this->imageUploader->uploadFiles();
             $this->thumbnailCreator->createThumbnails();
 
-            $this->session->getFlashBag()->add('success', 'Bienvenue parmis nous, ' . $form->get('username')->getData() . '. Un e-mail vient de t\'être envoyé pour confirmé ton compte');
+            $this->session->getFlashBag()->add('success', 'Bienvenue parmis nous, ' . $form->get('username')->getData() . '. Un e-mail vient de t\'être envoyé pour confirmer ton compte');
 
             return true;
         }

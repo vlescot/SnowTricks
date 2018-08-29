@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace App\UI\Action\Authentication;
 
 use App\Domain\Repository\UserRepository;
-use App\Service\Mailer;
+use App\UI\Service\Mailer;
 use App\UI\Form\Handler\RegistrationHandler;
 use App\UI\Form\Type\Authentication\RegistrationType;
 use App\UI\Responder\Authentication\RegistrationResponder;
@@ -76,7 +76,7 @@ class RegistrationAction
      * @throws \Twig_Error_Syntax
      */
     public function __invoke(Request $request, RegistrationResponder $responder): Response
-{
+    {
         $form = $this->formFactory->create(RegistrationType::class)
                                   ->handleRequest($request);
 
@@ -86,7 +86,8 @@ class RegistrationAction
             $this->mailer->sendMail(
                 $user->getEmail(),
                 'SnowTricks - Bienvenue sur notre site',
-                'email_member_registration_notification.html.twig', [
+                'email_member_registration_notification.html.twig',
+                [
                     'username' => $user->getUsername(),
                     'token' => $user->getToken()
                 ]

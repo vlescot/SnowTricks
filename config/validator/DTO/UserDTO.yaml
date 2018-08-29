@@ -41,6 +41,7 @@ App\Domain\DTO\Comment:
                     - updateUserDTO
             - Length:
                 max: 255
+                maxMessage: Cet adresse e-mail est trop longue (maximum 255 caractéres)
                 groups:
                     - userDTO
                     - updateUserDTO

@@ -44,9 +44,9 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @var string
+     * @var array
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @var Picture
@@ -94,7 +94,6 @@ class User implements UserInterface
         $this->password = $password;
         $this->picture = $picture;
         $this->token = hash('sha512', uniqid($username, true));
-        $this->roles = ['ROLE_WAITING_USER'];
     }
 
     /**
@@ -113,11 +112,15 @@ class User implements UserInterface
     }
 
     /**
-     * @param array $roles
+     * @param bool $isConfirmed
      */
-    public function setRoles(array $roles)
+    public function setConfirmation(bool $isConfirmed)
     {
-        $this->roles = $roles;
+        if ($isConfirmed) {
+            $this->roles = ['ROLE_USER'];
+        } else {
+            $this->roles = [];
+        }
     }
 
     /**

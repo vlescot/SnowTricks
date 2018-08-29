@@ -18,7 +18,7 @@ User1:
 User2:
   Username: Vincent
   Password: azerty
-  Email: vincent.lescot@gmail.com
+  Email: false-mail@gmail.com
   Validated: true
   Token: ytreza
   Roles:

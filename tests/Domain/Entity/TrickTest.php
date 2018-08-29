@@ -53,6 +53,7 @@ class TrickTest extends TestCase
 
     public function testEntityShouldHaveValidAttributes()
     {
+        // TODO assertContains ($this->mock, $trick->getImage())
         static::assertContains('Trick Title', $this->trick->getTitle());
         static::assertContains('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus elit vitae tortor rutrum, at dignissim libero finibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', $this->trick->getDescription());
     }

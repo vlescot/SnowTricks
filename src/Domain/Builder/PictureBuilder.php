@@ -5,9 +5,9 @@ namespace App\Domain\Builder;
 
 use App\Domain\DTO\PictureDTO;
 use App\Domain\Entity\Picture;
-use App\Service\Image\ImageUploadWarmer;
-use App\Service\Image\ImageUploader;
-use App\Service\Image\ImageThumbnailCreator;
+use App\UI\Service\Image\ImageUploadWarmer;
+use App\UI\Service\Image\ImageUploader;
+use App\UI\Service\Image\ImageThumbnailCreator;
 
 class PictureBuilder
 {
@@ -47,7 +47,9 @@ class PictureBuilder
      * @param $picturesDTO
      * @param bool $isCollection
      * @param bool $isThumbnailToCreate
+     *
      * @return Picture|array
+     *
      * @throws \Exception
      */
     public function create($picturesDTO, bool $isCollection, bool $isThumbnailToCreate = false)
@@ -68,7 +70,9 @@ class PictureBuilder
     /**
      * @param PictureDTO $pictureDTO
      * @param bool $isThumbnailToCreate
+     *
      * @return Picture
+     *
      * @throws \Exception
      */
     private function createPicture(PictureDTO $pictureDTO, bool $isThumbnailToCreate)

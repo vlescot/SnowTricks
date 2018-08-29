@@ -5,7 +5,9 @@ namespace App\Domain\Builder;
 
 use App\Domain\DTO\UpdateUserDTO;
 use App\Domain\Entity\User;
-use App\Service\Image\ImageUploadWarmer;
+use App\Domain\Repository\PictureRepository;
+use App\UI\Service\Image\ImageRemover;
+use App\UI\Service\Image\ImageUploadWarmer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -27,20 +29,28 @@ class UpdateUserBuilder
     private $passwordEncoder;
 
     /**
+     * @var ImageRemover
+     */
+    private $imageRemover;
+
+    /**
      * UpdateUserBuilder constructor.
      *
      * @param ImageUploadWarmer $imageUploadWarmer
      * @param PictureBuilder $pictureBuilder
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param ImageRemover $imageRemover
      */
     public function __construct(
         ImageUploadWarmer $imageUploadWarmer,
         PictureBuilder $pictureBuilder,
-        UserPasswordEncoderInterface $passwordEncoder
+        UserPasswordEncoderInterface $passwordEncoder,
+        ImageRemover $imageRemover
     ) {
         $this->imageUploadWarmer = $imageUploadWarmer;
         $this->pictureBuilder = $pictureBuilder;
         $this->passwordEncoder = $passwordEncoder;
+        $this->imageRemover = $imageRemover;
     }
 
 
@@ -55,16 +65,21 @@ class UpdateUserBuilder
     public function create(User $user, UpdateUserDTO $updateUserDTO)
     {
         if ($updateUserDTO->picture->file instanceof UploadedFile) {
-            $this->imageUploadWarmer->initialize('user', $updateUserDTO->username);
+            $this->imageUploadWarmer->initialize('user', '');
             $picture = $this->pictureBuilder->create($updateUserDTO->picture, false, true);
+
+            $this->imageRemover->addFileToRemove($user->getPicture());
+            $this->imageRemover->removeFiles();
         }
 
-        $password = $this->passwordEncoder->encodePassword($user, $updateUserDTO->password);
+        if (is_string($updateUserDTO->password)) {
+            $password = $this->passwordEncoder->encodePassword($user, $updateUserDTO->password);
+        }
 
         $user->update(
-            $updateUserDTO->email,
-            $password,
-            $picture ?? $updateUserDTO->picture
+            $updateUserDTO->email ?? $user->getEmail(),
+            $password ?? $user->getPassword(),
+            $picture ?? $user->getPicture()
         );
 
         return $user;

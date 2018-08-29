@@ -9,20 +9,14 @@ class ChangePasswordDTO
      * @var string
      */
     public $password;
-    /**
-     * @var string
-     */
-    public $token;
 
     /**
      * ChangePasswordDTO constructor.
      *
-     * @param string $token
      * @param string $password
      */
-    public function __construct(string $token, string $password = null)
+    public function __construct(string $password)
     {
-        $this->token = $token;
         $this->password = $password;
     }
 }

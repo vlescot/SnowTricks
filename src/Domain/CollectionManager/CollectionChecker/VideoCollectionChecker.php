@@ -33,6 +33,7 @@ class VideoCollectionChecker
         foreach ($videosDTO as $key => $videoDTO) {
             if (array_key_exists($key, $videos)) {
                 if ($videoDTO->iFrame !== $videos[$key]->getIFrame()) {
+                    $this->deletedObjects[$key] = $videos[$key];
                     $this->dirtyObjects[$key] = $videoDTO;
                 }
             } else {

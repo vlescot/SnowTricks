@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\UI\Service;
 
 use Twig\Environment;
 
@@ -45,13 +45,14 @@ class Mailer
         array $parameters
     ) {
         $message = (new \Swift_Message($subject))
-            ->setFrom('vincent.lescot@gmail.com')
+            ->setFrom(['vincent.lescot@gmail.com' => 'La Communauté SnowTricks'])
             ->setTo($mailTo)
             ->setBody(
                 $this->twig->render(
                     'email/' . $view,
                     $parameters
-                ), 'text/html'
+                ),
+                'text/html'
             );
 
         $this->mailer->send($message);

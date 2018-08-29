@@ -13,7 +13,7 @@ use App\Domain\Entity\Picture;
 use App\Domain\Entity\User;
 use App\Domain\Repository\TrickRepository;
 use App\Domain\Repository\UserRepository;
-use App\Service\Image\ImageUploadWarmer;
+use App\UI\Service\Image\ImageUploadWarmer;
 use App\UI\Form\Handler\CreateTrickHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
@@ -133,12 +133,12 @@ class CreateTrickHandlerTest extends TestCase
 
         $pictureInfo = $this->imageHelper->generateImageInfo($uploadedFileMock);
 
-        static::assertInternalType('array', $pictureInfo);
 
         $picture = $this->pictureBuilder->create(
             $pictureInfo,
             false
         );
+
         static::assertInstanceOf(Picture::class, $picture);
 
         $mainPictureInfo = $this->imageHelper

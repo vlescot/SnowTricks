@@ -1,40 +1,34 @@
-{% extends 'authentication/base_modal.html.twig' %}
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block modal_head %}Connexion{% endblock %}
-
-{% block authentication_form %}
-
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-
-    <div class="form-group form-control-sm">
-        {{ form_label(form._login, 'Votre identifiant :') }}
-        {{ form_widget(form._login, {'attr': {
-                'class': 'form-control',
-                'placeholder': 'Nom d\'utilisateur ou email'
-        }}) }}
-    </div>
-
-    <div class="form-group form-control-sm">
-        {{ form_label(form._password, 'Votre mot de passe :') }}
-        {{ form_widget(form._password, {'attr': {
-            'class': 'form-control',
-            'placeholder': 'Mot de passe'
-        }}) }}
-    </div>
-
-    {{ form_rest(form) }}
-
-    <div class="text-center">
-        <input class="btn btn-sm" type="submit" value="Se connecter">
-    </div>
-
-    {{ form_end(form) }}
-
+{% block css %}
+    <style>
+        h3 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+        .login-form {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20%;
+        }
+        input::placeholder {
+            font-size: 0.8em !important;
+        }
+    </style>
 {% endblock %}
 
-{% block footer_modal %}
-    <p><small class="text-muted"><span class="modal-link" onclick="displayAuthenticationModal('reset_password')">Mot de passe oublié</span> ?</small></p>
-    <p><small class="text-muted"><span class="modal-link" onclick="displayAuthenticationModal('registration')">Créer votre compte</span></small></p>
+{% block title %}Connexion - SnowTricks{% endblock %}
 
+{% block header %}
+    <h3 class="text-center">Connexion</h3>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="login-form" style="width: 300px">
+            {% include 'authentication/login_form.html.twig' %}
+
+        </div>
+    </div>
 {% endblock %}

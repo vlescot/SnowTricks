@@ -3,17 +3,19 @@ declare(strict_types=1);
 
 namespace App\UI\Action;
 
+use App\Domain\Repository\PictureRepository;
 use App\Domain\Repository\TrickRepository;
+use App\UI\Service\Image\FolderRemover;
+use App\UI\Service\Image\ImageRemover;
 use App\UI\Responder\RemoveTrickResponder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/{slug}/supprimer", name="RemoveTrick")
- * @Method({"GET", "POST"})
+ * @Route("/figure/supprimer", name="RemoveTrick")
+ * @Method("POST")
  *
  * Class RemoveTrickAction
  * @package App\UI\Action
@@ -26,51 +28,52 @@ class RemoveTrickAction
     private $trickRepository;
 
     /**
-     * @var SessionInterface
+     * @var PictureRepository
      */
-    private $session;
+    private $pictureRepository;
+
+    /**
+     * @var FolderRemover
+     */
+    private $folderRemover;
 
     /**
      * RemoveTrickAction constructor.
      *
      * @param TrickRepository $trickRepository
-     * @param SessionInterface $session
+     * @param PictureRepository $pictureRepository
+     * @param ImageRemover $imageRemover
+     * @param FolderRemover $folderRemover
      */
-    public function __construct(TrickRepository $trickRepository, SessionInterface $session)
-    {
+    public function __construct(
+        TrickRepository $trickRepository,
+        PictureRepository $pictureRepository,
+        ImageRemover $imageRemover,
+        FolderRemover $folderRemover
+    ) {
         $this->trickRepository = $trickRepository;
-        $this->session = $session;
+        $this->pictureRepository = $pictureRepository;
+        $this->imageRemover = $imageRemover;
+        $this->folderRemover = $folderRemover;
     }
+
 
     /**
      * @param Request $request
      * @param RemoveTrickResponder $responder
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
      */
     public function __invoke(Request $request, RemoveTrickResponder $responder): Response
     {
-        if ($request->isMethod('GET')) {
+        $id = $request->request->get('id');
+        $trick = $this->trickRepository->findOneBy(['id' => $id]);
 
-            $slug = $request->attributes->get('slug');
+        $this->folderRemover->removeFolder($trick->getMainPicture()->getPath());
+        $this->trickRepository->remove($trick);
 
-            $data = [
-                'title' => $this->trickRepository->getTitleBySlug($slug),
-                'slug' => $request->attributes->get('slug')
-            ];
-
-            return $responder(false, $data);
-
-        }
-        elseif ($request->isXmlHttpRequest()) {
-            if ($this->trickRepository->removeBySlug($request->request->get('slug'))) {
-                $data = [ 'content' => '', 'status' => 200 ];
-                return $responder(true, $data);
-            }
-        }
-
-        $this->session->getFlashBag()->add('danger', 'Un probléme est survenu, nous n\'avons pas pu supprimer cette figure');
-        $data = ['content' => 'Une erreur est survenue','status' => 500];
-        return $responder(true, $data);
+        return $responder();
     }
 }

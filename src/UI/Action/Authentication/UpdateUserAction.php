@@ -43,11 +43,6 @@ class UpdateUserAction extends Controller
     private $userDTOFactory;
 
     /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    /**
      * @var UrlGeneratorInterface
      */
     private $urlGenerator;
@@ -64,7 +59,6 @@ class UpdateUserAction extends Controller
      * @param FormFactoryInterface $formFactory
      * @param UpdateUserHandler $updateUserHandler
      * @param UserDTOFactory $userDTOFactory
-     * @param SessionInterface $session
      * @param UrlGeneratorInterface $urlGenerator
      * @param TokenStorageInterface $tokenStorage
      */
@@ -72,14 +66,12 @@ class UpdateUserAction extends Controller
         FormFactoryInterface $formFactory,
         UpdateUserHandler $updateUserHandler,
         UserDTOFactory $userDTOFactory,
-        SessionInterface $session,
         UrlGeneratorInterface $urlGenerator,
         TokenStorageInterface $tokenStorage
     ) {
         $this->formFactory = $formFactory;
         $this->updateUserHandler = $updateUserHandler;
         $this->userDTOFactory = $userDTOFactory;
-        $this->session = $session;
         $this->urlGenerator = $urlGenerator;
         $this->user = $tokenStorage->getToken()->getUser();
     }

@@ -36,6 +36,7 @@ App\Domain\Entity\User:
                     - userRegistration
             - Length:
                 max: 64
+                maxMessage: Le mot de passe est trop court
                 groups:
                     - userRegistration
 
@@ -50,20 +51,11 @@ App\Domain\Entity\User:
                     - userRegistration
             - Length:
                 max: 255
+                maxMessage: Cet adresse e-mail est trop longue (maximum 255 caractéres)
                 groups:
                     - userRegistration
 
         createdAt:
-            - NotBlank:
-                groups:
-                    - userRegistration
-
-        roles:
-            - NotBlank:
-                groups:
-                    - userRegistration
-
-        enabled:
             - NotBlank:
                 groups:
                     - userRegistration

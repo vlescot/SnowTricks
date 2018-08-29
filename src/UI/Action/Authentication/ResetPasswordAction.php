@@ -34,28 +34,17 @@ class ResetPasswordAction
     private $resetPasswordHandler;
 
     /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
-     * @var AuthenticationUtils
-     */
-    private $authenticationUtils;
-
-    /**
      * ResetPasswordAction constructor.
      *
      * @param FormFactoryInterface $formFactory
+     * @param ResetPasswordHandler $resetPasswordHandler
      */
     public function __construct(
         FormFactoryInterface $formFactory,
-        ResetPasswordHandler $resetPasswordHandler,
-        UrlGeneratorInterface $urlGenerator
+        ResetPasswordHandler $resetPasswordHandler
     ) {
         $this->formFactory = $formFactory;
         $this->resetPasswordHandler = $resetPasswordHandler;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -70,11 +59,8 @@ class ResetPasswordAction
      *
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(
-        AuthenticationUtils $authenticationUtils,
-        Request $request,
-        ModalResponder $responder
-    ) {
+    public function __invoke(Request $request, ModalResponder $responder)
+    {
         $form = $this->formFactory->create(ResetPasswordType::class)
                                   ->handleRequest($request);
 

@@ -26,17 +26,24 @@ class TrickPageResponder
     /**
      * @param Trick $trick
      * @param FormInterface $form
+     *
      * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(Trick $trick, FormInterface $form)
+    public function __invoke(Trick $trick, FormInterface $form = null)
     {
+        if (null !== $form) {
+            $formView = $form->createView();
+        }
+
+
         return new Response(
             $this->twig->render('snowtricks/trick_page.html.twig', [
                 'trick' => $trick,
-                'form' => $form->createView()
+                'form' => $formView ?? null
             ])
         );
     }

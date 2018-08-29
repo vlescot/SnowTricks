@@ -31,15 +31,19 @@ class UpdateUserType extends AbstractType
         $this->subscriber = $subscriber;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'required' => false
+            ])
             ->add('password', RepeatedType::class, [
+                'required' => false,
                 'type' => PasswordType::class
             ])
-            ->add('picture', PictureType::class)
+            ->add('picture', PictureType::class, [
+                'required' => false
+            ])
             ->addEventSubscriber($this->subscriber)
         ;
     }

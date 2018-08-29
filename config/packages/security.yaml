@@ -19,13 +19,11 @@ security:
                   - app.security.login_form_authenticator
             logout:
                 path: /user/logout
-                target: /
-            access_denied_handler: app.security.access_denied_handler
+                success_handler: app.security.logout_success_handler
 
     access_control:
         - { path: /creer,                  roles: ROLE_USER }
         - { path: /modifier,               roles: ROLE_USER }
         - { path: /supprimer,              roles: ROLE_USER }
-        - { path: /update_user,            roles: [ROLE_USER, ROLE_WAITING_USER] }
-        - { path: /change_password,        roles: [ROLE_USER, ROLE_WAITING_USER] }
+        - { path: /update_user,            roles: ROLE_USER }
         - { path: ^/profile,               roles: ROLE_ADMIN }

@@ -5,7 +5,8 @@ namespace App\Domain\CollectionManager\CollectionUpdatePrepare;
 
 use App\Domain\Builder\PictureBuilder;
 use App\Domain\CollectionManager\CollectionChecker\PictureCollectionChecker;
-use App\Service\Image\ImageRemover;
+use App\Domain\Repository\PictureRepository;
+use App\UI\Service\Image\ImageRemover;
 
 class PictureCollectionUpdatePrepare
 {
@@ -25,7 +26,7 @@ class PictureCollectionUpdatePrepare
     private $createPictureBuilder;
 
     /**
-     * PictureCollectionLeader constructor.
+     * PictureCollectionUpdatePrepare constructor.
      *
      * @param PictureCollectionChecker $pictureChecker
      * @param ImageRemover $imageRemover
@@ -41,6 +42,7 @@ class PictureCollectionUpdatePrepare
         $this->createPictureBuilder = $createPictureBuilder;
     }
 
+
     /**
      * @param array $pictures
      * @param array $picturesDTO
@@ -54,12 +56,11 @@ class PictureCollectionUpdatePrepare
         $this->pictureChecker->compare($pictures, $picturesDTO);
 
         foreach ($this->pictureChecker->getDeletedObject() as $key => $picture) {
-            $this->imageRemover->addFileToRemove($picture->getWebPath());
+            $this->imageRemover->addFileToRemove($picture);
             unset($pictures[$key]);
         }
 
         foreach ($this->pictureChecker->getDirtyObject() as $key => $pictureDTO) {
-            $this->imageRemover->addFileToRemove($pictures[$key]->getWebPath());
             $pictures[$key] = $this->createPictureBuilder->create($pictureDTO, false);
         }
 

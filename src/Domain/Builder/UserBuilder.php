@@ -5,7 +5,7 @@ namespace App\Domain\Builder;
 
 use App\Domain\DTO\UserDTO;
 use App\Domain\Entity\User;
-use App\Service\Image\ImageUploadWarmer;
+use App\UI\Service\Image\ImageUploadWarmer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 

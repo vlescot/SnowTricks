@@ -6,6 +6,7 @@ namespace App\UI\Form\Handler;
 use App\Domain\Entity\User;
 use App\Domain\Repository\UserRepository;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -32,20 +33,28 @@ class ChangePasswordHandler
     private $validator;
 
     /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    /**
      * ChangePasswordHandler constructor.
      *
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param UserRepository $userRepository
      * @param ValidatorInterface $validator
+     * @param SessionInterface $session
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         UserRepository $userRepository,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        SessionInterface $session
     ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->userRepository = $userRepository;
         $this->validator = $validator;
+        $this->session = $session;
     }
 
 
@@ -58,10 +67,8 @@ class ChangePasswordHandler
     public function handle(Form $form, UserInterface $user)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-
             $password = $this->passwordEncoder->encodePassword($user, $form->get('password')->getData());
             $user->changePassword($password);
-            $user->enabled(true);
 
             $errors = $this->validator->validate($user, null, ['userRegistration', 'User']);
             if (\count($errors) > 0) {

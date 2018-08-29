@@ -18,6 +18,7 @@ class GroupDTOTest extends TestCase
         $this->dto = new GroupDTO('New Group');
     }
 
+    // Todo attributes Has Good Values
     public function testGroupDTOAttributeMustBeAString()
     {
         static::assertInternalType('string', $this->dto->name);

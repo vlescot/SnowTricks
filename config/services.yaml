@@ -12,6 +12,7 @@ services:
     doctrine_migrations:
         resource: '%kernel.root_dir%/Domain/Migrations'
         namespace: 'App\Domain\Migrations\'
+#        TODO
 #    doctrine_migrations:
 #        dir_name: '%kernel.project_dir%/src/Domain/Migrations'
 #        namespace: 'DoctrineMigrations'
@@ -24,18 +25,20 @@ services:
         resource: '../src/UI/Action'
         tags: ['controller.service_arguments']
 
+#    SECURITY
     app.security.login_form_authenticator:
         class: App\UI\Security\LoginFormAuthenticator
 
-    app.security.access_denied_handler:
-        class: App\UI\Security\AccessDeniedHandler
+    app.security.logout_success_handler:
+        class: App\UI\Security\LogoutSuccessHandler
 
-    App\Service\Image\ImageUploadWarmer:
+#    SERVICES
+    App\UI\Service\Image\ImageUploadWarmer:
         arguments:
             $trickFolder: '/image/trick'
             $userFolder: '/image/user'
 
-    App\Service\Image\ImageThumbnailCreator:
+    App\UI\Service\Image\ImageThumbnailCreator:
         arguments:
             $thumbnailsWidth: '400'
             $thumbnailsAltPrefix: 'thumbnail-'

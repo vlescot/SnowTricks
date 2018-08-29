@@ -26,7 +26,7 @@ class UpdateUserSubscriber implements EventSubscriberInterface
     {
         $updateUserDTO = $event->getForm()->getData();
         $data = $event->getData();
-        dd($data);
+
         if ($updateUserDTO->picture->file instanceof \SplFileInfo && $data['picture']['file'] === null) {
             $data['picture']['file'] = $updateUserDTO->picture->file;
         }

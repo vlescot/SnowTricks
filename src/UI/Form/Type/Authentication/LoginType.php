@@ -17,10 +17,12 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('_login', TextType::class, [
-                'required' => true
+                'required' => true,
+                'trim' => true
             ])
             ->add('_password', PasswordType::class, [
-                'required' => true
+                'required' => true,
+                'trim' => true
             ])
         ;
     }

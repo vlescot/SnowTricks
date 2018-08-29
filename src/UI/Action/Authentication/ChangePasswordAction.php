@@ -8,15 +8,16 @@ use App\Domain\Repository\UserRepository;
 use App\UI\Form\Handler\ChangePasswordHandler;
 use App\UI\Form\Type\Authentication\ChangePasswordType;
 use App\UI\Responder\Authentication\ChangePasswordResponder;
+use App\UI\Security\LoginFormAuthenticator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
- * @Route("/change-password/{token}", name="ChangePassword")
+ * @Route("/change_password/{token}", name="ChangePassword")
  * @Method({"GET", "POST"})
  *
  * Class ChangePasswordAction
@@ -45,20 +46,39 @@ class ChangePasswordAction
     private $userRepository;
 
     /**
+     * @var GuardAuthenticatorHandler
+     */
+    private $authenticationHandler;
+
+    /**
+     * @var LoginFormAuthenticator
+     */
+    private $loginAuthenticator;
+
+    /**
      * ChangePasswordAction constructor.
      *
      * @param FormFactoryInterface $formFactory
      * @param ChangePasswordHandler $changePasswordHandler
      * @param SessionInterface $session
+     * @param UserRepository $userRepository
+     * @param GuardAuthenticatorHandler $authenticationHandler
+     * @param LoginFormAuthenticator $loginAuthenticator
      */
     public function __construct(
         FormFactoryInterface $formFactory,
         ChangePasswordHandler $changePasswordHandler,
-        SessionInterface $session
+        SessionInterface $session,
+        UserRepository $userRepository,
+        GuardAuthenticatorHandler $authenticationHandler,
+        LoginFormAuthenticator $loginAuthenticator
     ) {
         $this->formFactory = $formFactory;
         $this->changePasswordHandler = $changePasswordHandler;
         $this->session = $session;
+        $this->userRepository = $userRepository;
+        $this->authenticationHandler = $authenticationHandler;
+        $this->loginAuthenticator = $loginAuthenticator;
     }
 
 
@@ -81,15 +101,18 @@ class ChangePasswordAction
             return $responder(true);
         }
 
-        $changePasswordDTO = new ChangePasswordDTO($token);
-
-        $form = $this->formFactory->create(ChangePasswordType::class, $changePasswordDTO)
+        $form = $this->formFactory->create(ChangePasswordType::class)
                                   ->handleRequest($request);
 
-        if ($this->changePasswordHandler->handle($form, $user)){
-            return $responder(true);
+        if ($this->changePasswordHandler->handle($form, $user)) {
+            return $this->authenticationHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $this->loginAuthenticator,
+                'main'
+            );
         }
 
-        return $responder(false, $form);
+        return $responder($form);
     }
 }

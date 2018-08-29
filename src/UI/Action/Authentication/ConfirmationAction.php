@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
- * @Route("/confirmation/{token}", name="Confirmation")
+ * @Route("/confirmation/{token}", name="UserConfirmation")
  * @Method("GET")
  *
  * Class ConfirmationAction
@@ -77,21 +77,18 @@ class ConfirmationAction
         $user = $this->userRepository->loadUserByToken($token);
 
         if (null !== $user) {
-            $user->setRoles(['ROLE_USER']);
+            $user->setConfirmation(true);
             $this->userRepository->save($user);
 
-            return $this->authenticationHandler
-                ->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $this->loginAuthenticator,
-                    'main'
-                )
-            ;
-        } else {
-            $this->session->getFlashBag()->add('danger', 'Nous n\'avons pas pu vous authentifier');
+            return $this->authenticationHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $this->loginAuthenticator,
+                'main'
+            );
         }
 
+        $this->session->getFlashBag()->add('danger', 'Nous n\'avons pas pu vous authentifier');
         return $response();
     }
 }

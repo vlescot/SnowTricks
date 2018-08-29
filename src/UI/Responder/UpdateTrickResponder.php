@@ -56,14 +56,17 @@ class UpdateTrickResponder
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(bool $redirect = true, FormInterface $form = null)
+    public function __invoke(bool $redirect = true, FormInterface $form = null, string $slug = null)
     {
         $response = $redirect
             ?   new RedirectResponse(
                 $this->urlGenerator->generate('Trick', ['slug' => $this->session->get('slug')])
             )
             :   new Response(
-                $this->twig->render('snowtricks/CRUD/update_trick.html.twig', ['form' => $form->createView()] )
+                $this->twig->render('snowtricks/CRUD/update_trick.html.twig', [
+                    'form' => $form->createView(),
+                    'slug' => $slug
+                ])
             )
         ;
 

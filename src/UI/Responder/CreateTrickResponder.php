@@ -60,10 +60,10 @@ class CreateTrickResponder
     {
         $response = $redirect
             ?   new RedirectResponse(
-                $this->urlGenerator->generate('Trick', ['slug' => $this->session->get('slug')] )
+                $this->urlGenerator->generate('Trick', ['slug' => $this->session->get('slug')])
             )
             :   new Response(
-                    $this->twig->render('snowtricks/CRUD/create_trick.html.twig', ['form' => $form->createView()] )
+                    $this->twig->render('snowtricks/CRUD/create_trick.html.twig', ['form' => $form->createView()])
             )
         ;
 

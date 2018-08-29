@@ -7,8 +7,8 @@ use App\Domain\Builder\CreateTrickBuilder;
 use App\Domain\Entity\User;
 use App\Domain\Repository\TrickRepository;
 use App\Domain\Repository\UserRepository;
-use App\Service\Image\ImageThumbnailCreator;
-use App\Service\Image\ImageUploader;
+use App\UI\Service\Image\ImageThumbnailCreator;
+use App\UI\Service\Image\ImageUploader;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -95,7 +95,6 @@ class CreateTrickHandler
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-
             $trick = $this->trickBuilder->create($form->getData());
 
             $errors = $this->validator->validate($trick, null, ['edit_trick', 'Trick', 'Group']);

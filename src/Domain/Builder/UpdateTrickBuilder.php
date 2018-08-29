@@ -7,9 +7,10 @@ use App\Domain\CollectionManager\CollectionUpdatePrepare\PictureCollectionUpdate
 use App\Domain\CollectionManager\CollectionUpdatePrepare\VideoCollectionUpdatePrepare;
 use App\Domain\DTO\TrickDTO;
 use App\Domain\Entity\Trick;
-use App\Service\Image\FolderChanger;
-use App\Service\Image\ImageRemover;
-use App\Service\Image\ImageUploadWarmer;
+use App\Domain\Repository\PictureRepository;
+use App\UI\Service\Image\FolderChanger;
+use App\UI\Service\Image\ImageRemover;
+use App\UI\Service\Image\ImageUploadWarmer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UpdateTrickBuilder
@@ -35,6 +36,11 @@ class UpdateTrickBuilder
     private $imageRemover;
 
     /**
+     * @var PictureRepository
+     */
+    private $pictureRepository;
+
+    /**
      * @var FolderChanger
      */
     private $folderChanger;
@@ -56,6 +62,7 @@ class UpdateTrickBuilder
      * @param VideoCollectionUpdatePrepare $videoUpdatePrepare
      * @param ImageUploadWarmer $imageUploadWarmer
      * @param ImageRemover $imageRemover
+     * @param PictureRepository $pictureRepository
      * @param FolderChanger $folderChanger
      * @param GroupBuilder $groupBuilder
      * @param PictureBuilder $pictureBuilder
@@ -65,6 +72,7 @@ class UpdateTrickBuilder
         VideoCollectionUpdatePrepare $videoUpdatePrepare,
         ImageUploadWarmer $imageUploadWarmer,
         ImageRemover $imageRemover,
+        PictureRepository $pictureRepository,
         FolderChanger $folderChanger,
         GroupBuilder $groupBuilder,
         PictureBuilder $pictureBuilder
@@ -73,10 +81,12 @@ class UpdateTrickBuilder
         $this->videoUpdatePrepare = $videoUpdatePrepare;
         $this->imageUploadWarmer = $imageUploadWarmer;
         $this->imageRemover = $imageRemover;
+        $this->pictureRepository = $pictureRepository;
         $this->folderChanger = $folderChanger;
         $this->groupBuilder = $groupBuilder;
         $this->pictureBuilder = $pictureBuilder;
     }
+
 
     /**
      * @param Trick $trick
@@ -84,7 +94,8 @@ class UpdateTrickBuilder
      *
      * @return Trick
      *
-     * @throws \Exception
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function update(Trick $trick, TrickDTO $trickDTO)
     {
@@ -92,7 +103,7 @@ class UpdateTrickBuilder
 
         if ($trickDTO->mainPicture->file instanceof UploadedFile) {
             $mainPicture = $this->pictureBuilder->create($trickDTO->mainPicture, false, true);
-            $this->imageRemover->addFileToRemove($trick->getMainPicture()->getWebPath());
+            $this->imageRemover->addFileToRemove($trick->getMainPicture());
         }
 
         if ($trickDTO->title !== $trick->getTitle()) {    // Change the pictures's folder

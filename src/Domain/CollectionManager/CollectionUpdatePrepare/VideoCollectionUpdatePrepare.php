@@ -5,6 +5,7 @@ namespace App\Domain\CollectionManager\CollectionUpdatePrepare;
 
 use App\Domain\Builder\VideoBuilder;
 use App\Domain\CollectionManager\CollectionChecker\VideoCollectionChecker;
+use App\Domain\Repository\VideoRepository;
 
 class VideoCollectionUpdatePrepare
 {
@@ -16,41 +17,55 @@ class VideoCollectionUpdatePrepare
     /**
      * @var VideoBuilder
      */
-    private $createVideoBuilder;
+    private $videoBuilder;
 
     /**
-     * VideoCollectionLeader constructor.
+     * @var VideoRepository
+     */
+    private $videoRepository;
+
+    /**
+     * VideoCollectionUpdatePrepare constructor.
      *
      * @param VideoCollectionChecker $videoChecker
-     * @param VideoBuilder $createVideoBuilder
+     * @param VideoBuilder $videoBuilder
+     * @param VideoRepository $videoRepository
      */
     public function __construct(
         VideoCollectionChecker $videoChecker,
-        VideoBuilder $createVideoBuilder
+        VideoBuilder $videoBuilder,
+        VideoRepository $videoRepository
     ) {
         $this->videoChecker = $videoChecker;
-        $this->createVideoBuilder = $createVideoBuilder;
+        $this->videoBuilder = $videoBuilder;
+        $this->videoRepository = $videoRepository;
     }
+
 
     /**
      * @param array $videos
      * @param array $videosDTO
+     *
      * @return array
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function prepare(array $videos, array $videosDTO)
     {
         $this->videoChecker->compare($videos, $videosDTO);
 
         foreach ($this->videoChecker->getDeletedObject() as $key => $video) {
+            $this->videoRepository->remove($videos[$key]);
             unset($videos[$key]);
         }
 
         foreach ($this->videoChecker->getDirtyObject() as $key => $videoDTO) {
-            $videos[$key] = $this->createVideoBuilder->create($videoDTO, false);
+            $videos[$key] = $this->videoBuilder->create($videoDTO, false);
         }
 
         foreach ($this->videoChecker->getNewObject() as $videoDTO) {
-            $videos[] = $this->createVideoBuilder->create($videoDTO, false);
+            $videos[] = $this->videoBuilder->create($videoDTO, false);
         }
 
         return $videos;

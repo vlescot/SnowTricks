@@ -35,6 +35,7 @@ class PictureCollectionChecker
         foreach ($picturesDTO as $key => $pictureDTO) {
             if ($pictureDTO->file instanceof UploadedFile) {
                 if (array_key_exists($key, $pictures)) {
+                    $this->deletedObjects[$key] = $pictures[$key];
                     $this->dirtyObjects[$key] = $pictureDTO;
                 } else {
                     $this->newObjects[] = $pictureDTO;

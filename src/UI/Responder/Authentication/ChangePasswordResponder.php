@@ -43,17 +43,11 @@ class ChangePasswordResponder
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(bool $redirect, FormInterface $form = null)
+    public function __invoke(FormInterface $form = null)
     {
-        $response = $redirect
-            ?   new RedirectResponse($this->urlGenerator->generate('Home'))
-            :   new Response($this->twig->render(
-                    'authentication/change_password.html.twig', [
-                        'form' => $form->createView()
-                    ]
-                ))
-            ;
-
-        return $response;
+        return new Response($this->twig->render(
+            'authentication/change_password.html.twig',
+            ['form' => $form->createView()]
+        ));
     }
 }

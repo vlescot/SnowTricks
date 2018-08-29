@@ -8,7 +8,7 @@ use App\Domain\DTO\TrickDTO;
 use App\Domain\Entity\Trick;
 use App\Domain\Entity\User;
 use App\Domain\Repository\UserRepository;
-use App\Service\Image\ImageUploadWarmer;
+use App\UI\Service\Image\ImageUploadWarmer;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -80,7 +80,7 @@ class CreateTrickBuilder
     {
         $this->imageUploadWarmer->initialize('trick', $trickDTO->title);
 
-        $trick = new Trick(
+        return new Trick(
             $trickDTO->title,
             $trickDTO->description,
             $this->user,
@@ -89,7 +89,5 @@ class CreateTrickBuilder
             $this->videoBuilder->create($trickDTO->videos, true),
             $this->groupBuilder->create($trickDTO->groups, $trickDTO->newGroups)
         );
-
-        return $trick;
     }
 }

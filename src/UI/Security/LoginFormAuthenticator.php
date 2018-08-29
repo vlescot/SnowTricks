@@ -6,6 +6,7 @@ namespace App\UI\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -27,6 +28,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $csrfTokenManager;
 
     /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
      * @var SessionInterface
      */
     private $session;
@@ -45,15 +51,18 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * LoginFormAuthenticator constructor.
      *
      * @param CsrfTokenManagerInterface $csrfTokenManager
+     * @param UrlGeneratorInterface $urlGenerator
      * @param SessionInterface $session
      * @param UserPasswordEncoderInterface $passwordEncoder
      */
     public function __construct(
         CsrfTokenManagerInterface $csrfTokenManager,
+        UrlGeneratorInterface $urlGenerator,
         SessionInterface $session,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->urlGenerator = $urlGenerator;
         $this->session = $session;
         $this->passwordEncoder = $passwordEncoder;
     }
@@ -66,12 +75,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function supports(Request $request)
     {
-//        dump("support");
-        // TODO urlGenerator
+//        dump("Supports");
         $this->targetUrl = $request->headers->get('referer');
+
         if ($request->attributes->get('_route') === 'Login' && $request->isMethod('POST')) {
+            if (preg_match('/\/connexion/i', $this->targetUrl) > 0) {
+                $this->targetUrl = $this->urlGenerator->generate('Home');
+            }
             return true;
         }
+
         return false;
     }
 
@@ -94,7 +107,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $request->getSession()->set(Security::LAST_USERNAME, $login);
-
 
         return [
             'login' => $login,
@@ -135,8 +147,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if ($password = $this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
             return true;
         }
-        $this->session->getFlashBag()->add('danger', 'Votre mot de passe est invalide');
 
+        $this->session->getFlashBag()->add('danger', 'Votre mot de passe est invalide');
         throw new BadCredentialsException();
     }
 
@@ -146,7 +158,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     protected function getLoginUrl()
     {
 //        dump("getLoginUrl");
-        return $this->targetUrl;
+        return $this->urlGenerator->generate('LoginForm');
     }
 
     /**
@@ -160,8 +172,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
 //        dump("onAuthenticationSuccess");
         $this->session->getFlashBag()->add('success', 'Bonjour ' . $token->getUser()->getUsername());
-
-        return new RedirectResponse($this->targetUrl);
+        return new RedirectResponse($this->targetUrl ?? $this->urlGenerator->generate('Home'));
     }
 
     /**
@@ -174,6 +185,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
 //        dump("onAuthenticationFailure");
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-        return new RedirectResponse($this->targetUrl);
+        return new RedirectResponse($this->urlGenerator->generate('LoginForm'));
     }
 }

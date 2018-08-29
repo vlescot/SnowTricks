@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\UI\Responder\Authentication;
 
@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class ModalResponder
+class LoginFormViewResponder
 {
     /**
      * @var Environment
@@ -15,7 +15,7 @@ class ModalResponder
     private $twig;
 
     /**
-     * LoginResponder constructor.
+     * LoginFormViewResponder constructor.
      * @param Environment $twig
      */
     public function __construct(Environment $twig)
@@ -24,24 +24,22 @@ class ModalResponder
     }
 
     /**
-     * @param string $modal
      * @param FormInterface $form
-     * @param null $lastUsername
+     * @param string $lastUsername
      *
      * @return Response
+     *
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(string $modal, FormInterface $form, $lastUsername = null)
+    public function __invoke(FormInterface $form, string $lastUsername)
     {
-        return new Response(
-            $this->twig->render('authentication/modal_'. $modal .'.html.twig', [
-                'form' => $form->createView(),
-                'modal' => $modal,
-                'last_username' => $lastUsername,
-            ])
-        );
+        return new Response($this->twig->render('authentication/login.html.twig', [
+            'form' => $form->createView(),
+            'modal' => null,
+            'last_username' => $lastUsername,
+        ]));
     }
 }

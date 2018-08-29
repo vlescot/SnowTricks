@@ -11,6 +11,7 @@ use App\UI\Responder\UpdateTrickResponder;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -44,24 +45,33 @@ class UpdateTrickAction
     private $trickDTOFactory;
 
     /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    /**
      * UpdateTrickAction constructor.
      *
      * @param FormFactoryInterface $formFactory
      * @param TrickRepository $trickRepository
      * @param UpdateTrickHandler $updateTrickHandler
      * @param TrickDTOFactory $trickDTOFactory
+     * @param SessionInterface $session
      */
     public function __construct(
         FormFactoryInterface $formFactory,
         TrickRepository $trickRepository,
         UpdateTrickHandler $updateTrickHandler,
-        TrickDTOFactory $trickDTOFactory
+        TrickDTOFactory $trickDTOFactory,
+        SessionInterface $session
     ) {
         $this->formFactory = $formFactory;
         $this->trickRepository = $trickRepository;
         $this->updateTrickHandler = $updateTrickHandler;
         $this->trickDTOFactory = $trickDTOFactory;
+        $this->session = $session;
     }
+
 
     /**
      * @param Request $request
@@ -69,13 +79,15 @@ class UpdateTrickAction
      *
      * @return Response
      *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
     public function __invoke(Request $request, UpdateTrickResponder $responder): Response
     {
-        $trick = $this->trickRepository->findOneBy( ['slug' => $request->attributes->get('slug')] );
+        $trick = $this->trickRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $trickDTO = $this->trickDTOFactory->create($trick);
 
         $form = $this->formFactory->create(UpdateTrickType::class, $trickDTO)
@@ -85,6 +97,6 @@ class UpdateTrickAction
             return $responder(true);
         }
 
-        return $responder(false, $form);
+        return $responder(false, $form, $this->session->get('slug'));
     }
 }

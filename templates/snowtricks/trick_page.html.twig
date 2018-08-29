@@ -19,14 +19,17 @@
 
     <section class="container" id="trick-description">
         <div class="row">
-            <div class="col-10 mx-auto text-right">
-                {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('UpdateTrick', {'slug': trick.slug }) }}">
-                        <button class="btn btn-sm">Modifie cette figure</button>
-                    </a>
-                {% else %}
-                    <button class="btn btn-sm" onclick="displayAuthenticationModal('login')">Modifie cette figure</button>
-                {% endif %}
+            <div class="col-10 mx-auto">
+                <div style="display: flex; justify-content: space-between">
+                    <a href="{{ path('Home') }}" role="button" class="btn btn-back btn-sm"><i class="fas fa-undo"></i> Retour</a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('UpdateTrick', {'slug': trick.slug }) }}">
+                            <button class="btn btn-sm">Modifie cette figure</button>
+                        </a>
+                    {% else %}
+                        <button class="btn btn-sm" onclick="displayAuthenticationModal('login')">Modifie cette figure</button>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="row">

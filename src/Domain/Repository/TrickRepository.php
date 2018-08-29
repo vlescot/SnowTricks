@@ -7,6 +7,10 @@ use App\Domain\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
+/**
+ * Class TrickRepository
+ * @package App\Domain\Repository
+ */
 class TrickRepository extends ServiceEntityRepository
 {
     /**
@@ -22,8 +26,6 @@ class TrickRepository extends ServiceEntityRepository
 
     /**
      * @return array|mixed
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findAll()
     {
@@ -45,51 +47,22 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function save(Trick $trick)
     {
-        $this->getEntityManager()->persist($trick);
-        $this->getEntityManager()->flush();
+        $em = $this->getEntityManager();
+
+        $em->persist($trick);
+        $em->flush();
     }
 
-
     /**
-     * @param string $slug
+     * @param Trick $trick
      *
-     * @return bool
+     * @throws \Doctrine\ORM\ORMException
      */
-    public function removeBySlug(string $slug)
+    public function remove(Trick $trick)
     {
-        $trick = $this->createQueryBuilder('t')
-            ->where('t.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getOneOrNullResult();
+        $em = $this->getEntityManager();
 
-        if (null !== $trick) {
-            $this->getEntityManager()->remove($trick);
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
-     * @param string $slug
-     *
-     * @return mixed
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getTitleBySlug(string $slug)
-    {
-        $result = $this->createQueryBuilder('t')
-            ->select('t.title')
-            ->where('t.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->useResultCache(true)
-            ->useQueryCache(true)
-            ->getOneOrNullResult();
-
-        return $result['title'];
+        $em->remove($trick);
+        $em->flush();
     }
 }

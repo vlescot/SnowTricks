@@ -1,25 +1,54 @@
 "use strict";
 
 let search = $("#search");
-//
-// $( document ).on("click", "#remove-trick", function () {
-//     slug = $(".modal").attr("id");
-//     console.log(slug);
-//     $.post('/' + slug + '/supprimer', {slug: slug} , function (data) {
-//         console.log("Data: " + data );
-//     });
-// });
-// $( document ).on("click", "#cancel-remove", function () {
-//     $(".modal").modal("hide");
-// });
-//
 
+$( document ).on("click", "#remove-trick", function () {
+    let removeTrickModal = $("#remove-trick-modal");
+    let trickId = removeTrickModal.find("input[type=hidden]").val();
 
-function displayRemoveTrickModal(modalName) {
-    $(".modal-backdrop").remove();
-    $("#modal-container").load( "/" + modalName + "/supprimer", function(){
-        $("#" + modalName).modal({show:true});
+    $.post('/figure/supprimer', {id: trickId}, function (data, status) {
+        removeTrickModal.modal("hide");
+        $("html,body").animate({ scrollTop: 0 }, 500);
+
+        let flashContainer = $("#flash-container");
+
+        let alert = "";
+        let message = "";
+
+        switch (status) {
+            case "success" :
+                alert = "success";
+                message = "La figure a bien été supprimée";
+                break;
+            default:
+                alert = "danger";
+                message = "La figure n'a pas pu être supprimée... ";
+        }
+
+        flashContainer.html(
+            '         <div class="alert alert-'+ alert +' alert-dismissible col-12 text-center">\n' +
+            '            <strong>'+ message +'</strong>\n' +
+            '            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n' +
+            '        </div>');
+
+        flashContainer.show();
+        setTimeout(function() {flashContainer.fadeOut(600)}, 5000);
+        $("#" + trickId).parent().remove();
     });
+});
+
+$( document ).on("click", "#cancel-remove", function () {
+    $(".modal").modal("hide");
+});
+
+
+function displayRemoveTrickModal(id, title) {
+    $(".modal-backdrop").remove();
+    let removeTrickModal = $("#remove-trick-modal");
+
+    removeTrickModal.find(".modal-title span").html(title);
+    removeTrickModal.find("input[type=hidden]").val(id);
+    removeTrickModal.modal({show:true});
 }
 /**
  * Height's Thumbnail Adjusting
