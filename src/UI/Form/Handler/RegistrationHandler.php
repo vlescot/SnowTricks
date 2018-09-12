@@ -3,15 +3,17 @@ declare(strict_types = 1);
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Builder\UserBuilder;
-use App\Domain\Repository\UserRepository;
-use App\UI\Service\Image\ImageThumbnailCreator;
-use App\UI\Service\Image\ImageUploader;
-use Symfony\Component\Form\Form;
+use App\Domain\Repository\Interfaces\UserRepositoryInterface;
+use App\Service\Interfaces\MailerInterface;
+use App\Domain\Builder\Interfaces\UserBuilderInterface;
+use App\UI\Form\Handler\Interfaces\RegistrationHandlerInterface;
+use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\Service\Image\Interfaces\ImageUploaderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RegistrationHandler
+final class RegistrationHandler implements RegistrationHandlerInterface
 {
     /**
      * @var ValidatorInterface
@@ -19,12 +21,12 @@ class RegistrationHandler
     private $validator;
 
     /**
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     private $userRepository;
 
     /**
-     * @var UserBuilder
+     * @var UserBuilderInterface
      */
     private $userBuilder;
 
@@ -34,32 +36,39 @@ class RegistrationHandler
     private $session;
 
     /**
-     * @var ImageUploader
+     * @var ImageUploaderInterface
      */
     private $imageUploader;
 
     /**
-     * @var ImageThumbnailCreator
+     * @var ImageThumbnailCreatorInterface
      */
     private $thumbnailCreator;
+
+    /**
+     * @var MailerInterface
+     */
+    private $mailer;
 
     /**
      * RegistrationHandler constructor.
      *
      * @param ValidatorInterface $validator
-     * @param UserRepository $userRepository
-     * @param UserBuilder $userBuilder
+     * @param UserRepositoryInterface $userRepository
+     * @param UserBuilderInterface $userBuilder
      * @param SessionInterface $session
-     * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $thumbnailCreator
+     * @param ImageUploaderInterface $imageUploader
+     * @param ImageThumbnailCreatorInterface $thumbnailCreator
+     * @param MailerInterface $mailer
      */
     public function __construct(
         ValidatorInterface $validator,
-        UserRepository $userRepository,
-        UserBuilder $userBuilder,
+        UserRepositoryInterface $userRepository,
+        UserBuilderInterface $userBuilder,
         SessionInterface $session,
-        ImageUploader $imageUploader,
-        ImageThumbnailCreator $thumbnailCreator
+        ImageUploaderInterface $imageUploader,
+        ImageThumbnailCreatorInterface $thumbnailCreator,
+        MailerInterface $mailer
     ) {
         $this->validator = $validator;
         $this->userRepository = $userRepository;
@@ -67,17 +76,16 @@ class RegistrationHandler
         $this->session = $session;
         $this->imageUploader = $imageUploader;
         $this->thumbnailCreator = $thumbnailCreator;
+        $this->mailer = $mailer;
     }
 
 
     /**
-     * @param Form $form
+     * @param FormInterface $form
      *
      * @return bool
-     *
-     * @throws \Exception
      */
-    public function handle(Form $form) :bool
+    public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->userBuilder->create($form->getData());
@@ -95,6 +103,16 @@ class RegistrationHandler
 
             $this->imageUploader->uploadFiles();
             $this->thumbnailCreator->createThumbnails();
+
+            $this->mailer->sendMail(
+                $user->getEmail(),
+                'SnowTricks - Bienvenue sur notre site',
+                'email_member_registration_notification.html.twig',
+                [
+                    'username' => $user->getUsername(),
+                    'token' => $user->getToken()
+                ]
+            );
 
             $this->session->getFlashBag()->add('success', 'Bienvenue parmis nous, ' . $form->get('username')->getData() . '. Un e-mail vient de t\'être envoyé pour confirmer ton compte');
 

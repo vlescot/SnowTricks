@@ -3,23 +3,24 @@ declare(strict_types=1);
 
 namespace App\Domain\Builder;
 
-use App\Domain\DTO\UpdateUserDTO;
-use App\Domain\Entity\User;
-use App\Domain\Repository\PictureRepository;
-use App\UI\Service\Image\ImageRemover;
-use App\UI\Service\Image\ImageUploadWarmer;
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\Builder\Interfaces\UpdateUserBuilderInterface;
+use App\Domain\DTO\Interfaces\UpdateUserDTOInterface;
+use App\Service\Image\Interfaces\ImageRemoverInterface;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class UpdateUserBuilder
+final class UpdateUserBuilder implements UpdateUserBuilderInterface
 {
     /**
-     * @var ImageUploadWarmer
+     * @var ImageUploadWarmerInterface
      */
     private $imageUploadWarmer;
 
     /**
-     * @var PictureBuilder
+     * @var PictureBuilderInterface
      */
     private $pictureBuilder;
 
@@ -29,23 +30,23 @@ class UpdateUserBuilder
     private $passwordEncoder;
 
     /**
-     * @var ImageRemover
+     * @var ImageRemoverInterface
      */
     private $imageRemover;
 
     /**
      * UpdateUserBuilder constructor.
      *
-     * @param ImageUploadWarmer $imageUploadWarmer
-     * @param PictureBuilder $pictureBuilder
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
+     * @param PictureBuilderInterface $pictureBuilder
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param ImageRemover $imageRemover
+     * @param ImageRemoverInterface $imageRemover
      */
     public function __construct(
-        ImageUploadWarmer $imageUploadWarmer,
-        PictureBuilder $pictureBuilder,
+        ImageUploadWarmerInterface $imageUploadWarmer,
+        PictureBuilderInterface $pictureBuilder,
         UserPasswordEncoderInterface $passwordEncoder,
-        ImageRemover $imageRemover
+        ImageRemoverInterface $imageRemover
     ) {
         $this->imageUploadWarmer = $imageUploadWarmer;
         $this->pictureBuilder = $pictureBuilder;
@@ -55,14 +56,12 @@ class UpdateUserBuilder
 
 
     /**
-     * @param User $user
-     * @param UpdateUserDTO $updateUserDTO
+     * @param UserInterface $user
+     * @param UpdateUserDTOInterface $updateUserDTO
      *
-     * @return User
-     *
-     * @throws \Exception
+     * @return UserInterface
      */
-    public function create(User $user, UpdateUserDTO $updateUserDTO)
+    public function create(UserInterface $user, UpdateUserDTOInterface $updateUserDTO): UserInterface
     {
         if ($updateUserDTO->picture->file instanceof UploadedFile) {
             $this->imageUploadWarmer->initialize('user', '');

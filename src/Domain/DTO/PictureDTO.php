@@ -3,10 +3,12 @@ declare(strict_types = 1);
 
 namespace App\Domain\DTO;
 
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
+
 /**
  * Class PictureDTO.
  */
-class PictureDTO
+final class PictureDTO implements PictureDTOInterface
 {
     /**
      * @var \SplFileInfo

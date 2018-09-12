@@ -10,8 +10,8 @@
         <field name="title" type="string" length="255" unique="true" />
         <field name="slug" type="string" length="255" unique="true" />
         <field name="description" type="text" />
-        <field name="createdAt" column="date_creation" type="string" />
-        <field name="updatedAt" column="date_update" type="string" />
+        <field name="createdAt" column="date_creation" type="integer" />
+        <field name="updatedAt" column="date_update" type="integer" />
 
         <many-to-one field="author" target-entity="App\Domain\Entity\User" inversed-by="tricks">
             <cascade>
@@ -20,7 +20,7 @@
             <join-column nullable="false" />
         </many-to-one>
 
-        <one-to-one field="mainPicture" target-entity="App\Domain\Entity\Picture">
+        <one-to-one field="mainPicture" target-entity="App\Domain\Entity\Picture" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -28,7 +28,7 @@
             <join-column />
         </one-to-one>
 
-        <many-to-many field="pictures" target-entity="App\Domain\Entity\Picture" fetch="EXTRA_LAZY">
+        <many-to-many field="pictures" target-entity="App\Domain\Entity\Picture" orphan-removal="true" fetch="EXTRA_LAZY">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -43,18 +43,14 @@
             </join-table>
         </many-to-many>
 
-        <one-to-many field="videos" target-entity="App\Domain\Entity\Video" mapped-by="trick" fetch="EXTRA_LAZY">
+        <one-to-many field="videos" target-entity="App\Domain\Entity\Video" mapped-by="trick" orphan-removal="true" fetch="EXTRA_LAZY">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
 
-        <one-to-many field="comments" target-entity="App\Domain\Entity\Comment" mapped-by="trick" fetch="EXTRA_LAZY">
-            <cascade>
-                <cascade-persist/>
-                <cascade-remove/>
-            </cascade>
+        <one-to-many field="comments" target-entity="App\Domain\Entity\Comment" mapped-by="trick" orphan-removal="true" fetch="EXTRA_LAZY">
             <order-by>
                 <order-by-field name="createdAt" direction="DESC"/>
             </order-by>

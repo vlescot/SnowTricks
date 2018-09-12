@@ -3,22 +3,24 @@ declare(strict_types = 1);
 
 namespace App\Domain\Factory;
 
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
 use App\Domain\DTO\PictureDTO;
-use App\Domain\Entity\Picture;
+use App\Domain\Entity\Interfaces\PictureInterface;
+use App\Domain\Factory\Interfaces\PictureDTOFactoryInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class PictureDTOFactory
  * @package App\Form\Factory
  */
-class PictureDTOFactory
+final class PictureDTOFactory implements PictureDTOFactoryInterface
 {
     /**
-     * @param Picture $picture
-     * @return PictureDTO
+     * @param PictureInterface $picture
+     * @return PictureDTOInterface
      */
-    public function create(Picture $picture) :PictureDTO
+    public function create(PictureInterface $picture) :PictureDTOInterface
     {
-        return new PictureDTO(new File('.' . $picture->getWebPath()));
+        return new PictureDTO(new File('.' . $picture->getWebPath(), false));
     }
 }

@@ -3,27 +3,36 @@ declare(strict_types=1);
 
 namespace App\UI\Action\Authentication;
 
-use App\Domain\Repository\UserRepository;
-use App\UI\Responder\Authentication\ConfirmationResponder;
+use App\Domain\Repository\Interfaces\UserRepositoryInterface;
+use App\UI\Action\Authentication\Interfaces\ConfirmationActionInterface;
+use App\UI\Responder\Authentication\Interfaces\ConfirmationResponderInterface;
 use App\UI\Security\LoginFormAuthenticator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
- * @Route("/confirmation/{token}", name="UserConfirmation")
- * @Method("GET")
+ * @Route(
+ *     "/confirmation/{token}",
+ *     name = "UserConfirmation",
+ *     methods = {"GET"}
+ * )
  *
  * Class ConfirmationAction
  * @package App\UI\Action\Authentication
+ *
+ * This class set the user's confirmation
+ * via modal windows (only one route manage all the modals windows).
+ * Then, the forms handling are managed with the AuthenticationViewAction
  */
-class ConfirmationAction
+final class ConfirmationAction implements ConfirmationActionInterface
 {
     /**
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     private $userRepository;
 
@@ -43,34 +52,39 @@ class ConfirmationAction
     private $session;
 
     /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
      * ConfirmationAction constructor.
      *
-     * @param UserRepository $userRepository
+     * @param UserRepositoryInterface $userRepository
      * @param GuardAuthenticatorHandler $authenticationHandler
      * @param LoginFormAuthenticator $loginAuthenticator
      * @param SessionInterface $session
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
-        UserRepository $userRepository,
+        UserRepositoryInterface $userRepository,
         GuardAuthenticatorHandler $authenticationHandler,
         LoginFormAuthenticator $loginAuthenticator,
-        SessionInterface $session
+        SessionInterface $session,
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->authenticationHandler = $authenticationHandler;
         $this->loginAuthenticator = $loginAuthenticator;
         $this->session = $session;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
      * @param Request $request
-     * @param $response
      *
      * @return Response
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function __invoke(Request $request, ConfirmationResponder $response): Response
+    public function __invoke(Request $request): Response
     {
         $token = $request->attributes->get('token');
 
@@ -89,6 +103,7 @@ class ConfirmationAction
         }
 
         $this->session->getFlashBag()->add('danger', 'Nous n\'avons pas pu vous authentifier');
-        return $response();
+
+        return new RedirectResponse($this->urlGenerator->generate('Home'));
     }
 }

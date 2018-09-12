@@ -12,12 +12,13 @@
         <field name="email" column="email" type="string" unique="true" />
         <field name="password" type="string" length="64" />
         <field name="token" type="string" length="128" />
-        <field name="createdAt" column="date_creation" type="string" />
+        <field name="createdAt" column="date_creation" type="integer" />
         <field name="roles" type="array" />
 
         <one-to-one field="picture" target-entity="Picture">
             <cascade>
-                <cascade-all/>
+                <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-one>
 

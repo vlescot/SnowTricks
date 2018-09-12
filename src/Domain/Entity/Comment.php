@@ -3,13 +3,16 @@ declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\Entity\Interfaces\CommentInterface;
+use App\Domain\Entity\Interfaces\TrickInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class Comment.
  */
-class Comment
+class Comment implements CommentInterface
 {
     /**
      * @var UuidInterface
@@ -36,37 +39,20 @@ class Comment
      * Comment constructor.
      *
      * @param string $content
-     * @param User $author
-     * @param Trick $trick
+     * @param UserInterface $author
+     * @param TrickInterface $trick
      * @throws \Exception
      */
     public function __construct(
         string $content,
-        User $author,
-        Trick $trick
+        UserInterface $author,
+        TrickInterface $trick
     ) {
         $this->id = Uuid::uuid4();
         $this->createdAt = time();
         $this->content = $content;
-        $this->setAuthor($author);
-        $this->setTrick($trick);
-    }
-
-    /**
-     * @param Trick $trick
-     */
-    private function setTrick(Trick $trick)
-    {
-        $this->trick = $trick;
-    }
-
-    /**
-     * @param User $author
-     */
-    private function setAuthor(User $author)
-    {
         $this->author = $author;
-        $author->addComment($this);
+        $this->trick = $trick;
     }
 
     /**
@@ -86,25 +72,25 @@ class Comment
     }
 
     /**
-     * @return User
+     * @return UserInterface
      */
-    public function getAuthor(): User
+    public function getAuthor(): UserInterface
     {
         return $this->author;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): int
     {
         return $this->createdAt;
     }
 
     /**
-     * @return Trick
+     * @return TrickInterface
      */
-    public function getTrick(): Trick
+    public function getTrick(): TrickInterface
     {
         return $this->trick;
     }

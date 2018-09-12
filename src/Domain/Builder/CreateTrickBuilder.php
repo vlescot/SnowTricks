@@ -3,65 +3,64 @@ declare(strict_types = 1);
 
 namespace App\Domain\Builder;
 
-use App\Domain\DTO\PictureDTO;
-use App\Domain\DTO\TrickDTO;
+use App\Domain\Builder\Interfaces\CreateTrickBuilderInterface;
+use App\Domain\Builder\Interfaces\GroupBuilderInterface;
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\Builder\Interfaces\VideoBuilderInterface;
+use App\Domain\DTO\Interfaces\TrickDTOInterface;
+use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Entity\Trick;
-use App\Domain\Entity\User;
-use App\Domain\Repository\UserRepository;
-use App\UI\Service\Image\ImageUploadWarmer;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class TrickBuilder
  * @package App\Domain\Builder
  */
-class CreateTrickBuilder
+final class CreateTrickBuilder implements CreateTrickBuilderInterface
 {
-    private $userRepository;
     /**
-     * @var PictureBuilder
+     * @var PictureBuilderInterface
      */
     private $pictureBuilder;
 
     /**
-     * @var VideoBuilder
+     * @var VideoBuilderInterface
      */
     private $videoBuilder;
 
     /**
-     * @var GroupBuilder
+     * @var GroupBuilderInterface
      */
     private $groupBuilder;
 
     /**
-     * @var ImageUploadWarmer
+     * @var ImageUploadWarmerInterface
      */
     private $imageUploadWarmer;
 
     /**
-     * @var User
+     * @var UserInterface
      */
     private $user;
 
     /**
      * CreateTrickBuilder constructor.
      *
-     * @param UserRepository $userRepository
-     * @param PictureBuilder $pictureBuilder
-     * @param VideoBuilder $videoBuilder
-     * @param GroupBuilder $groupBuilder
-     * @param ImageUploadWarmer $imageUploadWarmer
+     * @param PictureBuilderInterface $pictureBuilder
+     * @param VideoBuilderInterface $videoBuilder
+     * @param GroupBuilderInterface $groupBuilder
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        UserRepository $userRepository,
-        PictureBuilder $pictureBuilder,
-        VideoBuilder $videoBuilder,
-        GroupBuilder $groupBuilder,
-        ImageUploadWarmer $imageUploadWarmer,
+        PictureBuilderInterface $pictureBuilder,
+        VideoBuilderInterface $videoBuilder,
+        GroupBuilderInterface $groupBuilder,
+        ImageUploadWarmerInterface $imageUploadWarmer,
         TokenStorageInterface $tokenStorage
     ) {
-        $this->userRepository = $userRepository;
         $this->pictureBuilder = $pictureBuilder;
         $this->videoBuilder = $videoBuilder;
         $this->groupBuilder = $groupBuilder;
@@ -70,13 +69,11 @@ class CreateTrickBuilder
     }
 
     /**
-     * @param TrickDTO $trickDTO
-     *
-     * @return Trick
-     *
+     * @param TrickDTOInterface $trickDTO
+     * @return TrickInterface
      * @throws \Exception
      */
-    public function create(TrickDTO $trickDTO)
+    public function create(TrickDTOInterface $trickDTO): TrickInterface
     {
         $this->imageUploadWarmer->initialize('trick', $trickDTO->title);
 

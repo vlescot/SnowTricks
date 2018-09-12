@@ -1,14 +1,15 @@
-/bin/.phpunit/
+bin/.phpunit/
 .idea/
-/.tmp.drivedownload/
-/_Building/
-/_UML Diagrams/
+.tmp.drivedownload/
+_Building/
+_UML Diagrams/
 
 
-/var/
-/vendor/
+var/
+vendor/
 
-/.phpunit
-/phpunit.xml
-/.php_cs.cache
-/.env
+.phpunit
+phpunit.xml
+.php_cs.cache
+.env
+php-cs-fixer.phar

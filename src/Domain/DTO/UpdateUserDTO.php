@@ -3,50 +3,46 @@ declare(strict_types=1);
 
 namespace App\Domain\DTO;
 
-class UpdateUserDTO
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
+use App\Domain\DTO\Interfaces\UpdateUserDTOInterface;
+
+final class UpdateUserDTO implements UpdateUserDTOInterface
 {
     /**
-     * @var string
+     * @var null|string
      */
     public $username;
 
     /**
-     * @var string
+     * @var null|string
      */
     public $password;
 
     /**
-     * @var string
+     * @var null|string
      */
     public $email;
 
     /**
-     * @var PictureDTO
+     * @var null|PictureDTOInterface
      */
     public $picture;
 
     /**
      * UpdateUserDTO constructor.
      *
-     * @param string $username
-     * @param string $email
-     * @param PictureDTO|null $picture
+     * @param string|null $username
+     * @param string|null $password
+     * @param string|null $email
+     * @param PictureDTOInterface|null $picture
      */
     public function __construct(
-        string $username,
-        string $email,
-        PictureDTO $picture = null
-    ) {
-        $this->username = $username;
-        $this->email = $email;
-        $this->picture = $picture;
-    }
-
-    public function update(
+        string $username = null,
         string $password = null,
         string $email = null,
-        PictureDTO $picture = null
+        PictureDTOInterface $picture = null
     ) {
+        $this->username = $username;
         $this->password = $password;
         $this->email = $email;
         $this->picture = $picture;

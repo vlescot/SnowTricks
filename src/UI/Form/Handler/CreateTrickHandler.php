@@ -3,13 +3,11 @@ declare(strict_types = 1);
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Builder\CreateTrickBuilder;
-use App\Domain\Entity\User;
-use App\Domain\Repository\TrickRepository;
-use App\Domain\Repository\UserRepository;
-use App\UI\Service\Image\ImageThumbnailCreator;
-use App\UI\Service\Image\ImageUploader;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use App\Domain\Builder\Interfaces\CreateTrickBuilderInterface;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\UI\Form\Handler\Interfaces\CreateTrickHandlerInterface;
+use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\Service\Image\Interfaces\ImageUploaderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -18,36 +16,30 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * Class CreateTrickHandler
  * @package App\UI\Form\Handler
  */
-class CreateTrickHandler
+final class CreateTrickHandler implements CreateTrickHandlerInterface
 {
     /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
     /**
-     * @var CreateTrickBuilder
+     * @var CreateTrickBuilderInterface
      */
     private $trickBuilder;
 
     /**
-     * @var ImageUploader
+     * @var ImageUploaderInterface
      */
     private $imageUploader;
 
     /**
-     * @var ImageThumbnailCreator
+     * @var ImageThumbnailCreatorInterface
      */
     private $imageThumbnailCreator;
 
     /**
      * @var ValidatorInterface
-     *
      */
     private $validator;
 
@@ -59,24 +51,21 @@ class CreateTrickHandler
     /**
      * CreateTrickHandler constructor.
      *
-     * @param UserRepository $userRepository
-     * @param TrickRepository $trickRepository
-     * @param CreateTrickBuilder $trickBuilder
-     * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $imageThumbnailCreator
+     * @param TrickRepositoryInterface $trickRepository
+     * @param CreateTrickBuilderInterface $trickBuilder
+     * @param ImageUploaderInterface $imageUploader
+     * @param ImageThumbnailCreatorInterface $imageThumbnailCreator
      * @param ValidatorInterface $validator
      * @param SessionInterface $session
      */
     public function __construct(
-        UserRepository $userRepository,
-        TrickRepository $trickRepository,
-        CreateTrickBuilder $trickBuilder,
-        ImageUploader $imageUploader,
-        ImageThumbnailCreator $imageThumbnailCreator,
+        TrickRepositoryInterface $trickRepository,
+        CreateTrickBuilderInterface $trickBuilder,
+        ImageUploaderInterface $imageUploader,
+        ImageThumbnailCreatorInterface $imageThumbnailCreator,
         ValidatorInterface $validator,
         SessionInterface $session
     ) {
-        $this->userRepository = $userRepository;
         $this->trickRepository = $trickRepository;
         $this->trickBuilder = $trickBuilder;
         $this->imageUploader = $imageUploader;
@@ -89,10 +78,8 @@ class CreateTrickHandler
      * @param FormInterface $form
      *
      * @return bool
-     *
-     * @throws \Exception
      */
-    public function handle(FormInterface $form)
+    public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $this->trickBuilder->create($form->getData());
@@ -105,18 +92,13 @@ class CreateTrickHandler
                 return false;
             }
 
-            try {
-                $this->trickRepository->save($trick);
-            } catch (UniqueConstraintViolationException $e) {
-                $this->session->getFlashBag()->add('warning', 'Ce trick existe déjà.');
-                return false;
-            }
+            $this->trickRepository->save($trick);
 
             $this->imageUploader->uploadFiles();
             $this->imageThumbnailCreator->createThumbnails();
 
             $this->session->set('slug', $trick->getSlug());
-            
+
             $this->session->getFlashBag()->add('success', 'La figure a bien été ajoutée !');
             
             return true;

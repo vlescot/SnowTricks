@@ -3,58 +3,49 @@ declare(strict_types = 1);
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Builder\UpdateTrickBuilder;
-use App\Domain\CollectionManager\CollectionChecker\PictureCollectionChecker;
-use App\Domain\Entity\Trick;
-use App\Domain\Repository\PictureRepository;
-use App\Domain\Repository\TrickRepository;
-use App\UI\Service\Image\FolderChanger;
-use App\UI\Service\Image\ImageRemover;
-use App\UI\Service\Image\ImageThumbnailCreator;
-use App\UI\Service\Image\ImageUploader;
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\Builder\Interfaces\UpdateTrickBuilderInterface;
+use App\Domain\Entity\Interfaces\TrickInterface;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
+use App\Service\Image\Interfaces\FolderChangerInterface;
+use App\Service\Image\Interfaces\ImageRemoverInterface;
+use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\Service\Image\Interfaces\ImageUploaderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateTrickHandler
+final class UpdateTrickHandler implements UpdateTrickHandlerInterface
 {
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
     /**
-     * @var PictureRepository
-     */
-    private $pictureRepository;
-
-    /**
-     * @var PictureCollectionChecker
-     */
-    private $pictureChecker;
-
-    /**
-     * @var ImageRemover
+     * @var ImageRemoverInterface
      */
     private $imageRemover;
 
     /**
-     * @var ImageUploader
+     * @var ImageUploaderInterface
      */
     private $imageUploader;
 
     /**
-     * @var ImageThumbnailCreator
+     * @var ImageThumbnailCreatorInterface
      */
     private $thumbnailCreator;
 
     /**
-     * @var FolderChanger
+     * @var FolderChangerInterface
      */
     private $folderChanger;
 
     /**
-     * @var UpdateTrickBuilder
+     * @var UpdateTrickBuilderInterface
      */
     private $updateTrickBuilder;
 
@@ -69,34 +60,43 @@ class UpdateTrickHandler
     private $session;
 
     /**
+     * @var ImageUploadWarmerInterface
+     */
+    private $imageUploadWarmer;
+
+    /**
+     * @var PictureBuilderInterface
+     */
+    private $pictureBuilder;
+
+
+    /**
      * UpdateTrickHandler constructor.
      *
-     * @param TrickRepository $trickRepository
-     * @param PictureRepository $pictureRepository
-     * @param PictureCollectionChecker $pictureChecker
-     * @param ImageRemover $imageRemover
-     * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $thumbnailCreator
-     * @param FolderChanger $folderChanger
-     * @param UpdateTrickBuilder $updateTrickBuilder
+     * @param TrickRepositoryInterface $trickRepository
+     * @param ImageRemoverInterface $imageRemover
+     * @param ImageUploaderInterface $imageUploader
+     * @param ImageThumbnailCreatorInterface $thumbnailCreator
+     * @param FolderChangerInterface $folderChanger
+     * @param UpdateTrickBuilderInterface $updateTrickBuilder
      * @param ValidatorInterface $validator
      * @param SessionInterface $session
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
+     * @param PictureBuilderInterface $pictureBuilder
      */
     public function __construct(
-        TrickRepository $trickRepository,
-        PictureRepository $pictureRepository,
-        PictureCollectionChecker $pictureChecker,
-        ImageRemover $imageRemover,
-        ImageUploader $imageUploader,
-        ImageThumbnailCreator $thumbnailCreator,
-        FolderChanger $folderChanger,
-        UpdateTrickBuilder $updateTrickBuilder,
+        TrickRepositoryInterface $trickRepository,
+        ImageRemoverInterface $imageRemover,
+        ImageUploaderInterface $imageUploader,
+        ImageThumbnailCreatorInterface $thumbnailCreator,
+        FolderChangerInterface $folderChanger,
+        UpdateTrickBuilderInterface $updateTrickBuilder,
         ValidatorInterface $validator,
-        SessionInterface $session
+        SessionInterface $session,
+        ImageUploadWarmerInterface $imageUploadWarmer,
+        PictureBuilderInterface $pictureBuilder
     ) {
         $this->trickRepository = $trickRepository;
-        $this->pictureRepository = $pictureRepository;
-        $this->pictureChecker = $pictureChecker;
         $this->imageRemover = $imageRemover;
         $this->imageUploader = $imageUploader;
         $this->thumbnailCreator = $thumbnailCreator;
@@ -104,23 +104,34 @@ class UpdateTrickHandler
         $this->updateTrickBuilder = $updateTrickBuilder;
         $this->validator = $validator;
         $this->session = $session;
+        $this->imageUploadWarmer = $imageUploadWarmer;
+        $this->pictureBuilder = $pictureBuilder;
     }
 
 
     /**
      * @param FormInterface $form
-     * @param Trick $trick
+     * @param TrickInterface $trick
      *
      * @return bool
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(FormInterface $form, Trick $trick)
+    public function handle(FormInterface $form, TrickInterface $trick): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
+            $trickTitle = $form->get('title')->getData();
 
-            dump($trick);
+            if ($trickTitle !== $trick->getTitle()) {    // Change the pictures's folder
+                $this->imageUploadWarmer->initialize('trick', $trickTitle);
+
+                $updatePictureInfo = $this->imageUploadWarmer->getUpdateImageInfo();
+                $this->folderChanger->folderToChange($trick->getMainPicture()->getPath(), $updatePictureInfo['path']);
+
+                $trick->getMainPicture()->update($updatePictureInfo['path']);
+                foreach ($trick->getPictures() as $picture) {
+                    $picture->update($updatePictureInfo['path']);
+                }
+            }
+
 
             $trick = $this->updateTrickBuilder->update($trick, $form->getData());
 
@@ -134,10 +145,6 @@ class UpdateTrickHandler
 
             $this->trickRepository->save($trick);
 
-            foreach ($this->pictureChecker->getDeletedObject() as $picture) {
-                $this->pictureRepository->remove($picture);
-            }
-
             $this->imageUploader->uploadFiles();
             $this->imageRemover->removeFiles();
             $this->thumbnailCreator->createThumbnails();
@@ -145,9 +152,6 @@ class UpdateTrickHandler
 
             $this->session->set('slug', $trick->getSlug());
             $this->session->getFlashBag()->add('success', 'La figure a bien été modifiée !');
-
-            dump($this->trickRepository->findOneBy(['slug' => $trick->getSlug()]));
-            die;
 
             return true;
         }

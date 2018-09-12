@@ -3,15 +3,15 @@ declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\Entity\Interfaces\PictureInterface;
+use App\Domain\Entity\Interfaces\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceFrameWork;
 
-/**
- * Class User.
- */
-class User implements UserInterface
+class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
 {
     /**
      * @var UuidInterface
@@ -81,13 +81,13 @@ class User implements UserInterface
      * @param string $username
      * @param string $email
      * @param string $password
-     * @param Picture|null $picture
+     * @param PictureInterface|null $picture
      */
     public function registration(
         string $username,
         string $email,
         string $password,
-        Picture $picture = null
+        PictureInterface $picture = null
     ) {
         $this->username = $username;
         $this->email = $email;
@@ -99,12 +99,12 @@ class User implements UserInterface
     /**
      * @param string $email
      * @param string $password
-     * @param Picture|null $picture
+     * @param PictureInterface|null $picture
      */
     public function update(
         string $email,
         string $password,
-        Picture $picture = null
+        PictureInterface $picture = null
     ) {
         $this->email = $email;
         $this->password = $password;
@@ -132,26 +132,6 @@ class User implements UserInterface
     }
 
     /**
-     * @param Trick $trick
-     */
-    public function addTrick(Trick $trick)
-    {
-        if (!$this->tricks->contains($trick)) {
-            $this->tricks->add($trick);
-        }
-    }
-
-    /**
-     * @param Comment $comment
-     */
-    public function addComment(Comment $comment)
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-        }
-    }
-
-    /**
      * @return UuidInterface
      */
     public function getId(): UuidInterface
@@ -168,9 +148,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getPassword(): string
+    public function getPassword(): ? string
     {
         return $this->password;
     }
@@ -184,9 +164,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return \DateTime
+     * @return int
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): int
     {
         return $this->createdAt;
     }
@@ -204,14 +184,14 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
     /**
      * @return Picture
      * @throws \Exception
      */
-    public function getPicture(): Picture
+    public function getPicture(): PictureInterface
     {
         if (null === $this->picture) {
             return new Picture(
@@ -224,22 +204,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return \ArrayAccess
-     */
-    public function getComments(): \ArrayAccess
-    {
-        return $this->comments;
-    }
-
-    /**
-     * @return \ArrayAccess
-     */
-    public function getTricks(): \ArrayAccess
-    {
-        return $this->tricks;
-    }
-
-    /**
      * @return null|string
      */
     public function getSalt()
@@ -249,8 +213,12 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-//        $this->password = null;
-//        $this->username = null;
+        $this->password = null;
         $this->token = null;
+    }
+
+    public function isEqualTo(UserInterfaceFrameWork $user)
+    {
+        return $this->username === $user->getUsername();
     }
 }

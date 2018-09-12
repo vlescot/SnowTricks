@@ -3,10 +3,13 @@ declare(strict_types = 1);
 
 namespace App\Domain\DTO;
 
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
+use App\Domain\DTO\Interfaces\UserDTOInterface;
+
 /**
  * Class UserDTO.
  */
-class UserDTO
+final class UserDTO implements UserDTOInterface
 {
     /**
      * @var string
@@ -24,7 +27,7 @@ class UserDTO
     public $email;
 
     /**
-     * @var PictureDTO
+     * @var PictureDTOInterface|null
      */
     public $picture;
 
@@ -34,13 +37,13 @@ class UserDTO
      * @param string $username
      * @param string $email
      * @param string $password
-     * @param PictureDTO|null $picture
+     * @param PictureDTOInterface|null $picture
      */
     public function __construct(
         string $username,
         string $email,
         string $password,
-        PictureDTO $picture = null
+        PictureDTOInterface $picture = null
     ) {
         $this->username = $username;
         $this->email = $email;

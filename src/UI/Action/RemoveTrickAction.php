@@ -3,70 +3,56 @@ declare(strict_types=1);
 
 namespace App\UI\Action;
 
-use App\Domain\Repository\PictureRepository;
-use App\Domain\Repository\TrickRepository;
-use App\UI\Service\Image\FolderRemover;
-use App\UI\Service\Image\ImageRemover;
-use App\UI\Responder\RemoveTrickResponder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\UI\Action\Interfaces\RemoveTrickActionInterface;
+use App\Service\Image\Interfaces\FolderRemoverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/figure/supprimer", name="RemoveTrick")
- * @Method("POST")
+ * @Route(
+ *     "/figure/supprimer",
+ *     name="RemoveTrick",
+ *     methods={"POST"}
+ * )
  *
  * Class RemoveTrickAction
  * @package App\UI\Action
  */
-class RemoveTrickAction
+final class RemoveTrickAction implements RemoveTrickActionInterface
 {
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
     /**
-     * @var PictureRepository
-     */
-    private $pictureRepository;
-
-    /**
-     * @var FolderRemover
+     * @var FolderRemoverInterface
      */
     private $folderRemover;
 
     /**
      * RemoveTrickAction constructor.
      *
-     * @param TrickRepository $trickRepository
-     * @param PictureRepository $pictureRepository
-     * @param ImageRemover $imageRemover
-     * @param FolderRemover $folderRemover
+     * @param TrickRepositoryInterface $trickRepository
+     * @param FolderRemoverInterface $folderRemover
      */
     public function __construct(
-        TrickRepository $trickRepository,
-        PictureRepository $pictureRepository,
-        ImageRemover $imageRemover,
-        FolderRemover $folderRemover
+        TrickRepositoryInterface $trickRepository,
+        FolderRemoverInterface $folderRemover
     ) {
         $this->trickRepository = $trickRepository;
-        $this->pictureRepository = $pictureRepository;
-        $this->imageRemover = $imageRemover;
         $this->folderRemover = $folderRemover;
     }
 
 
     /**
      * @param Request $request
-     * @param RemoveTrickResponder $responder
      *
      * @return Response
-     *
-     * @throws \Doctrine\ORM\ORMException
      */
-    public function __invoke(Request $request, RemoveTrickResponder $responder): Response
+    public function __invoke(Request $request): Response
     {
         $id = $request->request->get('id');
         $trick = $this->trickRepository->findOneBy(['id' => $id]);
@@ -74,6 +60,6 @@ class RemoveTrickAction
         $this->folderRemover->removeFolder($trick->getMainPicture()->getPath());
         $this->trickRepository->remove($trick);
 
-        return $responder();
+        return new Response('', 200);
     }
 }

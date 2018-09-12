@@ -3,27 +3,31 @@ declare(strict_types = 1);
 
 namespace App\UI\Action\Authentication;
 
-use App\Domain\DTO\ChangePasswordDTO;
-use App\Domain\Repository\UserRepository;
-use App\UI\Form\Handler\ChangePasswordHandler;
+use App\Domain\Repository\Interfaces\UserRepositoryInterface;
+use App\UI\Action\Authentication\Interfaces\ChangePasswordActionInterface;
+use App\UI\Form\Handler\Interfaces\ChangePasswordHandlerInterface;
 use App\UI\Form\Type\Authentication\ChangePasswordType;
-use App\UI\Responder\Authentication\ChangePasswordResponder;
+use App\UI\Responder\Authentication\Interfaces\ChangePasswordResponderInterface;
+use App\UI\Responder\Interfaces\TwigResponderInterface;
 use App\UI\Security\LoginFormAuthenticator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
- * @Route("/change_password/{token}", name="ChangePassword")
- * @Method({"GET", "POST"})
+ * @Route(
+ *     "/change_password/{token}",
+ *     name="ChangePassword",
+ *     methods={"GET", "POST"}
+ * )
  *
  * Class ChangePasswordAction
  * @package App\UI\Action\Authentication
  */
-class ChangePasswordAction
+final class ChangePasswordAction implements ChangePasswordActionInterface
 {
     /**
      * @var FormFactoryInterface
@@ -31,7 +35,7 @@ class ChangePasswordAction
     private $formFactory;
 
     /**
-     * @var ChangePasswordHandler
+     * @var ChangePasswordHandlerInterface
      */
     private $changePasswordHandler;
 
@@ -41,7 +45,7 @@ class ChangePasswordAction
     private $session;
 
     /**
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     private $userRepository;
 
@@ -59,17 +63,17 @@ class ChangePasswordAction
      * ChangePasswordAction constructor.
      *
      * @param FormFactoryInterface $formFactory
-     * @param ChangePasswordHandler $changePasswordHandler
+     * @param ChangePasswordHandlerInterface $changePasswordHandler
      * @param SessionInterface $session
-     * @param UserRepository $userRepository
+     * @param UserRepositoryInterface $userRepository
      * @param GuardAuthenticatorHandler $authenticationHandler
      * @param LoginFormAuthenticator $loginAuthenticator
      */
     public function __construct(
         FormFactoryInterface $formFactory,
-        ChangePasswordHandler $changePasswordHandler,
+        ChangePasswordHandlerInterface $changePasswordHandler,
         SessionInterface $session,
-        UserRepository $userRepository,
+        UserRepositoryInterface $userRepository,
         GuardAuthenticatorHandler $authenticationHandler,
         LoginFormAuthenticator $loginAuthenticator
     ) {
@@ -84,21 +88,17 @@ class ChangePasswordAction
 
     /**
      * @param Request $request
-     * @param ChangePasswordResponder $responder
-     * @return string
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @param TwigResponderInterface $responder
+     *
+     * @return Response
      */
-    public function __invoke(Request $request, ChangePasswordResponder $responder)
+    public function __invoke(Request $request, TwigResponderInterface $responder): Response
     {
         $token = $request->attributes->get('token');
         $user = $this->userRepository->loadUserByToken($token);
 
         if (null === $user) {
             $this->session->getBagFlash()->add('danger', 'Nous n\'avons pas pu vous identifier');
-            return $responder(true);
         }
 
         $form = $this->formFactory->create(ChangePasswordType::class)
@@ -113,6 +113,9 @@ class ChangePasswordAction
             );
         }
 
-        return $responder($form);
+        return $responder(
+            'authentication/change_password.html.twig', [
+            'form' => $form
+        ]);
     }
 }

@@ -74,7 +74,7 @@ class CreateTrickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => TrickDTO::class,
-            'validation_groups' => ['trickDTO', 'TrickDTO', 'PictureDTO', 'VideoDTO', 'GroupDTO'],
+            'validation_groups' => ['trickDTO'],
             'empty_data' => function (FormInterface $form) {
                 return new TrickDTO(
                     $form->get('title')->getData(),

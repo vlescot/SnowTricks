@@ -1,0 +1,79 @@
+{% extends 'authentication/base_modal.html.twig' %}
+
+{% block modal_head %}Modifier ton profil{% endblock %}
+
+{% block authentication_form %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="form-inline picture-load d-flex justify-content-center flex-column">
+        <div class="form-control form-group">
+            <label for="{{ form.picture.vars.id }}_file" class="label-file">
+                <img src="{{ asset(app.user.picture.webpath) }}" class="rounded img-fluid">
+            </label>
+            {{ form_widget(form.picture, {
+                'attr': {'class': 'input-file'}
+            })}}
+        </div>
+        <label for="{{ form.picture.vars.id }}"><small>Modifie ta photo</small></label>
+    </div>
+
+    <div class="form-group form-control-sm">
+        {{ form_label(form.email, 'Adresse e-mail') }}
+        {{ form_widget(form.email, {'attr':
+            {'class': 'form-control form-control-sm'}
+        }) }}
+    </div>
+
+    <div class="form-group form-control-sm">
+        {{ form_label(form.password.first, 'Saisis ton mot de passe') }}
+        {{ form_widget(form.password.first, {'attr': {
+            'class': 'form-control form-control-sm',
+            'minlength': '8'
+        }
+        }) }}
+        {{ form_label(form.password.second, 'Confirme ton mot de passe') }}
+        {{ form_widget(form.password.second, {'attr': {
+            'class': 'form-control form-control-sm',
+            'minlength': '8'
+        }} ) }}
+    </div>
+
+    {{ form_rest(form) }}
+
+    <div class="text-center">
+        <input class="btn btn-sm" type="submit" value="Enregistrer">
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block footer_modal %}
+    <script>
+        $(document).on("change", ":input[type=file]", function () {
+            input = this;
+
+            if (input.files && input.files[0]) {
+                reader = new FileReader();
+            }
+            reader.onload = function (e) {
+
+                $(input.closest(".picture-load")).find("label img")
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        });
+        $(document).on("click", "#update_user :submit", function () {
+            passwordInput = $(":input[type=password]");
+            passwordValues = [];
+            passwordInput.each(function () {
+                passwordValues.push($(this).val());
+            });
+            if (passwordValues[0] !== passwordValues[1]) {
+                alert('Les deux mot de passe doivent être identique.');
+                return false;
+            }
+        });
+    </script>
+{% endblock %}

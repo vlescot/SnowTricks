@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Yaml;
  * Class AppFixtures
  * @package App\Domain\DataFixtures
  */
-class AppFixtures extends Fixture
+final class AppFixtures extends Fixture
 {
     /**
      * @var UserPasswordEncoderInterface
@@ -91,6 +91,8 @@ class AppFixtures extends Fixture
                 $userPicture
             );
 
+            $userEntity->setConfirmation(true);
+
             $manager->persist($picture);
             $manager->persist($userEntity);
 
@@ -148,8 +150,6 @@ class AppFixtures extends Fixture
                 $videoEntities,
                 $groups
             );
-
-            $author->addTrick($trickEntity);
 
             $manager->persist($trickEntity);
 

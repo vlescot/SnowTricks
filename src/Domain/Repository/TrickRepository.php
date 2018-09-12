@@ -3,31 +3,33 @@ declare(strict_types = 1);
 
 namespace App\Domain\Repository;
 
+use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Entity\Trick;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class TrickRepository
  * @package App\Domain\Repository
  */
-class TrickRepository extends ServiceEntityRepository
+class TrickRepository extends ServiceEntityRepository implements TrickRepositoryInterface
 {
     /**
      * TrickRepository constructor.
      *
-     * @param ManagerRegistry $registry
+     * @inheritdoc
      */
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Trick::class);
     }
 
 
     /**
-     * @return array|mixed
+     * @inheritdoc
      */
-    public function findAll()
+    public function findAll(): array
     {
         return $this->createQueryBuilder('t')
             ->orderBy('t.updatedAt', 'DESC')
@@ -40,29 +42,20 @@ class TrickRepository extends ServiceEntityRepository
 
 
     /**
-     * @param Trick $trick
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @inheritdoc
      */
-    public function save(Trick $trick)
+    public function save(TrickInterface $trick): void
     {
-        $em = $this->getEntityManager();
-
-        $em->persist($trick);
-        $em->flush();
+        $this->_em->persist($trick);
+        $this->_em->flush();
     }
 
     /**
-     * @param Trick $trick
-     *
-     * @throws \Doctrine\ORM\ORMException
+     * @inheritdoc
      */
-    public function remove(Trick $trick)
+    public function remove(TrickInterface $trick): void
     {
-        $em = $this->getEntityManager();
-
-        $em->remove($trick);
-        $em->flush();
+        $this->_em->remove($trick);
+        $this->_em->flush();
     }
 }

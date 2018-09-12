@@ -3,26 +3,29 @@ declare(strict_types = 1);
 
 namespace App\UI\Action;
 
-use App\Domain\Repository\TrickRepository;
-use App\Domain\Factory\TrickDTOFactory;
-use App\UI\Form\Handler\UpdateTrickHandler;
+use App\Domain\Factory\Interfaces\TrickDTOFactoryInterface;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\UI\Action\Interfaces\UpdateTrickActionInterface;
+use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
 use App\UI\Form\Type\UpdateTrickType;
-use App\UI\Responder\UpdateTrickResponder;
+use App\UI\Responder\Interfaces\CrUpTrickResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * @Route("/{slug}/modifier", name="UpdateTrick")
- * @Method({"GET" ,"POST"})
+ * @Route(
+ *     "/{slug}/modifier",
+ *     name="UpdateTrick",
+ *     methods={"GET", "POST"}
+ * )
  *
  * Class UpdateTrickAction
  * @package App\Action
  */
-class UpdateTrickAction
+final class UpdateTrickAction implements UpdateTrickActionInterface
 {
     /**
      * @var FormFactoryInterface
@@ -30,17 +33,17 @@ class UpdateTrickAction
     private $formFactory;
 
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
     /**
-     * @var UpdateTrickHandler
+     * @var UpdateTrickHandlerInterface
      */
     private $updateTrickHandler;
 
     /**
-     * @var TrickDTOFactory
+     * @var TrickDTOFactoryInterface
      */
     private $trickDTOFactory;
 
@@ -52,17 +55,13 @@ class UpdateTrickAction
     /**
      * UpdateTrickAction constructor.
      *
-     * @param FormFactoryInterface $formFactory
-     * @param TrickRepository $trickRepository
-     * @param UpdateTrickHandler $updateTrickHandler
-     * @param TrickDTOFactory $trickDTOFactory
-     * @param SessionInterface $session
+     * @inheritdoc
      */
     public function __construct(
         FormFactoryInterface $formFactory,
-        TrickRepository $trickRepository,
-        UpdateTrickHandler $updateTrickHandler,
-        TrickDTOFactory $trickDTOFactory,
+        TrickRepositoryInterface $trickRepository,
+        UpdateTrickHandlerInterface $updateTrickHandler,
+        TrickDTOFactoryInterface $trickDTOFactory,
         SessionInterface $session
     ) {
         $this->formFactory = $formFactory;
@@ -74,18 +73,9 @@ class UpdateTrickAction
 
 
     /**
-     * @param Request $request
-     * @param UpdateTrickResponder $responder
-     *
-     * @return Response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @inheritdoc
      */
-    public function __invoke(Request $request, UpdateTrickResponder $responder): Response
+    public function __invoke(Request $request, CrUpTrickResponderInterface $responder): Response
     {
         $trick = $this->trickRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $trickDTO = $this->trickDTOFactory->create($trick);
@@ -94,9 +84,14 @@ class UpdateTrickAction
                                   ->handleRequest($request);
 
         if ($this->updateTrickHandler->handle($form, $trick)) {
-            return $responder(true);
+            return $responder('update', true);
         }
 
-        return $responder(false, $form, $this->session->get('slug'));
+        return $responder(
+            'update',
+            false,
+            $form,
+            $trick->getSlug() ?? $this->session->get('slug')
+        );
     }
 }

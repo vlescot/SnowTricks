@@ -5,19 +5,29 @@ declare(strict_types = 1);
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\Comment;
+use App\Domain\Entity\Interfaces\CommentInterface;
+use App\Domain\Repository\Interfaces\CommentRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class CommentRepository extends ServiceEntityRepository
+class CommentRepository extends ServiceEntityRepository implements CommentRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * CommentRepository constructor.
+     *
+     * @inheritdoc
+     */
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Comment::class);
     }
 
-    public function save(Comment $comment)
+    /**
+     * @inheritdoc
+     */
+    public function save(CommentInterface $comment): void
     {
-        $this->getEntityManager()->persist($comment);
-        $this->getEntityManager()->flush();
+        $this->_em->persist($comment);
+        $this->_em->flush();
     }
 }

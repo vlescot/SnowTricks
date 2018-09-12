@@ -3,14 +3,19 @@ declare(strict_types = 1);
 
 namespace App\Domain\Factory;
 
+use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\DTO\TrickDTO;
+use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Entity\Trick;
+use App\Domain\Factory\Interfaces\PictureDTOFactoryInterface;
+use App\Domain\Factory\Interfaces\TrickDTOFactoryInterface;
+use App\Domain\Factory\Interfaces\VideoDTOFactoryInterface;
 
 /**
  * Class TrickDTOFactory
  * @package App\Form\Factory
  */
-class TrickDTOFactory
+final class TrickDTOFactory implements TrickDTOFactoryInterface
 {
     /**
      * @var PictureDTOFactory
@@ -25,20 +30,23 @@ class TrickDTOFactory
     /**
      * TrickDTOFactory constructor.
      *
-     * @param PictureDTOFactory $pictureDTOFactory
-     * @param VideoDTOFactory $videoDTOFactory
+     * @param PictureDTOFactoryInterface $pictureDTOFactory
+     * @param VideoDTOFactoryInterface $videoDTOFactory
      */
-    public function __construct(PictureDTOFactory $pictureDTOFactory, VideoDTOFactory $videoDTOFactory)
-    {
+    public function __construct(
+        PictureDTOFactoryInterface $pictureDTOFactory,
+        VideoDTOFactoryInterface $videoDTOFactory
+    ) {
         $this->pictureDTOFactory = $pictureDTOFactory;
         $this->videoDTOFactory = $videoDTOFactory;
     }
 
     /**
-     * @param Trick $trick
-     * @return TrickDTO
+     * @param TrickInterface $trick
+     *
+     * @return TrickDTOInterface
      */
-    public function create(Trick $trick): TrickDTO
+    public function create(TrickInterface $trick): TrickDTOInterface
     {
         $mainPictureDTO = $this->pictureDTOFactory->create($trick->getMainPicture());
 

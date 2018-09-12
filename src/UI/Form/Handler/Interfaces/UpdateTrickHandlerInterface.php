@@ -1,0 +1,56 @@
+<?php
+declare(strict_types=1);
+
+namespace App\UI\Form\Handler\Interfaces;
+
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\Builder\Interfaces\UpdateTrickBuilderInterface;
+use App\Domain\Entity\Interfaces\TrickInterface;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\Service\Image\Interfaces\FolderChangerInterface;
+use App\Service\Image\Interfaces\ImageRemoverInterface;
+use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\Service\Image\Interfaces\ImageUploaderInterface;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+interface UpdateTrickHandlerInterface
+{
+
+    /**
+     * UpdateTrickHandlerInterface constructor.
+     *
+     * @param TrickRepositoryInterface $trickRepository
+     * @param ImageRemoverInterface $imageRemover
+     * @param ImageUploaderInterface $imageUploader
+     * @param ImageThumbnailCreatorInterface $thumbnailCreator
+     * @param FolderChangerInterface $folderChanger
+     * @param UpdateTrickBuilderInterface $updateTrickBuilder
+     * @param ValidatorInterface $validator
+     * @param SessionInterface $session
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
+     * @param PictureBuilderInterface $pictureBuilder
+     */
+    public function __construct(
+        TrickRepositoryInterface $trickRepository,
+        ImageRemoverInterface $imageRemover,
+        ImageUploaderInterface $imageUploader,
+        ImageThumbnailCreatorInterface $thumbnailCreator,
+        FolderChangerInterface $folderChanger,
+        UpdateTrickBuilderInterface $updateTrickBuilder,
+        ValidatorInterface $validator,
+        SessionInterface $session,
+        ImageUploadWarmerInterface $imageUploadWarmer,
+        PictureBuilderInterface $pictureBuilder
+    );
+
+    /**
+     * @param FormInterface $form
+     * @param TrickInterface $trick
+     *
+     * @return bool
+     */
+    public function handle(FormInterface $form, TrickInterface $trick): bool;
+}

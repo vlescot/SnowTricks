@@ -3,49 +3,50 @@ declare(strict_types = 1);
 
 namespace App\UI\Action;
 
-use App\Domain\Repository\TrickRepository;
-use App\UI\Responder\HomeResponder;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\UI\Action\Interfaces\HomeActionInterface;
+use App\UI\Responder\Interfaces\TwigResponderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * @Route("/", name="Home")
- * @Method({"GET"})
+ * @Route(
+ *     "/",
+ *     name="Home",
+ *     methods={"GET"}
+ * )
  *
  * Class HomePageAction
  * @package App\Action
  */
-class HomeAction
+final class HomeAction implements HomeActionInterface
 {
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
-    private $repository;
+    private $trickRepository;
 
     /**
      * HomeAction constructor.
      *
-     * @param TrickRepository $repository
+     * @inheritdoc
      */
-    public function __construct(TrickRepository $repository)
+    public function __construct(TrickRepositoryInterface $trickRepository)
     {
-        $this->repository = $repository;
+        $this->trickRepository = $trickRepository;
     }
 
     /**
-     * @param HomeResponder $responder
-     *
-     * @return Response
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @inheritdoc
      */
-    public function __invoke(HomeResponder $responder): Response
+    public function __invoke(TwigResponderInterface $responder): Response
     {
-        $tricks = $this->repository->findAll();
-        return $responder($tricks);
+        $tricks = $this->trickRepository->findAll();
+
+        return $responder(
+            'snowtricks/homepage.html.twig', [
+                'tricks' => $tricks
+            ]
+        );
     }
 }

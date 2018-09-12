@@ -3,21 +3,22 @@ declare(strict_types=1);
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Builder\UpdateUserBuilder;
-use App\Domain\CollectionManager\CollectionChecker\PictureCollectionChecker;
-use App\Domain\Entity\User;
-use App\Domain\Repository\PictureRepository;
-use App\Domain\Repository\UserRepository;
-use App\UI\Service\Image\ImageThumbnailCreator;
-use App\UI\Service\Image\ImageUploader;
+use App\Domain\Builder\Interfaces\UpdateUserBuilderInterface;
+use App\Domain\Repository\Interfaces\PictureRepositoryInterface;
+use App\Domain\Repository\Interfaces\UserRepositoryInterface;
+use App\UI\Form\Handler\Interfaces\UpdateUserHandlerInterface;
+use App\Service\Image\Interfaces\ImageRemoverInterface;
+use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\Service\Image\Interfaces\ImageUploaderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateUserHandler
+final class UpdateUserHandler implements UpdateUserHandlerInterface
 {
     /**
-     * @var UpdateUserBuilder
+     * @var UpdateUserBuilderInterface
      */
     private $updateUserBuilder;
 
@@ -32,51 +33,51 @@ class UpdateUserHandler
     private $session;
 
     /**
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     private $userRepository;
 
     /**
-     * @var PictureRepository
+     * @var PictureRepositoryInterface
      */
     private $pictureRepository;
 
     /**
-     * @var ImageUploader
+     * @var ImageUploaderInterface
      */
     private $imageUploader;
 
     /**
-     * @var ImageThumbnailCreator
+     * @var ImageThumbnailCreatorInterface
      */
     private $thumbnailCreator;
 
     /**
-     * @var PictureCollectionChecker
+     * @var ImageRemoverInterface
      */
-    private $pictureChecker;
+    private $imageRemover;
 
     /**
      * UpdateUserHandler constructor.
      *
-     * @param UpdateUserBuilder $updateUserBuilder
+     * @param UpdateUserBuilderInterface $updateUserBuilder
      * @param ValidatorInterface $validator
      * @param SessionInterface $session
-     * @param UserRepository $userRepository
-     * @param PictureRepository $pictureRepository
-     * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $thumbnailCreator
-     * @param PictureCollectionChecker $pictureChecker
+     * @param UserRepositoryInterface $userRepository
+     * @param PictureRepositoryInterface $pictureRepository
+     * @param ImageUploaderInterface $imageUploader
+     * @param ImageThumbnailCreatorInterface $thumbnailCreator
+     * @param ImageRemoverInterface $imageRemover
      */
     public function __construct(
-        UpdateUserBuilder $updateUserBuilder,
+        UpdateUserBuilderInterface $updateUserBuilder,
         ValidatorInterface $validator,
         SessionInterface $session,
-        UserRepository $userRepository,
-        PictureRepository $pictureRepository,
-        ImageUploader $imageUploader,
-        ImageThumbnailCreator $thumbnailCreator,
-        PictureCollectionChecker $pictureChecker
+        UserRepositoryInterface $userRepository,
+        PictureRepositoryInterface $pictureRepository,
+        ImageUploaderInterface $imageUploader,
+        ImageThumbnailCreatorInterface $thumbnailCreator,
+        ImageRemoverInterface $imageRemover
     ) {
         $this->updateUserBuilder = $updateUserBuilder;
         $this->validator = $validator;
@@ -85,21 +86,21 @@ class UpdateUserHandler
         $this->pictureRepository = $pictureRepository;
         $this->imageUploader = $imageUploader;
         $this->thumbnailCreator = $thumbnailCreator;
-        $this->pictureChecker = $pictureChecker;
+        $this->imageRemover = $imageRemover;
     }
 
 
     /**
      * @param FormInterface $form
-     * @param User $user
+     * @param UserInterface $user
      *
      * @return bool
-     *
-     * @throws \Exception
      */
-    public function handle(FormInterface $form, User $user)
+    public function handle(FormInterface $form, UserInterface $user): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
+            $oldPicture = $user->getPicture();
+
             $user = $this->updateUserBuilder->create($user, $form->getData());
 
             $errors = $this->validator->validate($user, null, ['userRegistration', 'User']);
@@ -112,7 +113,10 @@ class UpdateUserHandler
 
             $this->userRepository->save($user);
 
-            $this->pictureRepository->remove($this->pictureChecker->getDeletedObject()[0]);
+            if ($oldPicture !== $user->getPicture()) {
+                $this->pictureRepository->remove($oldPicture);
+            }
+
             $this->imageUploader->uploadFiles();
             $this->thumbnailCreator->createThumbnails();
 

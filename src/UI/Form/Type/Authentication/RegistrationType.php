@@ -42,13 +42,12 @@ class RegistrationType extends AbstractType
             'data_class' => UserDTO::class,
             'validation_groups' => ['userDTO'],
             'empty_data' => function (FormInterface $form) {
-                $userDTO =  new UserDTO(
+                return new UserDTO(
                     $form->get('username')->getData(),
                     $form->get('email')->getData(),
                     $form->get('password')->getData(),
                     $form->get('picture')->getData()
                 );
-                return $userDTO;
             },
         ]);
     }

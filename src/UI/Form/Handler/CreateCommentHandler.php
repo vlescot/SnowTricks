@@ -4,15 +4,16 @@ declare(strict_types = 1);
 namespace App\UI\Form\Handler;
 
 use App\Domain\Entity\Comment;
-use App\Domain\Entity\Trick;
+use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Entity\User;
-use App\Domain\Repository\CommentRepository;
-use Symfony\Component\Form\Form;
+use App\Domain\Repository\Interfaces\CommentRepositoryInterface;
+use App\UI\Form\Handler\Interfaces\CreateCommentHandlerInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateCommentHandler
+final class CreateCommentHandler implements CreateCommentHandlerInterface
 {
     /**
      * @var ValidatorInterface
@@ -30,44 +31,42 @@ class CreateCommentHandler
     private $user;
 
     /**
-     * @var CommentRepository
+     * @var CommentRepositoryInterface
      */
     private $commentRepository;
 
     /**
      * CreateCommentHandler constructor.
      *
-     * @param CommentRepository $commentRepository
      * @param ValidatorInterface $validator
      * @param SessionInterface $session
      * @param TokenStorageInterface $tokenStorage
+     * @param CommentRepositoryInterface $commentRepository
      */
     public function __construct(
         ValidatorInterface $validator,
         SessionInterface $session,
         TokenStorageInterface $tokenStorage,
-        CommentRepository $commentRepository
+        CommentRepositoryInterface $commentRepository
     ) {
         $this->validator = $validator;
         $this->session = $session;
-        $this->commentRepository = $commentRepository;
         $this->user = $tokenStorage->getToken()->getUser();
+        $this->commentRepository = $commentRepository;
     }
 
 
     /**
-     * @param Form $form
-     * @param Trick $trick
+     * @param FormInterface $form
+     * @param TrickInterface $trick
      *
      * @return bool
-     *
-     * @throws \Exception
      */
-    public function handle(Form $form, Trick $trick) : bool
+    public function handle(FormInterface $form, TrickInterface $trick) : bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = new Comment(
-                $form->get('content')->getData(),
+                $form->getData()->content,
                 $this->user,
                 $trick
             );

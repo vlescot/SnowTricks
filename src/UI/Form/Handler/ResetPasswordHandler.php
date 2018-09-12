@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Repository\UserRepository;
-use App\UI\Service\Mailer;
+use App\UI\Form\Handler\Interfaces\ResetPasswordHandlerInterface;
+use App\Service\Interfaces\MailerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class ResetPasswordHandler
+final class ResetPasswordHandler implements ResetPasswordHandlerInterface
 {
     /**
      * @var UserProviderInterface
@@ -22,46 +22,33 @@ class ResetPasswordHandler
     private $session;
 
     /**
-     * @var Mailer
+     * @var MailerInterface
      */
     private $mailer;
-
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
 
     /**
      * ResetPasswordHandler constructor.
      *
      * @param UserProviderInterface $userProvider
      * @param SessionInterface $session
-     * @param Mailer $mailer
-     * @param UserRepository $userRepository
+     * @param MailerInterface $mailer
      */
     public function __construct(
         UserProviderInterface $userProvider,
         SessionInterface $session,
-        Mailer $mailer,
-        UserRepository $userRepository
+        MailerInterface $mailer
     ) {
         $this->userProvider = $userProvider;
         $this->session = $session;
         $this->mailer = $mailer;
-        $this->userRepository = $userRepository;
     }
 
     /**
      * @param FormInterface $form
      *
      * @return bool
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function handle(FormInterface $form)
+    public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();

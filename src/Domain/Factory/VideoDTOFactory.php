@@ -3,20 +3,23 @@ declare(strict_types = 1);
 
 namespace App\Domain\Factory;
 
+use App\Domain\DTO\Interfaces\VideoDTOInterface;
 use App\Domain\DTO\VideoDTO;
-use App\Domain\Entity\Video;
+use App\Domain\Entity\Interfaces\VideoInterface;
+use App\Domain\Factory\Interfaces\VideoDTOFactoryInterface;
 
 /**
  * Class VideoDTOFactory
  * @package App\Form\Factory
  */
-class VideoDTOFactory
+final class VideoDTOFactory implements VideoDTOFactoryInterface
 {
     /**
-     * @param Video $video
-     * @return VideoDTO
+     * @param VideoInterface $video
+     *
+     * @return VideoDTOInterface
      */
-    public function create(Video $video) :VideoDTO
+    public function create(VideoInterface $video) :VideoDTOInterface
     {
         return new VideoDTO($video->getIFrame());
     }

@@ -3,25 +3,31 @@ declare(strict_types=1);
 
 namespace App\UI\Action\Authentication;
 
-use App\UI\Form\Handler\ResetPasswordHandler;
+use App\UI\Action\Authentication\Interfaces\ResetPasswordActionInterface;
+use App\UI\Form\Handler\Interfaces\ResetPasswordHandlerInterface;
 use App\UI\Form\Type\Authentication\ResetPasswordType;
-use App\UI\Responder\Authentication\ModalResponder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * @Route("/reset_password", name="ResetPassword")
- * @Method({"GET", "POST"})
+ * @Route(
+ *     "/reset_password",
+ *     name="ResetPassword",
+ *     methods={"GET", "POST"}
+ * )
  *
  * Class ResetPasswordAction
  * @package App\UI\Action\Authentication
+ *
+ *
+ * This class is used to handle the reset password form
+ * via modal windows (only one route manage all the modals windows).
+ * Then, the forms handling are managed with AuthenticationViewAction
  */
-class ResetPasswordAction
+final class ResetPasswordAction implements ResetPasswordActionInterface
 {
     /**
      * @var FormFactoryInterface
@@ -29,7 +35,7 @@ class ResetPasswordAction
     private $formFactory;
 
     /**
-     * @var ResetPasswordHandler
+     * @var ResetPasswordHandlerInterface
      */
     private $resetPasswordHandler;
 
@@ -37,36 +43,28 @@ class ResetPasswordAction
      * ResetPasswordAction constructor.
      *
      * @param FormFactoryInterface $formFactory
-     * @param ResetPasswordHandler $resetPasswordHandler
+     * @param ResetPasswordHandlerInterface $resetPasswordHandler
      */
     public function __construct(
         FormFactoryInterface $formFactory,
-        ResetPasswordHandler $resetPasswordHandler
+        ResetPasswordHandlerInterface $resetPasswordHandler
     ) {
         $this->formFactory = $formFactory;
         $this->resetPasswordHandler = $resetPasswordHandler;
     }
 
     /**
-     * @param AuthenticationUtils $authenticationUtils
      * @param Request $request
-     * @param ModalResponder $responder
      *
-     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     *
-     * @throws \Twig_Error_Syntax
+     * @return Response
      */
-    public function __invoke(Request $request, ModalResponder $responder)
+    public function __invoke(Request $request): Response
     {
         $form = $this->formFactory->create(ResetPasswordType::class)
                                   ->handleRequest($request);
 
         $this->resetPasswordHandler->handle($form);
 
-        // TODO
         return new RedirectResponse($request->headers->get('referer'));
     }
 }

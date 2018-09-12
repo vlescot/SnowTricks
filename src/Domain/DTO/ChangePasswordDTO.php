@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Domain\DTO;
 
-class ChangePasswordDTO
+use App\Domain\DTO\Interfaces\ChangePasswordDTOInterface;
+
+final class ChangePasswordDTO implements ChangePasswordDTOInterface
 {
     /**
      * @var string

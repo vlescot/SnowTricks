@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Factory;
 
+use App\Domain\DTO\Interfaces\UpdateUserDTOInterface;
 use App\Domain\DTO\UpdateUserDTO;
-use App\Domain\Entity\User;
+use App\Domain\Factory\Interfaces\PictureDTOFactoryInterface;
+use App\Domain\Factory\Interfaces\UserDTOFactoryInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserDTOFactory
+final class UserDTOFactory implements UserDTOFactoryInterface
 {
     /**
      * @var PictureDTOFactory
@@ -15,18 +18,24 @@ class UserDTOFactory
 
     /**
      * UserDTOFactory constructor.
-     * @param PictureDTOFactory $pictureDTOFactory
+     *
+     * @param PictureDTOFactoryInterface $pictureDTOFactory
      */
-    public function __construct(PictureDTOFactory $pictureDTOFactory)
+    public function __construct(PictureDTOFactoryInterface $pictureDTOFactory)
     {
         $this->pictureDTOFactory = $pictureDTOFactory;
     }
 
-
-    public function create(User $user): UpdateUserDTO
+    /**
+     * @param UserInterface $user
+     *
+     * @return UpdateUserDTOInterface
+     */
+    public function create(UserInterface $user): UpdateUserDTOInterface
     {
         return new UpdateUserDTO(
             $user->getUsername(),
+            null,
             $user->getEmail(),
             $this->pictureDTOFactory->create($user->getPicture())
         );

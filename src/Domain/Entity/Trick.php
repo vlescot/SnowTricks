@@ -3,14 +3,19 @@ declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\Entity\Interfaces\CommentInterface;
+use App\Domain\Entity\Interfaces\GroupInterface;
+use App\Domain\Entity\Interfaces\PictureInterface;
+use App\Domain\Entity\Interfaces\TrickInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class Trick.
  */
-class Trick
+class Trick implements TrickInterface
 {
     /**
      * @var UuidInterface
@@ -78,8 +83,8 @@ class Trick
      *
      * @param string $title
      * @param string $description
-     * @param User $author
-     * @param Picture $mainPicture
+     * @param UserInterface $author
+     * @param PictureInterface $mainPicture
      * @param null $pictures
      * @param array|null $videos
      * @param \ArrayAccess|null $groups
@@ -88,10 +93,10 @@ class Trick
     public function __construct(
         string $title,
         string $description,
-        User $author,
-        Picture $mainPicture,
-        $pictures = null,
-        array $videos = null,
+        UserInterface $author,
+        PictureInterface $mainPicture,
+        array $pictures = [],
+        array $videos = [],
         \ArrayAccess $groups = null
     ) {
         $this->pictures = new ArrayCollection();
@@ -106,7 +111,7 @@ class Trick
         $this->updatedAt = time();
         $this->description = $description;
         $this->mainPicture = $mainPicture;
-        $this->setAuthor($author);
+        $this->author = $author;
 
         foreach ($pictures as $picture) {
             $this->pictures->add($picture);
@@ -115,27 +120,29 @@ class Trick
             $this->videos->add($video);
             $video->setTrick($this);
         }
-        foreach ($groups->getIterator() as $group) {
-            $this->addGroup($group);
+        if ($groups !== null) {
+            foreach ($groups->getIterator() as $group) {
+                $this->addGroup($group);
+            }
         }
     }
 
     /**
      * @param string $title
      * @param string $description
-     * @param Picture $mainPicture
-     * @param null $pictures
+     * @param PictureInterface $mainPicture
+     * @param array|null $pictures
      * @param array|null $videos
      * @param \ArrayAccess|null $groups
      */
     public function update(
         string $title,
         string $description,
-        Picture $mainPicture,
-        $pictures = null,
+        PictureInterface $mainPicture,
+        array $pictures = null,
         array $videos = null,
         \ArrayAccess $groups = null
-    ) {
+    ): void {
         $this->title = $title;
         $this->slug = strtolower(str_replace(' ', '_', $title));
         $this->updatedAt = time();
@@ -147,9 +154,19 @@ class Trick
     }
 
     /**
-     * @param $pictures
+     * @param CommentInterface $comment
      */
-    private function updatePicture($pictures)
+    public function addComment(CommentInterface $comment): void
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
+    }
+
+    /**
+     * @param array $pictures
+     */
+    private function updatePicture(array $pictures)
     {
         foreach ($pictures as $key => $picture) {
             if ($this->pictures->containsKey($key)) {
@@ -186,9 +203,9 @@ class Trick
     }
 
     /**
-     * @param $groups
+     * @param \ArrayAccess $groups
      */
-    private function updateGroup($groups)
+    private function updateGroup(\ArrayAccess $groups)
     {
         foreach ($groups as $key => $group) {
             if ($this->groups->containsKey($key)) {
@@ -205,18 +222,9 @@ class Trick
     }
 
     /**
-     * @param User $author
+     * @param GroupInterface $group
      */
-    private function setAuthor(User $author)
-    {
-        $this->author = $author;
-        $author->addTrick($this);
-    }
-
-    /**
-     * @param Group $group
-     */
-    private function addGroup(Group $group)
+    private function addGroup(GroupInterface$group)
     {
         if (!$this->groups->contains($group)) {
             $this->groups->add($group);
@@ -225,23 +233,13 @@ class Trick
     }
 
     /**
-     * @param Group $group
+     * @param GroupInterface $group
      */
-    private function removeGroup(Group $group)
+    private function removeGroup(GroupInterface $group)
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
             $group->removeTrick($this);
-        }
-    }
-
-    /**
-     * @param Comment $comment
-     */
-    public function addComment(Comment $comment)
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
         }
     }
 
@@ -278,33 +276,33 @@ class Trick
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): int
     {
         return $this->createdAt;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): int
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return User
+     * @return UserInterface
      */
-    public function getAuthor(): User
+    public function getAuthor(): UserInterface
     {
         return $this->author;
     }
 
     /**
-     * @return Picture
+     * @return PictureInterface
      */
-    public function getMainPicture(): Picture
+    public function getMainPicture(): PictureInterface
     {
         return $this->mainPicture;
     }

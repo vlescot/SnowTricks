@@ -3,10 +3,9 @@ declare(strict_types = 1);
 
 namespace App\Domain\DTO;
 
-use App\Domain\Entity\Trick;
-use App\Domain\Entity\User;
+use App\Domain\DTO\Interfaces\CommentDTOInterface;
 
-class CommentDTO
+final class CommentDTO implements CommentDTOInterface
 {
     /**
      * @var string
@@ -15,11 +14,11 @@ class CommentDTO
 
     /**
      * CommentDTO constructor.
+     *
      * @param string $content
      */
-    public function __construct(
-        string $content
-    ) {
+    public function __construct(string $content)
+    {
         $this->content = $content;
     }
 }

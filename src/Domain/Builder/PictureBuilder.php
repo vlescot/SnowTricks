@@ -3,40 +3,41 @@ declare(strict_types = 1);
 
 namespace App\Domain\Builder;
 
-use App\Domain\DTO\PictureDTO;
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
 use App\Domain\Entity\Picture;
-use App\UI\Service\Image\ImageUploadWarmer;
-use App\UI\Service\Image\ImageUploader;
-use App\UI\Service\Image\ImageThumbnailCreator;
+use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\Service\Image\Interfaces\ImageUploaderInterface;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 
-class PictureBuilder
+final class PictureBuilder implements PictureBuilderInterface
 {
     /**
-     * @var ImageUploadWarmer
+     * @var ImageUploadWarmerInterface
      */
     private $imageUploadWarmer;
 
     /**
-     * @var ImageUploader
+     * @var ImageUploaderInterface
      */
     private $imageUploader;
 
     /**
-     * @var ImageThumbnailCreator
+     * @var ImageThumbnailCreatorInterface
      */
     private $thumbnailCreator;
 
     /**
      * PictureBuilder constructor.
      *
-     * @param ImageUploader $imageUploader
-     * @param ImageThumbnailCreator $thumbnailCreator
-     * @param ImageUploadWarmer $imageUploadWarmer
+     * @param ImageUploaderInterface $imageUploader
+     * @param ImageThumbnailCreatorInterface $thumbnailCreator
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
      */
     public function __construct(
-        ImageUploader $imageUploader,
-        ImageThumbnailCreator $thumbnailCreator,
-        ImageUploadWarmer $imageUploadWarmer
+        ImageUploaderInterface $imageUploader,
+        ImageThumbnailCreatorInterface $thumbnailCreator,
+        ImageUploadWarmerInterface $imageUploadWarmer
     ) {
         $this->imageUploader = $imageUploader;
         $this->thumbnailCreator = $thumbnailCreator;
@@ -68,14 +69,14 @@ class PictureBuilder
     }
 
     /**
-     * @param PictureDTO $pictureDTO
+     * @param PictureDTOInterface $pictureDTO
      * @param bool $isThumbnailToCreate
      *
      * @return Picture
      *
      * @throws \Exception
      */
-    private function createPicture(PictureDTO $pictureDTO, bool $isThumbnailToCreate)
+    private function createPicture(PictureDTOInterface $pictureDTO, bool $isThumbnailToCreate)
     {
         $pictureInfo = $this->imageUploadWarmer->generateImageInfo($pictureDTO->file);
 

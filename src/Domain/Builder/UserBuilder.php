@@ -3,13 +3,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Builder;
 
-use App\Domain\DTO\UserDTO;
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\Builder\Interfaces\UserBuilderInterface;
+use App\Domain\DTO\Interfaces\UserDTOInterface;
 use App\Domain\Entity\User;
-use App\UI\Service\Image\ImageUploadWarmer;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserBuilder
+final class UserBuilder implements UserBuilderInterface
 {
     /**
      * @var UserPasswordEncoderInterface
@@ -17,12 +20,12 @@ class UserBuilder
     private $passwordEncoder;
 
     /**
-     * @var ImageUploadWarmer
+     * @var ImageUploadWarmerInterface
      */
     private $imageUploadWarmer;
 
     /**
-     * @var PictureBuilder
+     * @var PictureBuilderInterface
      */
     private $pictureBuilder;
 
@@ -30,13 +33,13 @@ class UserBuilder
      * UserBuilder constructor.
      *
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param ImageUploadWarmer $imageUploadWarmer
-     * @param PictureBuilder $pictureBuilder
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
+     * @param PictureBuilderInterface $pictureBuilder
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
-        ImageUploadWarmer $imageUploadWarmer,
-        PictureBuilder $pictureBuilder
+        ImageUploadWarmerInterface $imageUploadWarmer,
+        PictureBuilderInterface $pictureBuilder
     ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->imageUploadWarmer = $imageUploadWarmer;
@@ -44,13 +47,13 @@ class UserBuilder
     }
 
     /**
-     * @param UserDTO $userDTO
+     * @param UserDTOInterface $userDTO
      *
-     * @return User
+     * @return UserInterface
      *
      * @throws \Exception
      */
-    public function create(UserDTO $userDTO)
+    public function create(UserDTOInterface $userDTO): UserInterface
     {
         if ($userDTO->picture->file instanceof UploadedFile) {
             $this->imageUploadWarmer->initialize('user', $userDTO->username);

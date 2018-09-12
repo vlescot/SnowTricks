@@ -3,13 +3,11 @@ declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\Entity\Interfaces\PictureInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * Class Picture.
- */
-class Picture
+class Picture implements PictureInterface
 {
     /**
      * @var UuidInterface
@@ -53,14 +51,10 @@ class Picture
 
     /**
      * @param string $path
-     * @param string $alt
      */
-    public function update(
-        string $path,
-        string $alt
-    ) {
+    public function update(string $path): void
+    {
         $this->path = $path;
-        $this->alt = $alt;
     }
 
     /**

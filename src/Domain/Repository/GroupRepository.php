@@ -4,12 +4,18 @@ declare(strict_types = 1);
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\Group;
+use App\Domain\Repository\Interfaces\GroupRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class GroupRepository extends ServiceEntityRepository
+class GroupRepository extends ServiceEntityRepository implements GroupRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * GroupRepository constructor.
+     *
+     * @inheritdoc
+     */
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Group::class);
     }

@@ -3,101 +3,73 @@ declare(strict_types = 1);
 
 namespace App\Domain\Builder;
 
-use App\Domain\CollectionManager\CollectionUpdatePrepare\PictureCollectionUpdatePrepare;
-use App\Domain\CollectionManager\CollectionUpdatePrepare\VideoCollectionUpdatePrepare;
-use App\Domain\DTO\TrickDTO;
-use App\Domain\Entity\Trick;
-use App\Domain\Repository\PictureRepository;
-use App\UI\Service\Image\FolderChanger;
-use App\UI\Service\Image\ImageRemover;
-use App\UI\Service\Image\ImageUploadWarmer;
+use App\Domain\Builder\Interfaces\GroupBuilderInterface;
+use App\Domain\Builder\Interfaces\PictureBuilderInterface;
+use App\Domain\Builder\Interfaces\UpdateTrickBuilderInterface;
+use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
+use App\Domain\DTO\Interfaces\TrickDTOInterface;
+use App\Domain\Entity\Interfaces\TrickInterface;
+use App\Service\Image\Interfaces\ImageRemoverInterface;
+use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class UpdateTrickBuilder
+final class UpdateTrickBuilder implements UpdateTrickBuilderInterface
 {
     /**
-     * @var PictureCollectionUpdatePrepare
+     * @var CollectionUpdatePrepareInterface
      */
-    private $pictureUpdatePrepare;
+    private $collectionPrepare;
 
     /**
-     * @var VideoCollectionUpdatePrepare
-     */
-    private $videoUpdatePrepare;
-
-    /**
-     * @var ImageUploadWarmer
+     * @var ImageUploadWarmerInterface
      */
     private $imageUploadWarmer;
 
     /**
-     * @var ImageRemover
+     * @var ImageRemoverInterface
      */
     private $imageRemover;
 
     /**
-     * @var PictureRepository
-     */
-    private $pictureRepository;
-
-    /**
-     * @var FolderChanger
-     */
-    private $folderChanger;
-
-    /**
-     * @var GroupBuilder
+     * @var GroupBuilderInterface
      */
     private $groupBuilder;
 
     /**
-     * @var PictureBuilder
+     * @var PictureBuilderInterface
      */
     private $pictureBuilder;
 
     /**
      * UpdateTrickBuilder constructor.
      *
-     * @param PictureCollectionUpdatePrepare $pictureUpdatePrepare
-     * @param VideoCollectionUpdatePrepare $videoUpdatePrepare
-     * @param ImageUploadWarmer $imageUploadWarmer
-     * @param ImageRemover $imageRemover
-     * @param PictureRepository $pictureRepository
-     * @param FolderChanger $folderChanger
-     * @param GroupBuilder $groupBuilder
-     * @param PictureBuilder $pictureBuilder
+     * @param CollectionUpdatePrepareInterface $collectionPrepare
+     * @param ImageUploadWarmerInterface $imageUploadWarmer
+     * @param ImageRemoverInterface $imageRemover
+     * @param GroupBuilderInterface $groupBuilder
+     * @param PictureBuilderInterface $pictureBuilder
      */
     public function __construct(
-        PictureCollectionUpdatePrepare $pictureUpdatePrepare,
-        VideoCollectionUpdatePrepare $videoUpdatePrepare,
-        ImageUploadWarmer $imageUploadWarmer,
-        ImageRemover $imageRemover,
-        PictureRepository $pictureRepository,
-        FolderChanger $folderChanger,
-        GroupBuilder $groupBuilder,
-        PictureBuilder $pictureBuilder
+        CollectionUpdatePrepareInterface $collectionPrepare,
+        ImageUploadWarmerInterface $imageUploadWarmer,
+        ImageRemoverInterface $imageRemover,
+        GroupBuilderInterface $groupBuilder,
+        PictureBuilderInterface $pictureBuilder
     ) {
-        $this->pictureUpdatePrepare = $pictureUpdatePrepare;
-        $this->videoUpdatePrepare = $videoUpdatePrepare;
+        $this->collectionPrepare = $collectionPrepare;
         $this->imageUploadWarmer = $imageUploadWarmer;
         $this->imageRemover = $imageRemover;
-        $this->pictureRepository = $pictureRepository;
-        $this->folderChanger = $folderChanger;
         $this->groupBuilder = $groupBuilder;
         $this->pictureBuilder = $pictureBuilder;
     }
 
-
     /**
-     * @param Trick $trick
-     * @param TrickDTO $trickDTO
+     * @param TrickInterface $trick
+     * @param TrickDTOInterface $trickDTO
      *
-     * @return Trick
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return TrickInterface
      */
-    public function update(Trick $trick, TrickDTO $trickDTO)
+    public function update(TrickInterface $trick, TrickDTOInterface $trickDTO): TrickInterface
     {
         $this->imageUploadWarmer->initialize('trick', $trickDTO->title);
 
@@ -106,22 +78,12 @@ class UpdateTrickBuilder
             $this->imageRemover->addFileToRemove($trick->getMainPicture());
         }
 
-        if ($trickDTO->title !== $trick->getTitle()) {    // Change the pictures's folder
-            $updatePictureInfo = $this->imageUploadWarmer->getUpdateImageInfo();
-            $this->folderChanger->folderToChange($trick->getMainPicture()->getPath(), $updatePictureInfo['path']);
-
-            $trick->getMainPicture()->update($updatePictureInfo['path'], 'main-'. $updatePictureInfo['alt']);
-            foreach ($trick->getPictures() as $picture) {
-                $picture->update($updatePictureInfo['path'], $updatePictureInfo['alt']);
-            }
-        }
-
         $trick->update(
             $trickDTO->title,
             $trickDTO->description,
             $mainPicture ?? $trick->getMainPicture(),
-            $this->pictureUpdatePrepare->prepare($trick->getPictures()->toArray(), $trickDTO->pictures),
-            $this->videoUpdatePrepare->prepare($trick->getVideos()->toArray(), $trickDTO->videos),
+            $this->collectionPrepare->prepare($trick->getPictures()->toArray(), $trickDTO->pictures),
+            $this->collectionPrepare->prepare($trick->getVideos()->toArray(), $trickDTO->videos),
             $this->groupBuilder->create($trickDTO->groups, $trickDTO->newGroups)
         );
 

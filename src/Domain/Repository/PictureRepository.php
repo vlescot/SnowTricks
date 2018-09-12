@@ -3,28 +3,30 @@ declare(strict_types = 1);
 
 namespace App\Domain\Repository;
 
+use App\Domain\Entity\Interfaces\PictureInterface;
 use App\Domain\Entity\Picture;
+use App\Domain\Repository\Interfaces\PictureRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class PictureRepository extends ServiceEntityRepository
+class PictureRepository extends ServiceEntityRepository implements PictureRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * PictureRepository constructor.
+     *
+     * @inheritdoc
+     */
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Picture::class);
     }
 
     /**
-     * @param Picture $picture
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @inheritdoc
      */
-    public function remove(Picture $picture)
+    public function remove(PictureInterface $picture): void
     {
-        $em = $this->getEntityManager();
-
-        $em->remove($picture);
-        $em->flush();
+        $this->_em->remove($picture);
+        $this->_em->flush();
     }
 }

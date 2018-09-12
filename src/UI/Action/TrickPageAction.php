@@ -3,28 +3,32 @@ declare(strict_types = 1);
 
 namespace App\UI\Action;
 
-use App\Domain\Repository\TrickRepository;
-use App\UI\Form\Handler\CreateCommentHandler;
+use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
+use App\UI\Action\Interfaces\TrickPageActionInterface;
+use App\UI\Form\Handler\Interfaces\CreateCommentHandlerInterface;
 use App\UI\Form\Type\CommentType;
-use App\UI\Responder\TrickPageResponder;
+use App\UI\Responder\Interfaces\TrickPageResponderInterface;
+use App\UI\Responder\Interfaces\TwigResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * @Route("/{slug}", name="Trick")
- * @Method({"GET", "POST"})
+ * @Route(
+ *     "/{slug}",
+ *     name="Trick",
+ *     methods={"GET", "POST"}
+ * )
  *
  * Class TrickPageAction
  * @package App\Action
  */
-class TrickPageAction
+final class TrickPageAction implements TrickPageActionInterface
 {
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
@@ -34,7 +38,7 @@ class TrickPageAction
     private $formFactory;
 
     /**
-     * @var CreateCommentHandler
+     * @var CreateCommentHandlerInterface
      */
     private $commentHandler;
 
@@ -46,15 +50,12 @@ class TrickPageAction
     /**
      * TrickPageAction constructor.
      *
-     * @param TrickRepository $trickRepository
-     * @param FormFactoryInterface $formFactory
-     * @param CreateCommentHandler $commentHandler
-     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @inheritdoc
      */
     public function __construct(
-        TrickRepository $trickRepository,
+        TrickRepositoryInterface $trickRepository,
         FormFactoryInterface $formFactory,
-        CreateCommentHandler $commentHandler,
+        CreateCommentHandlerInterface $commentHandler,
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->trickRepository = $trickRepository;
@@ -65,16 +66,9 @@ class TrickPageAction
 
 
     /**
-     * @param Request $request
-     * @param TrickPageResponder $responder
-     *
-     * @return Response
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @inheritdoc
      */
-    public function __invoke(Request $request, TrickPageResponder $responder): Response
+    public function __invoke(Request $request, TwigResponderInterface $responder): Response
     {
         $trick = $this->trickRepository->findOneBy(['slug' => $request->attributes->get('slug') ]);
 
@@ -85,6 +79,11 @@ class TrickPageAction
             $this->commentHandler->handle($form, $trick);
         }
 
-        return $responder($trick, $form ?? null);
+        return $responder(
+            'snowtricks/trick_page.html.twig', [
+                'trick' => $trick,
+                'form' => $form ?? null
+            ]
+        );
     }
 }

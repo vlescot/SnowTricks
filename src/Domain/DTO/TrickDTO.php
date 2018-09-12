@@ -3,38 +3,45 @@ declare(strict_types = 1);
 
 namespace App\Domain\DTO;
 
-use App\Domain\Entity\Picture;
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
+use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class TrickDTO.
  */
-class TrickDTO
+final class TrickDTO implements TrickDTOInterface
 {
     /**
      * @var string
      */
     public $title;
+    
     /**
      * @var string
      */
     public $description;
+    
     /**
-     * @var PictureDTO|Picture
+     * @var PictureDTOInterface
      */
     public $mainPicture;
+    
     /**
      * @var array|null
      */
     public $pictures;
+    
     /**
      * @var array|null
      */
     public $videos;
+    
     /**
      * @var \ArrayAccess|null
      */
     public $groups;
+    
     /**
      * @var array
      */
@@ -42,9 +49,10 @@ class TrickDTO
 
     /**
      * TrickDTO constructor.
+     *
      * @param string $title
      * @param string $description
-     * @param PictureDTO $mainPicture
+     * @param PictureDTOInterface $mainPicture
      * @param array|null $pictures
      * @param array|null $videos
      * @param \ArrayAccess|null $groups
@@ -53,7 +61,7 @@ class TrickDTO
     public function __construct(
         string $title,
         string $description,
-        PictureDTO $mainPicture,
+        PictureDTOInterface $mainPicture,
         array $pictures = null,
         array $videos = null,
         \ArrayAccess $groups = null,

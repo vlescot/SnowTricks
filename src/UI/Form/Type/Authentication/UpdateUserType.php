@@ -54,12 +54,12 @@ class UpdateUserType extends AbstractType
             'data_class' => UpdateUserDTO::class,
             'validation_groups' => ['updateUserDTO'],
             'empty_data' => function (FormInterface $form) {
-                $userDTO =  new UpdateUserDTO(
-                    $form->get('email')->getData(),
+                return new UpdateUserDTO(
+                    null,
                     $form->get('password')->getData(),
+                    $form->get('email')->getData(),
                     $form->get('picture')->getData()
                 );
-                return $userDTO;
             },
         ]);
     }

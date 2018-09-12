@@ -3,13 +3,12 @@ declare(strict_types = 1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\Entity\Interfaces\TrickInterface;
+use App\Domain\Entity\Interfaces\VideoInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * Class Video.
- */
-class Video
+class Video implements VideoInterface
 {
     /**
      * @var UuidInterface
@@ -22,7 +21,7 @@ class Video
     private $iFrame;
 
     /**
-     * @var Trick
+     * @var TrickInterface
      */
     private $trick;
 
@@ -30,6 +29,7 @@ class Video
      * Video constructor.
      *
      * @param string $iFrame
+     *
      * @throws \Exception
      */
     public function __construct(string $iFrame)
@@ -39,17 +39,11 @@ class Video
     }
 
     /**
-     * @param string $iFrame
+     * @param TrickInterface $trick
+     *
+     * @return mixed|void
      */
-    public function update(string $iFrame)
-    {
-        $this->iFrame = $iFrame;
-    }
-
-    /**
-     * @param Trick $trick
-     */
-    public function setTrick(Trick $trick)
+    public function setTrick(TrickInterface $trick)
     {
         $this->trick = $trick;
     }
@@ -63,10 +57,18 @@ class Video
     }
 
     /**
-     * @return null|string
+     * @return string
      */
-    public function getIFrame(): ?string
+    public function getIFrame(): string
     {
         return $this->iFrame;
+    }
+
+    /**
+     * @return TrickInterface
+     */
+    public function getTrick(): TrickInterface
+    {
+        return $this->trick;
     }
 }

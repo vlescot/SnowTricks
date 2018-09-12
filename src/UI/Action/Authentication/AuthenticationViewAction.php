@@ -3,28 +3,36 @@ declare(strict_types=1);
 
 namespace App\UI\Action\Authentication;
 
+use App\UI\Action\Authentication\Interfaces\AuthenticationViewActionInterface;
 use App\UI\Form\Type\Authentication\ChangePasswordType;
 use App\UI\Form\Type\Authentication\LoginType;
 use App\UI\Form\Type\Authentication\RegistrationType;
 use App\UI\Form\Type\Authentication\ResetPasswordType;
 use App\UI\Form\Type\Authentication\UpdateUserType;
-use App\UI\Responder\Authentication\ModalResponder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use App\UI\Responder\Authentication\Interfaces\ModalResponderInterface;
+use App\UI\Responder\Interfaces\TwigResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * @Route("/authentication/{modal}", name="ModalView")
- * @Method({"GET", "POST"})
+ * @Route(
+ *     "/authentication/{modal}",
+ *     name="ModalView",
+ *     methods={"GET"}
+ * )
  *
  * Class ModalViewAction
  * @package App\UI\Action\Authentication
+ *
+ *
+ *      This class manage to display the proper modal view
  */
-class AuthenticationViewAction
+final class AuthenticationViewAction implements AuthenticationViewActionInterface
 {
 
     /**
@@ -61,15 +69,11 @@ class AuthenticationViewAction
 
     /**
      * @param Request $request
-     * @param ModalResponder $responder
+     * @param TwigResponderInterface $responder
      *
      * @return Response
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function __invoke(Request $request, ModalResponder $responder): Response
+    public function __invoke(Request $request, TwigResponderInterface $responder): Response
     {
         $modal = $request->attributes->get('modal');
 
@@ -103,10 +107,18 @@ class AuthenticationViewAction
                     'action' => $this->urlGenerator->generate('UpdateUser')
                 ]);
                 break;
+            default:
+                throw new NotFoundHttpException('Cette page n\'existe pas...');
         }
 
         $lastUsername = $this->authenticationUtils->getLastUsername();
 
-        return $responder($modal, $form, $lastUsername);
+        return $responder(
+            'authentication/modal_'. $modal .'.html.twig', [
+                'form' => $form,
+                'last_username' => $lastUsername,
+                'modal' => $modal
+            ]
+        );
     }
 }

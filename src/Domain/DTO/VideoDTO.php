@@ -3,7 +3,9 @@ declare(strict_types = 1);
 
 namespace App\Domain\DTO;
 
-class VideoDTO
+use App\Domain\DTO\Interfaces\VideoDTOInterface;
+
+final class VideoDTO implements VideoDTOInterface
 {
     /**
      * @var string

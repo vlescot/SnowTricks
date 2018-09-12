@@ -15,7 +15,7 @@ class UpdateUserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            FormEvents::PRE_SUBMIT => 'preSubmit',
+            FormEvents::PRE_SUBMIT => 'preSubmit'
         ];
     }
 

@@ -4,25 +4,26 @@ declare(strict_types = 1);
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
+use App\Domain\Repository\Interfaces\UserRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
+class UserRepository extends ServiceEntityRepository implements UserLoaderInterface, UserRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @inheritdoc
+     */
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
     }
 
     /**
-     * @param string $username
-     *
-     * @return mixed|null|\Symfony\Component\Security\Core\User\UserInterface
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @inheritdoc
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): UserInterface
     {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username OR u.email = :email')
@@ -33,13 +34,9 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-     * @param $token
-     *
-     * @return mixed
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @inheritdoc
      */
-    public function loadUserByToken($token)
+    public function loadUserByToken($token): UserInterface
     {
         return $this->createQueryBuilder('u')
             ->where('u.token = :token')
@@ -48,9 +45,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getOneOrNullResult();
     }
 
-    public function save(User $user)
+    /**
+     * @inheritdoc
+     */
+    public function save(UserInterface $user): void
     {
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
+        $this->_em->persist($user);
+        $this->_em->flush();
     }
 }
