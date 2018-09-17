@@ -1,8 +1,29 @@
 "use strict";
 
 let search = $("#search");
+
+/**
+ * Search the Trick with autocomplete
+ */
+function listing (element){
+    let arr = [];
+    element.each(function () {
+        let obj = $(this).text().trim();
+        if (obj !== "Tous" && $.inArray(obj, arr) === -1) {
+            arr.push(obj);
+        }
+    });
+    return arr;
+}
+
+
 let tricks = listing($(".main-trick-title"));
 let groups = listing($(".badge"));
+
+search.autocomplete({
+    source : tricks
+});
+
 
 $( document ).on("click", "#remove-trick", function () {
     let removeTrickModal = $("#remove-trick-modal");
@@ -148,26 +169,6 @@ function toggleGroup (toDisplay) {
         });
     }
 }
-
-
-/**
- * Search
- */
-function listing (element){
-    let arr = [];
-    element.each(function () {
-        let obj = $(this).text().trim();
-        if (obj !== "Tous" && $.inArray(obj, arr) === -1) {
-            arr.push(obj);
-        }
-    });
-    return arr;
-}
-
-search.autocomplete({
-    source : tricks
-});
-
 
 
 $("#submit").on("click", function () {

@@ -89,7 +89,7 @@ function createGroup (){
             return letter.toUpperCase();
         });
 
-        let formsCheck = $(".check-groups").find('.form-check');
+        let formsCheck = $(".check-groups").find(".form-check");
         let newCheckbox = formsCheck.first().clone();
         let newIndex = (formsCheck.length).toString();
 

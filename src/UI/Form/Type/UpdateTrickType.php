@@ -31,7 +31,7 @@ class UpdateTrickType extends AbstractType
     /**
      * @inheritdoc
      */
-    public function buildForm(FormBuilderInterface $builder, array $option)
+    public function buildForm(FormBuilderInterface $builder, array $option = [])
     {
         $builder
             ->remove('mainPicture')
