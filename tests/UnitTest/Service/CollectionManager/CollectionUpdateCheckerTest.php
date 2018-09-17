@@ -25,13 +25,14 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
      * @dataProvider provideData
      */
     public function testCompareProvideGoodValues(
+        string $className,
         array $collection,
         array $collectionDTO,
         int $newObjectExpectation,
         int $oldObjectExpectation
     ) {
         $collectionChecker = new CollectionUpdateChecker();
-        $collectionChecker->compare($collection, $collectionDTO);
+        $collectionChecker->compare($collection, $collectionDTO, $className);
 
         $newObjects = $collectionChecker->getNewObjects();
         $deletedObjects = $collectionChecker->getDeletedObjects();
@@ -104,6 +105,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
 
 
         yield [
+            'Picture',
             'pictures' => [
                 $picture1,
                 $picture2
@@ -120,6 +122,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
 
 
         yield [
+            'Picture',
             'pictures' => [
                 $picture1,
                 $picture2,
@@ -138,6 +141,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
 
 
         yield [
+            'Picture',
             'pictures' => [
                 $picture1,
                 $picture2,
@@ -154,6 +158,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
 
 
         yield [
+            'Picture',
             'pictures' => [
                 0 => $picture1,
                 2 => $picture2,
@@ -182,6 +187,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
         $oldVideoDTO2 = new VideoDTO('<iframe src="https://www.youtube.com/embed/2"></iframe>');
 
         yield [
+            'Video',
             'videos' => [
                 $video1,
                 $video2
@@ -197,6 +203,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
         ];
 
         yield [
+            'Video',
             'videos' => [
                 $video1,
                 $video2,
@@ -214,6 +221,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
         ];
 
         yield [
+            'Video',
             'videos' => [
                 $video1,
                 $video2,
@@ -229,6 +237,7 @@ final class CollectionUpdateCheckerTest extends KernelTestCase
         ];
 
         yield [
+            'Video',
             'videos' => [
                 0 => $video1,
                 2 => $video2,

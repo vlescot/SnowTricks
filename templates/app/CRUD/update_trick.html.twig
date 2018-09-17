@@ -1,0 +1,11 @@
+{% extends 'app/CRUD/CrUpTrick.html.twig' %}
+
+{% block title %}Modifier la figure - {{ form.title.vars.value }}{% endblock %}
+
+{% block header %}
+    <h1 class="text-center text-center">Modifier {{ form.title.vars.value }}</h1>
+{% endblock %}
+
+{% block back_button %}
+    <a href="{{ path('Trick', {'slug': slug }) }}" role="button" class="btn btn-back btn-sm"><i class="fas fa-undo"></i> Retour</a>
+{% endblock %}

@@ -72,7 +72,8 @@ final class LoginFormViewAction implements LoginFormViewActionInterface
         $lastUsername = $this->authenticationUtils->getLastUsername();
 
         return $responder(
-            'authentication/login.html.twig', [
+            'security/login.html.twig',
+            [
                 'form' => $form,
                 'last_username' => $lastUsername,
                 'modal' => null

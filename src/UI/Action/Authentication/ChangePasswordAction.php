@@ -114,8 +114,10 @@ final class ChangePasswordAction implements ChangePasswordActionInterface
         }
 
         return $responder(
-            'authentication/change_password.html.twig', [
+            'security/change_password.html.twig',
+            [
             'form' => $form
-        ]);
+        ]
+        );
     }
 }

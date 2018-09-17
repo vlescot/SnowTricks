@@ -27,8 +27,6 @@ final class HomeAction implements HomeActionInterface
     private $trickRepository;
 
     /**
-     * HomeAction constructor.
-     *
      * @inheritdoc
      */
     public function __construct(TrickRepositoryInterface $trickRepository)
@@ -44,7 +42,8 @@ final class HomeAction implements HomeActionInterface
         $tricks = $this->trickRepository->findAll();
 
         return $responder(
-            'snowtricks/homepage.html.twig', [
+            'app/homepage.html.twig',
+            [
                 'tricks' => $tricks
             ]
         );

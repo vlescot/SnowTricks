@@ -33,10 +33,7 @@ final class RemoveTrickAction implements RemoveTrickActionInterface
     private $folderRemover;
 
     /**
-     * RemoveTrickAction constructor.
-     *
-     * @param TrickRepositoryInterface $trickRepository
-     * @param FolderRemoverInterface $folderRemover
+     * @inheritdoc
      */
     public function __construct(
         TrickRepositoryInterface $trickRepository,
@@ -48,9 +45,7 @@ final class RemoveTrickAction implements RemoveTrickActionInterface
 
 
     /**
-     * @param Request $request
-     *
-     * @return Response
+     * @inheritdoc
      */
     public function __invoke(Request $request): Response
     {
@@ -60,6 +55,6 @@ final class RemoveTrickAction implements RemoveTrickActionInterface
         $this->folderRemover->removeFolder($trick->getMainPicture()->getPath());
         $this->trickRepository->remove($trick);
 
-        return new Response('', 200);
+        return new Response(null, 200);
     }
 }

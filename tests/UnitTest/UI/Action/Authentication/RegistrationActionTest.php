@@ -42,7 +42,7 @@ final class RegistrationActionTest extends TestCase
     public function testReturnsRedirectResponse()
     {
         $request = Request::create('/registration', 'POST');
-        $request->attributes->add(['referer' => '/']);
+        $request->headers->add(['referer' => '/']);
 
         $registrationHandlerMock = $this->createMock(RegistrationHandlerInterface::class);
         $formInterfaceMock = $this->createMock(FormInterface::class);

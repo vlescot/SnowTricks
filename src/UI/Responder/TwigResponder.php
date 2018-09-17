@@ -15,8 +15,6 @@ final class TwigResponder implements TwigResponderInterface
     private $twig;
 
     /**
-     * ModalResponder constructor.
-     *
      * @inheritdoc
      */
     public function __construct(Environment $twig)
@@ -30,7 +28,7 @@ final class TwigResponder implements TwigResponderInterface
      */
     public function __invoke(string $view, array $data): Response
     {
-        if ( isset($data['form']) && $data['form'] !== null ) {
+        if (isset($data['form']) && $data['form'] !== null) {
             $data['form'] = $data['form']->createView();
         }
 

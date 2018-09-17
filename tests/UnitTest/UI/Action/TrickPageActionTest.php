@@ -110,7 +110,6 @@ final class TrickPageActionTest extends KernelTestCase
 
         static::assertInstanceOf(Response::class, $response);
         static::assertSame(Response::HTTP_OK, $response->getStatusCode());
-
     }
 
 

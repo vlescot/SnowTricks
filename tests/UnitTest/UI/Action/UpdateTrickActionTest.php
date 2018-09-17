@@ -11,7 +11,7 @@ use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
 use App\UI\Action\Interfaces\UpdateTrickActionInterface;
 use App\UI\Action\UpdateTrickAction;
 use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
-use App\UI\Responder\CrUpTrickResponder;
+use App\UI\Responder\TwigOrRedirectionResponder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -112,7 +112,7 @@ final class UpdateTrickActionTest extends KernelTestCase
 
         $request = Request::create('/spins/modifier', 'GET');
 
-        $responder  = new CrUpTrickResponder(
+        $responder  = new TwigOrRedirectionResponder(
             $twig,
             $session,
             $urlGenerator
@@ -154,7 +154,7 @@ final class UpdateTrickActionTest extends KernelTestCase
 
         $request = Request::create('/spins/modifier', 'GET');
 
-        $responder  = new CrUpTrickResponder(
+        $responder  = new TwigOrRedirectionResponder(
             $twig,
             $session,
             $urlGenerator

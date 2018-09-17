@@ -26,11 +26,7 @@ class Video implements VideoInterface
     private $trick;
 
     /**
-     * Video constructor.
-     *
-     * @param string $iFrame
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function __construct(string $iFrame)
     {
@@ -39,9 +35,7 @@ class Video implements VideoInterface
     }
 
     /**
-     * @param TrickInterface $trick
-     *
-     * @return mixed|void
+     * @inheritdoc
      */
     public function setTrick(TrickInterface $trick)
     {
@@ -49,7 +43,7 @@ class Video implements VideoInterface
     }
 
     /**
-     * @return UuidInterface
+     * @inheritdoc
      */
     public function getId(): UuidInterface
     {
@@ -57,7 +51,7 @@ class Video implements VideoInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getIFrame(): string
     {
@@ -65,7 +59,7 @@ class Video implements VideoInterface
     }
 
     /**
-     * @return TrickInterface
+     * @inheritdoc
      */
     public function getTrick(): TrickInterface
     {

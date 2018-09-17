@@ -69,13 +69,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
 
     /**
-     * @param Request $request
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function supports(Request $request)
     {
-//        dump("Supports");
         $this->targetUrl = $request->headers->get('referer');
 
         if ($request->attributes->get('_route') === 'Login' && $request->isMethod('POST')) {
@@ -89,13 +86,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * @param Request $request
-     *
-     * @return array|mixed
+     * @inheritdoc
      */
     public function getCredentials(Request $request)
     {
-//        dump("getCredentials");
         $loginFormResult = $request->request->get('login');
 
         $login = $loginFormResult['_login'];
@@ -115,14 +109,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * @param mixed $credentials
-     * @param UserProviderInterface $userProvider
-     *
-     * @return null|UserInterface
+     * @inheritdoc
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-//        dump("getUser");
         $login = $credentials['login'];
 
         try {
@@ -136,14 +126,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * @param mixed $credentials
-     * @param UserInterface $user
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-//        dump("checkCredentials");
         if ($password = $this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
             return true;
         }
@@ -153,37 +139,27 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     protected function getLoginUrl()
     {
-//        dump("getLoginUrl");
         return $this->urlGenerator->generate('LoginForm');
     }
 
     /**
-     * @param Request $request
-     * @param TokenInterface $token
-     * @param string $providerKey
-     *
-     * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @inheritdoc
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-//        dump("onAuthenticationSuccess");
         $this->session->getFlashBag()->add('success', 'Bonjour ' . $token->getUser()->getUsername());
         return new RedirectResponse($this->targetUrl ?? $this->urlGenerator->generate('Home'));
     }
 
     /**
-     * @param Request $request
-     * @param AuthenticationException $exception
-     *
-     * @return RedirectResponse
+     * @inheritdoc
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-//        dump("onAuthenticationFailure");
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         return new RedirectResponse($this->urlGenerator->generate('LoginForm'));
     }

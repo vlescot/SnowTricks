@@ -41,13 +41,7 @@ final class UpdateTrickBuilder implements UpdateTrickBuilderInterface
     private $pictureBuilder;
 
     /**
-     * UpdateTrickBuilder constructor.
-     *
-     * @param CollectionUpdatePrepareInterface $collectionPrepare
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
-     * @param ImageRemoverInterface $imageRemover
-     * @param GroupBuilderInterface $groupBuilder
-     * @param PictureBuilderInterface $pictureBuilder
+     * @inheritdoc
      */
     public function __construct(
         CollectionUpdatePrepareInterface $collectionPrepare,

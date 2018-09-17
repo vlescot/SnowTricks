@@ -25,10 +25,7 @@ final class ImageRemover implements ImageRemoverInterface
     private $filesToRemove = [];
 
     /**
-     * ImageRemover constructor.
-     *
-     * @param Filesystem $filesystem
-     * @param string $publicFolder
+     * @inheritdoc
      */
     public function __construct(
         Filesystem $filesystem,
@@ -40,13 +37,16 @@ final class ImageRemover implements ImageRemoverInterface
 
 
     /**
-     * @param PictureInterface $picture
+     * @inheritdoc
      */
     public function addFileToRemove(PictureInterface $picture): void
     {
         $this->filesToRemove[] = $picture;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function removeFiles(): void
     {
         foreach ($this->filesToRemove as $picture) {

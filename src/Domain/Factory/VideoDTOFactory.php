@@ -15,9 +15,7 @@ use App\Domain\Factory\Interfaces\VideoDTOFactoryInterface;
 final class VideoDTOFactory implements VideoDTOFactoryInterface
 {
     /**
-     * @param VideoInterface $video
-     *
-     * @return VideoDTOInterface
+     * @inheritdoc
      */
     public function create(VideoInterface $video) :VideoDTOInterface
     {

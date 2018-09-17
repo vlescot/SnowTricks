@@ -16,8 +16,7 @@ final class PictureDTO implements PictureDTOInterface
     public $file;
 
     /**
-     * PictureDTO constructor.
-     * @param $file
+     * @inheritdoc
      */
     public function __construct(\SplFileInfo $file = null)
     {

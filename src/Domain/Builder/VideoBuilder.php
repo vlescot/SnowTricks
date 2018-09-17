@@ -11,12 +11,7 @@ use App\Domain\Entity\Video;
 final class VideoBuilder implements VideoBuilderInterface
 {
     /**
-     * @param $videosDTO
-     * @param bool $isCollection
-     *
-     * @return \App\Domain\Entity\Interfaces\VideoInterface|Video|array
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function create($videosDTO, bool $isCollection)
     {
@@ -32,11 +27,7 @@ final class VideoBuilder implements VideoBuilderInterface
     }
 
     /**
-     * @param VideoDTOInterface $videoDTO
-     *
-     * @return VideoInterface
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function createEntity(VideoDTOInterface $videoDTO): VideoInterface
     {

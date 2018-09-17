@@ -29,8 +29,7 @@ class UpdateTrickType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $option
+     * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $option)
     {

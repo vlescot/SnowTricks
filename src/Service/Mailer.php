@@ -18,10 +18,7 @@ final class Mailer implements MailerInterface
     private $twig;
 
     /**
-     * Mailer constructor.
-     *
-     * @param \Swift_Mailer $mailer
-     * @param \Twig_Environment $twig
+     * @inheritdoc
      */
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig)
     {
@@ -30,14 +27,7 @@ final class Mailer implements MailerInterface
     }
 
     /**
-     * @param string $subject
-     * @param string $mailTo
-     * @param string $view
-     * @param array $parameters
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @inheritdoc
      */
     public function sendMail(
         string $mailTo,

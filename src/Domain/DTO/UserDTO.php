@@ -32,12 +32,7 @@ final class UserDTO implements UserDTOInterface
     public $picture;
 
     /**
-     * UserDTO constructor.
-     *
-     * @param string $username
-     * @param string $email
-     * @param string $password
-     * @param PictureDTOInterface|null $picture
+     * @inheritdoc
      */
     public function __construct(
         string $username,

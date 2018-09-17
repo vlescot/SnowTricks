@@ -51,15 +51,7 @@ final class RegistrationHandler implements RegistrationHandlerInterface
     private $mailer;
 
     /**
-     * RegistrationHandler constructor.
-     *
-     * @param ValidatorInterface $validator
-     * @param UserRepositoryInterface $userRepository
-     * @param UserBuilderInterface $userBuilder
-     * @param SessionInterface $session
-     * @param ImageUploaderInterface $imageUploader
-     * @param ImageThumbnailCreatorInterface $thumbnailCreator
-     * @param MailerInterface $mailer
+     * @inheritdoc
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -81,9 +73,7 @@ final class RegistrationHandler implements RegistrationHandlerInterface
 
 
     /**
-     * @param FormInterface $form
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form): bool
     {
@@ -114,7 +104,7 @@ final class RegistrationHandler implements RegistrationHandlerInterface
                 ]
             );
 
-            $this->session->getFlashBag()->add('success', 'Bienvenue parmis nous, ' . $form->get('username')->getData() . '. Un e-mail vient de t\'être envoyé pour confirmer ton compte');
+            $this->session->getFlashBag()->add('success', 'Bienvenue parmis nous, ' . $form->get('username')->getData() . '. Un e-mail vient de t\'être envoyé pour confirmer ton compte.');
 
             return true;
         }

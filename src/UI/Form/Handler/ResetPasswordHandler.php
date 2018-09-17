@@ -27,11 +27,7 @@ final class ResetPasswordHandler implements ResetPasswordHandlerInterface
     private $mailer;
 
     /**
-     * ResetPasswordHandler constructor.
-     *
-     * @param UserProviderInterface $userProvider
-     * @param SessionInterface $session
-     * @param MailerInterface $mailer
+     * @inheritdoc
      */
     public function __construct(
         UserProviderInterface $userProvider,
@@ -44,9 +40,7 @@ final class ResetPasswordHandler implements ResetPasswordHandlerInterface
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form): bool
     {

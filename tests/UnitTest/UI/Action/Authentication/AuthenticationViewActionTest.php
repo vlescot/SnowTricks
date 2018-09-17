@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Tests\UnitTest\UI\Action\Authentication;
 
-use App\UI\Action\Authentication\AuthenticationViewAction;
+use App\UI\Action\Authentication\ModalAuthenticationAction;
 use App\UI\Action\Authentication\Interfaces\AuthenticationViewActionInterface;
 use App\UI\Responder\TwigResponder;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ final class AuthenticationViewActionTest extends TestCase
 
     private function constructInstance()
     {
-        return new AuthenticationViewAction(
+        return new ModalAuthenticationAction(
             $this->formFactory,
             $this->urlGenerator,
             $this->authenticationUtils

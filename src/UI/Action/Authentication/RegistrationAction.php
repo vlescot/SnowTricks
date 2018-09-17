@@ -66,6 +66,6 @@ final class RegistrationAction implements RegistrationActionInterface
 
         $this->registrationHandler->handle($form);
 
-        return new RedirectResponse($request->attributes->get('referer'));
+        return new RedirectResponse($request->headers->get('referer'));
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\UI\Action\Interfaces;
 
 use App\UI\Form\Handler\Interfaces\CreateTrickHandlerInterface;
-use App\UI\Responder\Interfaces\CrUpTrickResponderInterface;
+use App\UI\Responder\Interfaces\TwigOrRedirectionResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +24,9 @@ interface CreateTrickActionInterface
 
     /**
      * @param Request $request
-     * @param CrUpTrickResponderInterface $responder
+     * @param TwigOrRedirectionResponderInterface $responder
      *
      * @return Response
      */
-    public function __invoke(Request $request, CrUpTrickResponderInterface $responder) :Response;
+    public function __invoke(Request $request, TwigOrRedirectionResponderInterface $responder) :Response;
 }

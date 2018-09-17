@@ -16,8 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
 final class PictureDTOFactory implements PictureDTOFactoryInterface
 {
     /**
-     * @param PictureInterface $picture
-     * @return PictureDTOInterface
+     * @inheritdoc
      */
     public function create(PictureInterface $picture) :PictureDTOInterface
     {

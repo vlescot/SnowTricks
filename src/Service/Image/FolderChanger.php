@@ -24,10 +24,7 @@ final class FolderChanger implements FolderChangerInterface
     private $changeDirectoryFromTo = [];
 
     /**
-     * ContentDirectoryChanger constructor.
-     *
-     * @param Filesystem $filesystem
-     * @param string $publicFolder
+     * @inheritdoc
      */
     public function __construct(Filesystem $filesystem, string $publicFolder)
     {
@@ -35,6 +32,9 @@ final class FolderChanger implements FolderChangerInterface
         $this->publicFolder = $publicFolder;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function folderToChange(string $oldPath, string $newPath): void
     {
         $this->changeDirectoryFromTo = [
@@ -43,6 +43,9 @@ final class FolderChanger implements FolderChangerInterface
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function changeFilesDirectory(): void
     {
         if ($this->changeDirectoryFromTo) {

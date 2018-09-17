@@ -65,9 +65,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
 
 
     /**
-     * User constructor.
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function __construct()
     {
@@ -78,10 +76,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @param string $username
-     * @param string $email
-     * @param string $password
-     * @param PictureInterface|null $picture
+     * @inheritdoc
      */
     public function registration(
         string $username,
@@ -97,9 +92,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     * @param PictureInterface|null $picture
+     * @inheritdoc
      */
     public function update(
         string $email,
@@ -112,7 +105,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @param bool $isConfirmed
+     * @inheritdoc
      */
     public function setConfirmation(bool $isConfirmed)
     {
@@ -124,7 +117,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @param string $password
+     * @inheritdoc
      */
     public function changePassword(string $password)
     {
@@ -132,7 +125,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return UuidInterface
+     * @inheritdoc
      */
     public function getId(): UuidInterface
     {
@@ -140,7 +133,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getUsername(): string
     {
@@ -148,7 +141,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return null|string
+     * @inheritdoc
      */
     public function getPassword(): ? string
     {
@@ -156,7 +149,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getEmail(): string
     {
@@ -164,7 +157,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getCreatedAt(): int
     {
@@ -172,7 +165,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getToken(): string
     {
@@ -180,7 +173,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return array
+     * @inheritdoc
      */
     public function getRoles(): array
     {
@@ -188,8 +181,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return Picture
-     * @throws \Exception
+     * @inheritdoc
      */
     public function getPicture(): PictureInterface
     {
@@ -204,7 +196,7 @@ class User implements UserInterfaceFrameWork, UserInterface, EquatableInterface
     }
 
     /**
-     * @return null|string
+     * @inheritdoc
      */
     public function getSalt()
     {

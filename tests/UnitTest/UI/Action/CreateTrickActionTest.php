@@ -6,7 +6,7 @@ namespace App\Tests\UnitTest\UI\Action;
 use App\UI\Action\CreateTrickAction;
 use App\UI\Action\Interfaces\CreateTrickActionInterface;
 use App\UI\Form\Handler\Interfaces\CreateTrickHandlerInterface;
-use App\UI\Responder\CrUpTrickResponder;
+use App\UI\Responder\TwigOrRedirectionResponder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -56,7 +56,7 @@ final class CreateTrickActionTest extends KernelTestCase
 
         $request = Request::create('/figure/creer', 'GET');
 
-        $responder  = new CrUpTrickResponder(
+        $responder  = new TwigOrRedirectionResponder(
             $twig,
             $session,
             $urlGenerator
@@ -82,7 +82,7 @@ final class CreateTrickActionTest extends KernelTestCase
 
         $request = Request::create('/figure/creer', 'GET');
 
-        $responder  = new CrUpTrickResponder(
+        $responder  = new TwigOrRedirectionResponder(
             $twig,
             $session,
             $urlGenerator

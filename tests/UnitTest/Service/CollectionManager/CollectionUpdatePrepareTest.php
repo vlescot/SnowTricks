@@ -54,15 +54,19 @@ final class CollectionUpdatePrepareTest extends TestCase
         $this->videoBuilder->method('create')->willReturn($video);
     }
 
-
-    public function testConstruct()
+    private function constructInstance()
     {
-        $pictureCollectionPrepare = new CollectionUpdatePrepare(
+        return new CollectionUpdatePrepare(
             $this->pictureChecker,
             $this->imageRemover,
             $this->pictureBuilder,
             $this->videoBuilder
         );
+    }
+
+    public function testConstruct()
+    {
+        $pictureCollectionPrepare = $this->constructInstance();
 
         static::assertInstanceOf(CollectionUpdatePrepareInterface::class, $pictureCollectionPrepare);
     }
@@ -82,12 +86,7 @@ final class CollectionUpdatePrepareTest extends TestCase
         array $collectionDTO,
         int $nbExpected
     ) {
-        $pictureCollectionPrepare = new CollectionUpdatePrepare(
-            $this->pictureChecker,
-            $this->imageRemover,
-            $this->pictureBuilder,
-            $this->videoBuilder
-        );
+        $pictureCollectionPrepare = $this->constructInstance();
 
         $entities = $pictureCollectionPrepare->prepare($collection, $collectionDTO);
 

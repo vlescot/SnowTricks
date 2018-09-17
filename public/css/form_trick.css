@@ -19,11 +19,6 @@ h1 {
 
 @media screen and (max-width: 768px)
 {
-    .trick aside {
-        margin-top: 3em;
-        margin-bottom: 3em;
-    }
-
     .trick .adding-img {
         max-width: 200px;
     }
@@ -128,4 +123,9 @@ h1 {
 }
 .trick .fa-trash {
     color: darkred;
+}
+
+@media screen and (max-width: 576px)
+{
+
 }

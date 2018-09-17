@@ -49,14 +49,7 @@ final class CreateTrickHandler implements CreateTrickHandlerInterface
     private $session;
 
     /**
-     * CreateTrickHandler constructor.
-     *
-     * @param TrickRepositoryInterface $trickRepository
-     * @param CreateTrickBuilderInterface $trickBuilder
-     * @param ImageUploaderInterface $imageUploader
-     * @param ImageThumbnailCreatorInterface $imageThumbnailCreator
-     * @param ValidatorInterface $validator
-     * @param SessionInterface $session
+     * @inheritdoc
      */
     public function __construct(
         TrickRepositoryInterface $trickRepository,
@@ -75,9 +68,7 @@ final class CreateTrickHandler implements CreateTrickHandlerInterface
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form): bool
     {

@@ -36,12 +36,7 @@ class Comment implements CommentInterface
     private $trick;
 
     /**
-     * Comment constructor.
-     *
-     * @param string $content
-     * @param UserInterface $author
-     * @param TrickInterface $trick
-     * @throws \Exception
+     * @inheritdoc
      */
     public function __construct(
         string $content,
@@ -56,7 +51,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * @return UuidInterface
+     * @inheritdoc
      */
     public function getId(): UuidInterface
     {
@@ -64,7 +59,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getContent(): string
     {
@@ -72,7 +67,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * @return UserInterface
+     * @inheritdoc
      */
     public function getAuthor(): UserInterface
     {
@@ -80,7 +75,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getCreatedAt(): int
     {
@@ -88,7 +83,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * @return TrickInterface
+     * @inheritdoc
      */
     public function getTrick(): TrickInterface
     {

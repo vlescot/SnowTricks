@@ -13,9 +13,7 @@ final class ChangePasswordDTO implements ChangePasswordDTOInterface
     public $password;
 
     /**
-     * ChangePasswordDTO constructor.
-     *
-     * @param string $password
+     * @inheritdoc
      */
     public function __construct(string $password)
     {

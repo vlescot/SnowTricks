@@ -6,6 +6,7 @@ namespace App\Service\CollectionManager;
 use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\Builder\Interfaces\VideoBuilderInterface;
 use App\Domain\Entity\Interfaces\PictureInterface;
+use App\Domain\Entity\Interfaces\VideoInterface;
 use App\Service\CollectionManager\Interfaces\CollectionCheckerInterface;
 use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
 use App\Service\Image\Interfaces\ImageRemoverInterface;
@@ -33,12 +34,7 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
     private $videoBuilder;
 
     /**
-     * CollectionUpdatePrepare constructor.
-     *
-     * @param CollectionCheckerInterface $collectionChecker
-     * @param ImageRemoverInterface $imageRemover
-     * @param PictureBuilderInterface $pictureBuilder
-     * @param VideoBuilderInterface $videoBuilder
+     * @inheritdoc
      */
     public function __construct(
         CollectionCheckerInterface $collectionChecker,
@@ -52,16 +48,26 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
         $this->videoBuilder = $videoBuilder;
     }
 
+    /**
+     * @inheritdoc
+     */
+    private function getClassName(array $collection)
+    {
+        if (reset($collection) instanceof PictureInterface) {
+            return 'Picture';
+        } elseif (reset($collection) instanceof VideoInterface) {
+            return 'Video';
+        }
+    }
 
     /**
-     * @param array $collection
-     * @param array $collectionDTO
-     *
-     * @return array
+     * @inheritdoc
      */
     public function prepare(array $collection, array $collectionDTO): array
     {
-        $this->collectionChecker->compare($collection, $collectionDTO);
+        $className = $this->getClassName($collection);
+
+        $this->collectionChecker->compare($collection, $collectionDTO, $className);
 
         foreach ($this->collectionChecker->getDeletedObjects() as $key => $entity) {
             unset($collection[$key]);
@@ -71,8 +77,14 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
             }
         }
 
-        foreach ($this->collectionChecker->getNewObjects() as $key => $dto) {
-            $collection[$key] = $this->pictureBuilder->create($dto, false);
+        if ($className === 'Picture') {
+            foreach ($this->collectionChecker->getNewObjects() as $key => $dto) {
+                $collection[$key] = $this->pictureBuilder->create($dto, false);
+            }
+        } elseif ($className === 'Video') {
+            foreach ($this->collectionChecker->getNewObjects() as $key => $dto) {
+                $collection[$key] = $this->videoBuilder->create($dto, false);
+            }
         }
 
         return $collection;

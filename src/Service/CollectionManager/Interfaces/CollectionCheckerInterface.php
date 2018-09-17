@@ -8,8 +8,9 @@ interface CollectionCheckerInterface
     /**
      * @param array $pictures
      * @param array $picturesDTO
+     * @param string $className
      */
-    public function compare(array $pictures, array $picturesDTO): void;
+    public function compare(array $pictures, array $picturesDTO, string $className): void;
 
     /**
      * @return array

@@ -1,0 +1,18 @@
+{% extends 'bundles/TwigBundle/Exception/base_error.html.twig' %}
+
+{% block body %}
+    <div id="error" class="row text-center">
+        <div class="container">
+            <h1>
+                Oups! Nous avons rencontré un problème.
+            </h1>
+            <h2>
+                Le serveur a retourné une "{{ status_code }} {{ status_text }}".
+            </h2>
+            <div>
+                S'il vous plaît, faites nous savoir ce que vous faisiez lorsque cette erreur est apparu.
+                Nous allons réparer cela aussi rapidement que possible. Toutes nos excuses pour le dérangement.
+            </div>
+        </div>
+    </div>
+{% endblock %}

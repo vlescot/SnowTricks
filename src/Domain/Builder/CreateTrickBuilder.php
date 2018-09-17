@@ -46,13 +46,7 @@ final class CreateTrickBuilder implements CreateTrickBuilderInterface
     private $user;
 
     /**
-     * CreateTrickBuilder constructor.
-     *
-     * @param PictureBuilderInterface $pictureBuilder
-     * @param VideoBuilderInterface $videoBuilder
-     * @param GroupBuilderInterface $groupBuilder
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
-     * @param TokenStorageInterface $tokenStorage
+     * @inheritdoc
      */
     public function __construct(
         PictureBuilderInterface $pictureBuilder,
@@ -69,9 +63,7 @@ final class CreateTrickBuilder implements CreateTrickBuilderInterface
     }
 
     /**
-     * @param TrickDTOInterface $trickDTO
-     * @return TrickInterface
-     * @throws \Exception
+     * @inheritdoc
      */
     public function create(TrickDTOInterface $trickDTO): TrickInterface
     {

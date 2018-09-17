@@ -39,12 +39,7 @@ final class ChangePasswordHandler implements ChangePasswordHandlerInterface
     private $session;
 
     /**
-     * ChangePasswordHandler constructor.
-     *
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param UserRepositoryInterface $userRepository
-     * @param ValidatorInterface $validator
-     * @param SessionInterface $session
+     * @inheritdoc
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
@@ -60,10 +55,7 @@ final class ChangePasswordHandler implements ChangePasswordHandlerInterface
 
 
     /**
-     * @param FormInterface $form
-     * @param UserInterface $user
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form, UserInterface $user): bool
     {

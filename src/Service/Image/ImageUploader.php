@@ -18,15 +18,16 @@ final class ImageUploader implements ImageUploaderInterface
     private $filesToUpload = [];
 
     /**
-     * ImageUploader constructor.
-     *
-     * @param string $publicFolder
+     * @inheritdoc
      */
     public function __construct(string $publicFolder)
     {
         $this->publicFolder = $publicFolder;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function addFileToUpload(\SplFileInfo $file, string $path, string $filename): void
     {
         $this->filesToUpload [] = [
@@ -36,6 +37,9 @@ final class ImageUploader implements ImageUploaderInterface
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function uploadFiles(): void
     {
         foreach ($this->filesToUpload as $fileToUpload) {

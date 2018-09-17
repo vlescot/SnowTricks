@@ -12,8 +12,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class PictureRepository extends ServiceEntityRepository implements PictureRepositoryInterface
 {
     /**
-     * PictureRepository constructor.
-     *
      * @inheritdoc
      */
     public function __construct(RegistryInterface $registry)

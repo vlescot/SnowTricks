@@ -48,15 +48,7 @@ final class TrickDTO implements TrickDTOInterface
     public $newGroups;
 
     /**
-     * TrickDTO constructor.
-     *
-     * @param string $title
-     * @param string $description
-     * @param PictureDTOInterface $mainPicture
-     * @param array|null $pictures
-     * @param array|null $videos
-     * @param \ArrayAccess|null $groups
-     * @param array|null $newGroups
+     * @inheritdoc
      */
     public function __construct(
         string $title,

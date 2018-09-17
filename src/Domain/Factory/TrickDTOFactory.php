@@ -28,10 +28,7 @@ final class TrickDTOFactory implements TrickDTOFactoryInterface
     private $videoDTOFactory;
 
     /**
-     * TrickDTOFactory constructor.
-     *
-     * @param PictureDTOFactoryInterface $pictureDTOFactory
-     * @param VideoDTOFactoryInterface $videoDTOFactory
+     * @inheritdoc
      */
     public function __construct(
         PictureDTOFactoryInterface $pictureDTOFactory,
@@ -42,9 +39,7 @@ final class TrickDTOFactory implements TrickDTOFactoryInterface
     }
 
     /**
-     * @param TrickInterface $trick
-     *
-     * @return TrickDTOInterface
+     * @inheritdoc
      */
     public function create(TrickInterface $trick): TrickDTOInterface
     {

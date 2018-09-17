@@ -59,7 +59,6 @@
         <many-to-many field="groups" inversed-by="tricks" target-entity="Group" fetch="EXTRA_LAZY">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
             <join-table name="st_tricks_groups">
                 <join-columns>

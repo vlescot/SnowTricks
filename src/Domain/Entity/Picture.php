@@ -30,12 +30,7 @@ class Picture implements PictureInterface
     private $alt;
 
     /**
-     * Picture constructor.
-     *
-     * @param string $path
-     * @param string $filename
-     * @param string $alt
-     * @throws \Exception
+     * @inheritdoc
      */
     public function __construct(
         string $path,
@@ -50,7 +45,7 @@ class Picture implements PictureInterface
     }
 
     /**
-     * @param string $path
+     * @inheritdoc
      */
     public function update(string $path): void
     {
@@ -58,7 +53,7 @@ class Picture implements PictureInterface
     }
 
     /**
-     * @return UuidInterface
+     * @inheritdoc
      */
     public function getId(): UuidInterface
     {
@@ -66,7 +61,7 @@ class Picture implements PictureInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getPath(): string
     {
@@ -74,7 +69,7 @@ class Picture implements PictureInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getFilename(): string
     {
@@ -82,7 +77,7 @@ class Picture implements PictureInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getAlt(): string
     {
@@ -90,7 +85,7 @@ class Picture implements PictureInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getWebPath(): string
     {

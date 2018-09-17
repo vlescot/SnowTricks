@@ -15,8 +15,8 @@
     margin-top: 50px;
     margin-bottom: 70px;
 }
-#trick-description p {
-    margin: 15px 0 0 0 ;
+#trick-description > div:nth-child(2) > div > p {
+    text-align: justify;
 }
 .trick-infos {
     display: flex;
@@ -131,4 +131,17 @@
 }
 #pagination-container .pagination .disabled a {
     color: #868e96;
+}
+
+@media screen and (max-width: 576px)
+{
+    #trick-description > div:first-child {
+        margin-bottom: 2rem;
+    }
+    .trick-infos {
+        flex-direction: column;
+    }
+    .trick-infos  p {
+        margin: 0;
+    }
 }

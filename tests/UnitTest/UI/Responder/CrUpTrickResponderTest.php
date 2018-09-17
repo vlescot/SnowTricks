@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Tests\UnitTest\UI\Responder;
 
-use App\UI\Responder\Interfaces\CrUpTrickResponderInterface;
-use App\UI\Responder\CrUpTrickResponder;
+use App\UI\Responder\Interfaces\TwigOrRedirectionResponderInterface;
+use App\UI\Responder\TwigOrRedirectionResponder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -40,13 +40,13 @@ final class CrUpTrickResponderTest extends TestCase
 
     public function testConstruct()
     {
-        $updateTrickResponder = new CrUpTrickResponder(
+        $updateTrickResponder = new TwigOrRedirectionResponder(
             $this->twig,
             $this->session,
             $this->urlGenerator
         );
 
-        static::assertInstanceOf(CrUpTrickResponderInterface::class, $updateTrickResponder);
+        static::assertInstanceOf(TwigOrRedirectionResponderInterface::class, $updateTrickResponder);
     }
 
     /**
@@ -58,7 +58,7 @@ final class CrUpTrickResponderTest extends TestCase
     {
         $form = $this->createMock(FormInterface::class);
 
-        $updateTrickResponder = new CrUpTrickResponder(
+        $updateTrickResponder = new TwigOrRedirectionResponder(
             $this->twig,
             $this->session,
             $this->urlGenerator
@@ -76,7 +76,7 @@ final class CrUpTrickResponderTest extends TestCase
     {
         $form = $this->createMock(FormInterface::class);
 
-        $updateTrickResponder = new CrUpTrickResponder(
+        $updateTrickResponder = new TwigOrRedirectionResponder(
             $this->twig,
             $this->session,
             $this->urlGenerator

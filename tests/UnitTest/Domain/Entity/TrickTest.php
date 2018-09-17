@@ -36,7 +36,6 @@ final class TrickTest extends TestCase
         array $videosCollection,
         \ArrayAccess $groupsCollection
     ) {
-
         $trick = new Trick(
             $title,
             $description,
@@ -90,7 +89,6 @@ final class TrickTest extends TestCase
         array $videosCollection,
         \ArrayAccess $groupsCollection
     ) {
-
         $trick = new Trick(
             $title,
             $description,
@@ -165,8 +163,7 @@ final class TrickTest extends TestCase
         array $picturesCollection,
         array $videosCollection,
         \ArrayAccess $groupsCollection
-    )
-    {
+    ) {
         $trick = new Trick(
             $title,
             $description,

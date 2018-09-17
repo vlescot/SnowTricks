@@ -58,16 +58,7 @@ final class UpdateUserHandler implements UpdateUserHandlerInterface
     private $imageRemover;
 
     /**
-     * UpdateUserHandler constructor.
-     *
-     * @param UpdateUserBuilderInterface $updateUserBuilder
-     * @param ValidatorInterface $validator
-     * @param SessionInterface $session
-     * @param UserRepositoryInterface $userRepository
-     * @param PictureRepositoryInterface $pictureRepository
-     * @param ImageUploaderInterface $imageUploader
-     * @param ImageThumbnailCreatorInterface $thumbnailCreator
-     * @param ImageRemoverInterface $imageRemover
+     * @inheritdoc
      */
     public function __construct(
         UpdateUserBuilderInterface $updateUserBuilder,
@@ -91,10 +82,7 @@ final class UpdateUserHandler implements UpdateUserHandlerInterface
 
 
     /**
-     * @param FormInterface $form
-     * @param UserInterface $user
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form, UserInterface $user): bool
     {

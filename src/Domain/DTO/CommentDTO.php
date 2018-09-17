@@ -13,9 +13,7 @@ final class CommentDTO implements CommentDTOInterface
     public $content;
 
     /**
-     * CommentDTO constructor.
-     *
-     * @param string $content
+     * @inheritdoc
      */
     public function __construct(string $content)
     {

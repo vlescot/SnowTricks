@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Service\CollectionManager;
 
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
+use App\Domain\DTO\Interfaces\VideoDTOInterface;
 use App\Domain\Entity\Interfaces\PictureInterface;
 use App\Domain\Entity\Interfaces\VideoInterface;
 use App\Service\CollectionManager\Interfaces\CollectionCheckerInterface;
@@ -11,19 +13,14 @@ use App\Service\CollectionManager\Interfaces\CollectionCheckerInterface;
  * Class PictureCollectionChecker
  * @package App\Domain\CollectionChecker
  *
- * TODO
- * This class compare the $collectionDTO array that contains PictureDTO entity from the form
+ *
+ * This class compare the $collectionDTO array that contains PictureDTO or VideoDTO instance from the form
  * with the $collection array that contains Picture entity from the Trick Entity
- * and sort each PictureDTO to be a new Entity
- * and sort each Picture to be a old Entity
+ * and sort each DTO to be a new Object
+ * and sort each Entity to be a old Object
  */
 final class CollectionUpdateChecker implements CollectionCheckerInterface
 {
-    /**
-     * @var string
-     */
-    private $entityClass;
-
     /**
      * @var array
      */
@@ -36,54 +33,45 @@ final class CollectionUpdateChecker implements CollectionCheckerInterface
 
 
     /**
-     * @param array $collection
-     */
-    private function getClassName(array $collection)
-    {
-        if (reset($collection) instanceof PictureInterface) {
-            $this->entityClass = 'Picture';
-        } elseif (reset($collection) instanceof VideoInterface) {
-            $this->entityClass = 'Video';
-        }
-    }
-
-    /**
-     * @param string $objectName
-     * @param $entity
-     * @param $dto
+     * @param PictureInterface $entity
+     * @param PictureDTOInterface $dto
      *
      * @return bool
      */
-    private function checkIfDifferent($entity, $dto)
+    private function checkIfDifferentPicture(PictureInterface $entity, PictureDTOInterface $dto)
     {
-        switch ($this->entityClass) {
-            case 'Picture':
-                $dto->file->getFilename() !== $entity->getFilename()
-                    ? $result = true
-                    : $result = false;
-                break;
-            case 'Video':
-                $dto->iFrame !== $entity->getIFrame()
-                    ? $result = true
-                    : $result = false;
-                break;
-        }
+        $dto->file->getFilename() !== $entity->getFilename()
+            ? $result = true
+            : $result = false;
 
         return $result;
     }
 
+    /**
+     * @param VideoInterface $entity
+     * @param VideoDTOInterface $dto
+     *
+     * @return bool
+     */
+    private function checkIfDifferentVideo(VideoInterface $entity, VideoDTOInterface $dto)
+    {
+        $dto->iFrame !== $entity->getIFrame()
+            ? $result = true
+            : $result = false;
+
+        return $result;
+    }
 
     /**
-     * @param array $collection
-     * @param array $collectionDTO
+     * @inheritdoc
      */
-    public function compare(array $collection, array $collectionDTO): void
+    public function compare(array $collection, array $collectionDTO, string $className): void
     {
-        $this->className = $this->getClassName($collection);
+        $checkIfDifferent = 'checkIfDifferent'. $className;
 
         foreach ($collectionDTO as $key => $dto) {
             if (array_key_exists($key, $collection)) {
-                if ($this->checkIfDifferent($collection[$key], $dto)) {
+                if ($this->$checkIfDifferent($collection[$key], $dto)) {
                     $this->deletedObjects[$key] = $collection[$key];
                     $this->newObjects[$key] = $dto;
                 }
@@ -101,7 +89,7 @@ final class CollectionUpdateChecker implements CollectionCheckerInterface
 
 
     /**
-     * @return array
+     * @inheritdoc
      */
     public function getNewObjects(): array
     {
@@ -112,7 +100,7 @@ final class CollectionUpdateChecker implements CollectionCheckerInterface
     }
 
     /**
-     * @return array
+     * @inheritdoc
      */
     public function getDeletedObjects(): array
     {

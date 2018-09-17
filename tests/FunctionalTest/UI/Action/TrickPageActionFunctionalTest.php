@@ -44,6 +44,7 @@ final class TrickPageActionFunctionalTest extends WebTestCase
         $crawler = $client->request('POST', '/spins');
 
         $form = $crawler->selectButton('Poster')->form();
+
         $form['comment[content]'] = 'A test comment';
         $client->submit($form);
 

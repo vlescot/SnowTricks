@@ -16,8 +16,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class TrickRepository extends ServiceEntityRepository implements TrickRepositoryInterface
 {
     /**
-     * TrickRepository constructor.
-     *
      * @inheritdoc
      */
     public function __construct(RegistryInterface $registry)

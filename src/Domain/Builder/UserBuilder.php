@@ -30,11 +30,7 @@ final class UserBuilder implements UserBuilderInterface
     private $pictureBuilder;
 
     /**
-     * UserBuilder constructor.
-     *
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
-     * @param PictureBuilderInterface $pictureBuilder
+     * @inheritdoc
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
@@ -47,11 +43,7 @@ final class UserBuilder implements UserBuilderInterface
     }
 
     /**
-     * @param UserDTOInterface $userDTO
-     *
-     * @return UserInterface
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function create(UserDTOInterface $userDTO): UserInterface
     {

@@ -9,12 +9,7 @@ use App\Domain\Entity\Group;
 final class GroupBuilder implements GroupBuilderInterface
 {
     /**
-     * @param \ArrayAccess $groups
-     * @param array $groupsDTO
-     *
-     * @return \ArrayAccess
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function create(\ArrayAccess $groups, array $groupsDTO): \ArrayAccess
     {

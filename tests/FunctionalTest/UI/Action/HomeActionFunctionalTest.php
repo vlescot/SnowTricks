@@ -11,8 +11,11 @@ final class HomeActionFunctionalTest extends WebTestCase
     public function testHomePageStatusCode()
     {
         $client = static::createClient();
-        $client->request('GET', '/');
+        $crawler = $client->request('GET', '/');
+
+        $h1 = $crawler->filter('h1')->text();
 
         static::assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        static::assertSame('SnowTricks', $h1);
     }
 }

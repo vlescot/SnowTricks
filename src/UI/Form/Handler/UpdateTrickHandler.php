@@ -71,18 +71,7 @@ final class UpdateTrickHandler implements UpdateTrickHandlerInterface
 
 
     /**
-     * UpdateTrickHandler constructor.
-     *
-     * @param TrickRepositoryInterface $trickRepository
-     * @param ImageRemoverInterface $imageRemover
-     * @param ImageUploaderInterface $imageUploader
-     * @param ImageThumbnailCreatorInterface $thumbnailCreator
-     * @param FolderChangerInterface $folderChanger
-     * @param UpdateTrickBuilderInterface $updateTrickBuilder
-     * @param ValidatorInterface $validator
-     * @param SessionInterface $session
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
-     * @param PictureBuilderInterface $pictureBuilder
+     * @inheritdoc
      */
     public function __construct(
         TrickRepositoryInterface $trickRepository,
@@ -110,10 +99,7 @@ final class UpdateTrickHandler implements UpdateTrickHandlerInterface
 
 
     /**
-     * @param FormInterface $form
-     * @param TrickInterface $trick
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form, TrickInterface $trick): bool
     {

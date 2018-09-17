@@ -5,6 +5,9 @@ framework:
     validation:
         enabled: true
 
+#    assets:
+#        base_urls: 'http://snowtricks.vincentlescot.fr/public/'
+
     session:
         handler_id: ~
 

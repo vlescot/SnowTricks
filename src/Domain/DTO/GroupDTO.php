@@ -13,9 +13,7 @@ final class GroupDTO implements GroupDTOInterface
     public $name;
 
     /**
-     * GroupDTO constructor.
-     *
-     * @param string $name
+     * @inheritdoc
      */
     public function __construct(string $name)
     {

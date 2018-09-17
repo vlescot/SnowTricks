@@ -6,7 +6,7 @@ namespace App\Tests\UnitTest\UI\Responder;
 use App\UI\Responder\Interfaces\TwigResponderInterface;
 use App\UI\Responder\TwigResponder;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
@@ -24,9 +24,7 @@ final class TwigResponderTest extends TestCase
 
     private function constructInstance()
     {
-        return new TwigResponder(
-            $this->twig
-        );
+        return new TwigResponder($this->twig);
     }
 
 
@@ -39,7 +37,7 @@ final class TwigResponderTest extends TestCase
 
     public function testReturnGoodValue()
     {
-        $formView = $this->createMock(FormView::class);
+        $formView = $this->createMock(FormInterface::class);
 
         $responder = $this->constructInstance();
 

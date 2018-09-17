@@ -27,10 +27,7 @@ class Group implements GroupInterface
     private $tricks;
 
     /**
-     * Group constructor.
-     *
-     * @param string $name
-     * @throws \Exception
+     * @inheritdoc
      */
     public function __construct(
         string $name
@@ -42,7 +39,7 @@ class Group implements GroupInterface
     }
 
     /**
-     * @param TrickInterface $trick
+     * @inheritdoc
      */
     public function addTrick(TrickInterface $trick): void
     {
@@ -52,7 +49,7 @@ class Group implements GroupInterface
     }
 
     /**
-     * @param TrickInterface $trick
+     * @inheritdoc
      */
     public function removeTrick(TrickInterface $trick): void
     {
@@ -62,7 +59,7 @@ class Group implements GroupInterface
     }
 
     /**
-     * @return UuidInterface
+     * @inheritdoc
      */
     public function getId(): UuidInterface
     {
@@ -70,7 +67,7 @@ class Group implements GroupInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName(): string
     {
@@ -78,7 +75,7 @@ class Group implements GroupInterface
     }
 
     /**
-     * @return \ArrayAccess
+     * @inheritdoc
      */
     public function getTricks(): \ArrayAccess
     {

@@ -19,10 +19,7 @@ final class FolderRemover implements FolderRemoverInterface
     private $publicFolder;
 
     /**
-     * FolderRemover constructor.
-     *
-     * @param Filesystem $filesystem
-     * @param string $publicFolder
+     * @inheritdoc
      */
     public function __construct(Filesystem $filesystem, string $publicFolder)
     {
@@ -31,7 +28,7 @@ final class FolderRemover implements FolderRemoverInterface
     }
 
     /**
-     * @param string $path
+     * @inheritdoc
      */
     public function removeFolder(string $path): void
     {

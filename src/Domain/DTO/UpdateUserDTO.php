@@ -29,12 +29,7 @@ final class UpdateUserDTO implements UpdateUserDTOInterface
     public $picture;
 
     /**
-     * UpdateUserDTO constructor.
-     *
-     * @param string|null $username
-     * @param string|null $password
-     * @param string|null $email
-     * @param PictureDTOInterface|null $picture
+     * @inheritdoc
      */
     public function __construct(
         string $username = null,

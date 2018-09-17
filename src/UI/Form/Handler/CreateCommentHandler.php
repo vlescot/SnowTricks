@@ -36,12 +36,7 @@ final class CreateCommentHandler implements CreateCommentHandlerInterface
     private $commentRepository;
 
     /**
-     * CreateCommentHandler constructor.
-     *
-     * @param ValidatorInterface $validator
-     * @param SessionInterface $session
-     * @param TokenStorageInterface $tokenStorage
-     * @param CommentRepositoryInterface $commentRepository
+     * @inheritdoc
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -57,10 +52,7 @@ final class CreateCommentHandler implements CreateCommentHandlerInterface
 
 
     /**
-     * @param FormInterface $form
-     * @param TrickInterface $trick
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function handle(FormInterface $form, TrickInterface $trick) : bool
     {

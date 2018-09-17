@@ -11,8 +11,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class GroupRepository extends ServiceEntityRepository implements GroupRepositoryInterface
 {
     /**
-     * GroupRepository constructor.
-     *
      * @inheritdoc
      */
     public function __construct(RegistryInterface $registry)

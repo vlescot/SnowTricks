@@ -33,7 +33,7 @@
 .badge {
     font-size: medium;
 }
-.main-trick {
+.main-tricks {
     margin-top: 2rem;
 }
 .main-trick .badge {
@@ -96,4 +96,11 @@
 }
 .main-trick-administration i:hover {
     color: #6e7a82;
+}
+
+@media screen and (max-width: 576px)
+{
+    .homepage > div:first-child > div:nth-child(2) {
+        margin: 3rem 0 2rem 0;
+    }
 }

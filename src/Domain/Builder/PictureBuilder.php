@@ -28,11 +28,7 @@ final class PictureBuilder implements PictureBuilderInterface
     private $thumbnailCreator;
 
     /**
-     * PictureBuilder constructor.
-     *
-     * @param ImageUploaderInterface $imageUploader
-     * @param ImageThumbnailCreatorInterface $thumbnailCreator
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
+     * @inheritdoc
      */
     public function __construct(
         ImageUploaderInterface $imageUploader,
@@ -45,13 +41,7 @@ final class PictureBuilder implements PictureBuilderInterface
     }
 
     /**
-     * @param $picturesDTO
-     * @param bool $isCollection
-     * @param bool $isThumbnailToCreate
-     *
-     * @return Picture|array
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     public function create($picturesDTO, bool $isCollection, bool $isThumbnailToCreate = false)
     {
@@ -69,12 +59,7 @@ final class PictureBuilder implements PictureBuilderInterface
     }
 
     /**
-     * @param PictureDTOInterface $pictureDTO
-     * @param bool $isThumbnailToCreate
-     *
-     * @return Picture
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
     private function createPicture(PictureDTOInterface $pictureDTO, bool $isThumbnailToCreate)
     {

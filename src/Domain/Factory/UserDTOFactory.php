@@ -17,9 +17,7 @@ final class UserDTOFactory implements UserDTOFactoryInterface
     private $pictureDTOFactory;
 
     /**
-     * UserDTOFactory constructor.
-     *
-     * @param PictureDTOFactoryInterface $pictureDTOFactory
+     * @inheritdoc
      */
     public function __construct(PictureDTOFactoryInterface $pictureDTOFactory)
     {
@@ -27,9 +25,7 @@ final class UserDTOFactory implements UserDTOFactoryInterface
     }
 
     /**
-     * @param UserInterface $user
-     *
-     * @return UpdateUserDTOInterface
+     * @inheritdoc
      */
     public function create(UserInterface $user): UpdateUserDTOInterface
     {

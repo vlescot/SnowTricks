@@ -79,16 +79,7 @@ class Trick implements TrickInterface
 
 
     /**
-     * Trick constructor.
-     *
-     * @param string $title
-     * @param string $description
-     * @param UserInterface $author
-     * @param PictureInterface $mainPicture
-     * @param null $pictures
-     * @param array|null $videos
-     * @param \ArrayAccess|null $groups
-     * @throws \Exception
+     * @inheritdoc
      */
     public function __construct(
         string $title,
@@ -128,12 +119,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param string $title
-     * @param string $description
-     * @param PictureInterface $mainPicture
-     * @param array|null $pictures
-     * @param array|null $videos
-     * @param \ArrayAccess|null $groups
+     * @inheritdoc
      */
     public function update(
         string $title,
@@ -154,7 +140,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param CommentInterface $comment
+     * @inheritdoc
      */
     public function addComment(CommentInterface $comment): void
     {
@@ -164,7 +150,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param array $pictures
+     * @inheritdoc
      */
     private function updatePicture(array $pictures)
     {
@@ -183,7 +169,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param $videos
+     * @inheritdoc
      */
     private function updateVideo(array $videos)
     {
@@ -203,7 +189,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param \ArrayAccess $groups
+     * @inheritdoc
      */
     private function updateGroup(\ArrayAccess $groups)
     {
@@ -222,7 +208,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param GroupInterface $group
+     * @inheritdoc
      */
     private function addGroup(GroupInterface$group)
     {
@@ -233,7 +219,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @param GroupInterface $group
+     * @inheritdoc
      */
     private function removeGroup(GroupInterface $group)
     {
@@ -244,7 +230,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return UuidInterface
+     * @inheritdoc
      */
     public function getId(): UuidInterface
     {
@@ -252,7 +238,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getTitle(): string
     {
@@ -260,7 +246,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getSlug(): string
     {
@@ -268,7 +254,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDescription(): string
     {
@@ -276,7 +262,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getCreatedAt(): int
     {
@@ -284,7 +270,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getUpdatedAt(): int
     {
@@ -292,7 +278,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return UserInterface
+     * @inheritdoc
      */
     public function getAuthor(): UserInterface
     {
@@ -300,7 +286,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return PictureInterface
+     * @inheritdoc
      */
     public function getMainPicture(): PictureInterface
     {
@@ -308,7 +294,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return \ArrayAccess
+     * @inheritdoc
      */
     public function getComments(): \ArrayAccess
     {
@@ -316,7 +302,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return \ArrayAccess
+     * @inheritdoc
      */
     public function getPictures(): \ArrayAccess
     {
@@ -324,7 +310,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return \ArrayAccess
+     * @inheritdoc
      */
     public function getVideos(): \ArrayAccess
     {
@@ -332,7 +318,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @return \ArrayAccess
+     * @inheritdoc
      */
     public function getGroups(): \ArrayAccess
     {

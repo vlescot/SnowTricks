@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('lib/jqueryUi/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+{% endblock %}
+{% block title %}SnowTricks, la communauté !{% endblock %}
+
+{% block header %}
+	<header style="background-image: url('{{ asset('image/welcome.jpg') }}')">
+		<div class="contents-header">
+			<h1 class="header-title text-center">SnowTricks</h1>
+			<div class="sub-title text-center">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dolor numquam ad ipsam corrupti impedit libero illum eius distinctio earum porro explicabo qui culpa, necessitatibus minus dolore tenetur beatae ratione!
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+{% block body %}
+
+    <i class="fas fa-arrow-up fa-3x"></i>
+	<div class="container homepage" id="top">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-center"><label for="search">Rechercher un trick</label></h5>
+                <div class="form-inline search-form d-flex justify-content-center">
+                    <input type="text" id="search" class="form-control form-control-sm col-6">
+                    <button class="btn btn-sm" id="submit" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div  class="d-flex justify-content-end" role="alert">
+                    <div id="search-warning" class="alert alert-warning col-8 col-sm-6 col-md-4 col-lg-3">
+                        <strong>Ce trick est inconnu...</strong>
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-center">Afficher par groupe</h5>
+                <div class="main-groups" style="margin: 1em;">
+                    <div class="h5 d-flex justify-content-center">
+                        <span class="badge">Tous</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row main-tricks d-flex justify-content-around">
+            {# Snowtrick Thumbnail #}
+			{% include 'app/trick_thumbnail.html.twig' with tricks %}
+		</div>
+	</div>
+
+    {% if is_granted('ROLE_USER') %}
+        {% include 'app/CRUD/remove_trick.html.twig' %}
+    {% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('lib/jqueryUi/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('js/homepage.js') }}"></script>
+{% endblock %}

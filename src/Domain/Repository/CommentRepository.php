@@ -13,8 +13,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class CommentRepository extends ServiceEntityRepository implements CommentRepositoryInterface
 {
     /**
-     * CommentRepository constructor.
-     *
      * @inheritdoc
      */
     public function __construct(RegistryInterface $registry)

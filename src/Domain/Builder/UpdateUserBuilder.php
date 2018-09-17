@@ -35,12 +35,7 @@ final class UpdateUserBuilder implements UpdateUserBuilderInterface
     private $imageRemover;
 
     /**
-     * UpdateUserBuilder constructor.
-     *
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
-     * @param PictureBuilderInterface $pictureBuilder
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param ImageRemoverInterface $imageRemover
+     * @inheritdoc
      */
     public function __construct(
         ImageUploadWarmerInterface $imageUploadWarmer,
@@ -56,10 +51,7 @@ final class UpdateUserBuilder implements UpdateUserBuilderInterface
 
 
     /**
-     * @param UserInterface $user
-     * @param UpdateUserDTOInterface $updateUserDTO
-     *
-     * @return UserInterface
+     * @inheritdoc
      */
     public function create(UserInterface $user, UpdateUserDTOInterface $updateUserDTO): UserInterface
     {
