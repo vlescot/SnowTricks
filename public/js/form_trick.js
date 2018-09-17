@@ -1,5 +1,10 @@
 "use strict";
 
+let pictureContainer = $(".picture-container");
+let videoContainer = $(".video-container");
+let groupContainer = $(".group-container");
+
+
 /**
  * Help functions to get the picture and video containers
  */
@@ -65,6 +70,50 @@ function displayIFrame (textArea) {
     }
 }
 
+/**
+ * Get value from input#create-group and create a new checkbox
+ */
+function createGroup (){
+    let input = $("#create-group input");
+
+    input.each(function () {
+        let groupName = $(this).val().trim();
+
+        if (groupName.length === 0){
+            return;
+        }
+        $(this).val("");
+
+        //  First letter uppercase for each words
+        groupName = groupName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+            return letter.toUpperCase();
+        });
+
+        let formsCheck = $(".check-groups").find('.form-check');
+        let newCheckbox = formsCheck.first().clone();
+        let newIndex = (formsCheck.length).toString();
+
+        // Replace the id of the input field with the new index
+        let attrClass = $("input", newCheckbox).attr("class");
+        let attrId = "create_group_checkbox" + newIndex + 1;
+
+        // Set attributes
+        $("input", newCheckbox).attr({
+            id: attrId,
+            class: attrClass + " create_group_checkbox",
+            checked: true,
+            value: groupName
+        });
+        // $("input", newCheckbox).removeAttr("value");
+        $("label", newCheckbox).attr("for", attrId);
+        $("label", newCheckbox).text(groupName);
+
+        let helper = $("#create-group-help").show();
+
+        formsCheck.parent().append(newCheckbox).append(helper);
+    });
+}
+
 function setGroupField(container) {
     let wrapper = container.closest(".wrapper");
     let prototype = wrapper.data("prototype");
@@ -108,68 +157,19 @@ function setPositionVideoInfo () {
 function setFirstCollectionField (container){
     let elem = container.attr("class");
 
-    if (elem.indexOf("picture-container") !== -1) {
-        if (container.find("input").length === 0) {
-            addContainer(container);
-            container.remove();
-        }
+    let switchCollection = function (container) {
+        addContainer(container);
+        container.remove();
+    };
+
+    if (elem.indexOf("picture-container") !== -1 && container.find("input").length === 0) {
+        switchCollection(container);
     }
-    else if (elem.indexOf("video-container") !== -1) {
-        if (container.find("textarea").length === 0) {
-            addContainer(container);
-            container.remove();
-        }
+    else if (elem.indexOf("video-container") !== -1 && container.find("textarea").length === 0) {
+        switchCollection(container);
     }
 }
 
-/**
- * Get value from input#create-group and create a new checkbox
- */
-function createGroup (){
-    let input = $("#create-group input");
-
-    input.each(function () {
-        let groupName = $(this).val().trim();
-
-        if (groupName.length === 0){
-            return;
-        }
-        $(this).val("");
-
-        //  First letter uppercase for each words
-        groupName = groupName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
-            return letter.toUpperCase();
-        });
-
-        if ($("#create_trick_groups").length !== 0) {
-            var formsCheck = $("#create_trick_groups").find(".form-check");
-        }else if ($("#update_trick_groups").length !== 0) {
-            var formsCheck = $("#update_trick_groups").find(".form-check");
-        }
-
-        let newCheckbox = formsCheck.first().clone();
-        let newIndex = (formsCheck.length).toString();
-
-        // Replace the id of the input field with the new index
-        let attrClass = $("input", newCheckbox).attr("class");
-        let attrId = "create_group_checkbox" + newIndex + 1;
-
-        // Set attributes
-        $("input", newCheckbox).attr({
-            id: attrId,
-            class: attrClass + " create_group_checkbox",
-            checked: true,
-            value: groupName
-        });
-        // $("input", newCheckbox).removeAttr("value");
-        $("label", newCheckbox).attr("for", attrId);
-        $("label", newCheckbox).text(groupName);
-
-        let helper = $("#create-group-help").show();
-
-        formsCheck.parent().append(newCheckbox).append(helper);
-    });
-}
 
 /**
  * Display Error Div
@@ -197,8 +197,7 @@ function displayAlert(errors) {
  */
 function checkRequiredField() {
     let requiredFields = $("*[required=required]");
-    let alertDiv = $("#field-warning");
-    let errors = [];
+        let errors = [];
 
     requiredFields.each(function () {
         if ( "" === $(this).val() ) {
@@ -249,7 +248,7 @@ function sendDataNewGroups() {
 
     createGroupCheckbox.each(function () {
         if ($(this).is(":checked")) {
-            newInput = setGroupField($(".group-container"));
+            let newInput = setGroupField($(".group-container"));
             $(newInput).val($(this).val()).attr("type", "hidden");
             createGroupCheckbox.parent().remove();
         }
@@ -343,10 +342,6 @@ $(document).on("change", ".iframe-textarea", function () {
 
 $(document).ready(function() {
     pictureContainerHeight();
-
-    let pictureContainer = $(".picture-container");
-    let videoContainer = $(".video-container");
-    let groupContainer = $(".group-container");
 
     toggleButton(pictureContainer);
     toggleButton(videoContainer);

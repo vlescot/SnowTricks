@@ -76,7 +76,7 @@
 
                 {#Groups#}
                 {{ form_label(form.groups, 'Groupes de figure') }}
-                {{ form_widget(form.groups) }}
+                {{ form_widget(form.groups, {'attr': { 'class': 'check-groups' }}) }}
                 {{ form_errors(form.groups) }}
 
                 <small id="create-group-help" class="form-text text-muted">

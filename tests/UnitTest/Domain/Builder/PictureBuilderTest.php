@@ -99,7 +99,7 @@ final class PictureBuilderTest extends TestCase
 
         static::assertInternalType('array', $picturesCollection);
         static::assertCount(3, $picturesCollection);
-        foreach ($picturesCollection as $key => $picture) {
+        foreach ($picturesCollection as $picture) {
             static::assertInstanceOf(PictureInterface::class, $picture);
         }
     }

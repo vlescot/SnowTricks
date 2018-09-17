@@ -1,3 +1,9 @@
+let commentContainers = $(".comment-container");
+let currentPage = 1;
+let commentsByPage = 5;
+let nbPage = Math.ceil(commentContainers.length / commentsByPage);
+
+
 $(".badge").on("click", function () {
     localStorage.setItem("badge", $(this).html());
     window.location.replace(window.location.origin + "#tricks");
@@ -35,7 +41,7 @@ function setPaginationDisabled(currentPage){
 function setPagination (){
     let paginationList = $(".pagination");
     let numPage = $(".num-page");
-    for (i = 2; i <= nbPage; i++) {
+    for (let i = 2; i <= nbPage; i++) {
         let addNumPage = numPage.clone();
         addNumPage.find("a").html(i);
         $(paginationList).find("li:nth-last-child(2)").after(addNumPage);
@@ -47,8 +53,9 @@ function showPage(currentPage) {
     let commentContainers = $(".comment-container");
     commentContainers.hide();
     commentContainers.each(function(n) {
-        if (n >= commentsByPage * (currentPage - 1) && n < commentsByPage * currentPage)
+        if (n >= commentsByPage * (currentPage - 1) && n < commentsByPage * currentPage) {
             $(this).show();
+        }
     });
     setPaginationDisabled(currentPage)
 }
@@ -66,11 +73,6 @@ $(document).on("click", " .able-link", function () {
 
 
 $(document).ready(function () {
-    let commentContainers = $(".comment-container");
-    currentPage = 1;
-    commentsByPage = 5;
-    nbPage = Math.ceil(commentContainers.length / commentsByPage);
-
     setPagination();
     showPage(currentPage);
 

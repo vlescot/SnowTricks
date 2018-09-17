@@ -2,15 +2,15 @@
     {{ form_errors(form) }}
 
 <div class="form-group form-control-sm">
-    {{ form_label(form._login, 'Votre identifiant :') }}
+    {{ form_label(form._login, 'Votre identifiant') }}
     {{ form_widget(form._login, {'attr': {
         'class': 'form-control',
-        'placeholder': 'Nom d\'utilisateur ou email'
+        'placeholder': 'Nom d\'utilisateur ou adresse e-mail'
     }}) }}
 </div>
 
 <div class="form-group form-control-sm">
-    {{ form_label(form._password, 'Votre mot de passe :') }}
+    {{ form_label(form._password, 'Votre mot de passe') }}
     {{ form_widget(form._password, {'attr': {
         'class': 'form-control',
         'placeholder': 'Mot de passe'
@@ -24,3 +24,22 @@
 </div>
 
 {{ form_end(form) }}
+
+<hr>
+<div class="container-fluid text-center">
+    <p style="margin-bottom: 0.5em;font-size: 0.8em;">Vous pouvez essayer l'utilisateur par default :</p>
+    <table class="table table-sm table-bordered" style="font-size: 0.875em;">
+        <thead>
+        <tr>
+            <th>Identifiant</th>
+            <th>Mot de passe</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>root</td>
+            <td>root</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

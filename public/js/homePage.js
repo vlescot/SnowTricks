@@ -1,12 +1,14 @@
 "use strict";
 
 let search = $("#search");
+let tricks = listing($(".main-trick-title"));
+let groups = listing($(".badge"));
 
 $( document ).on("click", "#remove-trick", function () {
     let removeTrickModal = $("#remove-trick-modal");
     let trickId = removeTrickModal.find("input[type=hidden]").val();
 
-    $.post('/figure/supprimer', {id: trickId}, function (data, status) {
+    $.post("/figure/supprimer", {id: trickId}, function (data, status) {
         removeTrickModal.modal("hide");
         $("html,body").animate({ scrollTop: 0 }, 500);
 
@@ -71,7 +73,7 @@ function trickThumbnailHeight() {
  * Effects on trick hover Thumbnail
  **/
 $(document).on({
-    mouseenter: function () {
+    mouseenter() {
         $(".img", this).animate({
             left: "-10px",
             top: "-10px",
@@ -80,7 +82,7 @@ $(document).on({
             width: "+=20px",
         });
     },
-    mouseleave: function () {
+    mouseleave() {
         $(".img", this).animate({
             left: "0px",
             top: "0px",
@@ -98,7 +100,7 @@ function redirectToTrick(){
 
     search = search[0].toUpperCase() + search.substr(1);
 
-    if ($.inArray(search,tricks) !== -1){
+    if ($.inArray(search, tricks) !== -1){
         window.location.replace(window.location.origin + "/" + search);
     } else {
         input.val("");
@@ -136,15 +138,12 @@ function toggleGroup (toDisplay) {
                 let badgeContent = $(this).html();
                 if (badgeContent === toDisplay) {
                     display = true;
-                }else {
-                    if (display !== true)
-                        display = false;
                 }
             });
-            if (display === true){
-                $(this).closest(".main-tricks>div").show();
-            }else {
-                $(this).closest(".main-tricks>div").hide();
+            if (display){
+                $(this).closest(".main-tricks > div").show();
+            } else {
+                $(this).closest(".main-tricks > div").hide();
             }
         });
     }
@@ -164,9 +163,6 @@ function listing (element){
     });
     return arr;
 }
-
-let tricks = listing($(".main-trick-title"));
-let groups = listing($(".badge"));
 
 search.autocomplete({
     source : tricks
@@ -192,7 +188,7 @@ for (i = 0; i < groups.length; ++i) {
 
     let span = $("<span>", { class: "badge"});
     if (i % 8 === 0 && i !== 0) {
-        container = $(".main-groups div").first().clone().html("");
+        let container = $(".main-groups div").first().clone().html("");
         $(".main-groups").append(container);
     }
     $(".main-groups div:last").append(span.text(groups[i]));
