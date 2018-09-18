@@ -1,7 +1,3 @@
-"use strict";
-
-let search = $("#search");
-
 /**
  * Search the Trick with autocomplete
  */
@@ -19,6 +15,8 @@ function listing (element){
 
 let tricks = listing($(".main-trick-title"));
 let groups = listing($(".badge"));
+let search = $("#search");
+
 
 search.autocomplete({
     source : tricks

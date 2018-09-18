@@ -14,6 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChangePasswordType extends AbstractType
 {
+    /**
+     * @inheritdoc
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('password', RepeatedType::class, [
@@ -22,6 +25,9 @@ class ChangePasswordType extends AbstractType
         ]);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -21,7 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RegistrationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options = [])
+     /**
+     * @inheritdoc
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('username', TextType::class, ['required' => true])
@@ -36,6 +39,9 @@ class RegistrationType extends AbstractType
         ;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

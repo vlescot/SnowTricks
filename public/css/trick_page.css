@@ -133,6 +133,9 @@
     color: #868e96;
 }
 
+/**
+ * Responsive
+ */
 @media screen and (max-width: 576px)
 {
     #trick-description > div:first-child {

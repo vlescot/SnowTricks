@@ -20,7 +20,7 @@ $(document)
 
 /**
  *      Hide Flash messages container after a while
- */
+ **/
 let flash = $("#flash-container");
 if (flash.length > 0) {
     setTimeout(function(){flash.fadeOut(600)}, 5000);

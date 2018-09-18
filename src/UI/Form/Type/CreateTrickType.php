@@ -21,10 +21,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CreateTrickType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $option
+     * @inheritdoc
      */
-    public function buildForm(FormBuilderInterface $builder, array $option = [])
+    public function buildForm(FormBuilderInterface $builder, array $option)
     {
         $builder
             ->add('title', TextType::class, ['trim' => true])
@@ -68,7 +67,7 @@ class CreateTrickType extends AbstractType
     }
 
     /**
-     * @param OptionsResolver $resolver
+     * @inheritdoc
      */
     public function configureOptions(OptionsResolver $resolver)
     {

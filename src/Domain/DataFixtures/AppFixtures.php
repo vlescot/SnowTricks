@@ -46,8 +46,7 @@ final class AppFixtures extends Fixture
     }
 
     /**
-     * @param ObjectManager $manager
-     * @throws \Exception
+     * @inheritdoc
      */
     public function load(ObjectManager $manager)
     {

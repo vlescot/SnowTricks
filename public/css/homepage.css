@@ -40,6 +40,9 @@
     font-size: small;
 }
 
+/**
+ * Thumbnails
+ */
 .main-trick {
     display: none;
     margin-bottom: 30px;
@@ -98,6 +101,9 @@
     color: #6e7a82;
 }
 
+/**
+ * Responsive
+ */
 @media screen and (max-width: 576px)
 {
     .homepage > div:first-child > div:nth-child(2) {

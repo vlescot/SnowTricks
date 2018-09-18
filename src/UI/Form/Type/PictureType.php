@@ -17,10 +17,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PictureType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @inheritdoc
      */
-    public function buildForm(FormBuilderInterface $builder, array $options = [])
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('file', FileType::class, [
             'attr' => [
@@ -30,7 +29,7 @@ class PictureType extends AbstractType
     }
 
     /**
-     * @param OptionsResolver $resolver
+     * @inheritdoc
      */
     public function configureOptions(OptionsResolver $resolver)
     {
