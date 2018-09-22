@@ -1,10 +1,10 @@
 # SnowTricks [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e170f2f88d74c5bb6142061ac991f32)](https://www.codacy.com/app/vlescot/SnowTricks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vlescot/SnowTricks&amp;utm_campaign=Badge_Grade)[![Maintainability](https://api.codeclimate.com/v1/badges/aa90009a2a116ca95ad6/maintainability)](https://codeclimate.com/github/vlescot/SnowTricks/maintainability)
   
-<h3 style="margin-left:auto;margin-right:auto;" align="center">
+<h2 style="margin-left:auto;margin-right:auto;" align="center">
 	<img src="http://vincentlescot.fr/git_snowtricks2.png" alt="Details view" height="300">
 	<img src="http://vincentlescot.fr/git_snowtricks1.png" alt="Details view" height="300">
 	<p align="center"><a href="http://snowtricks.vincentlescot.fr">Have a look !</a></p>
-</h3>
+</h2>
 
 &nbsp;
 
