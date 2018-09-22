@@ -5,7 +5,7 @@
   
 SnowTricks is a sharing website about snowboard tricks. This project was built during my [web develpment learning path](https://openclassrooms.com/paths/developpeur-se-d-application-php-symfony) with OpenClassrooms. 
 
-This application is built with *Symfony ~4.0* and *[ADR (Action-Domain-Responder)](https://youtu.be/y7c-XWLYMVA) architectural pattern.*  
+This application is built with Symfony ~4.0 and [ADR (Action-Domain-Responder)](https://youtu.be/y7c-XWLYMVA) architectural pattern.
   
 #### Friendly with :  
    1. PSR-0, PSR-1, PSR-2, PSR-4  
@@ -24,7 +24,7 @@ This application is built with *Symfony ~4.0* and *[ADR (Action-Domain-Responder
 * Bootstrap
   
   
-# Install
+## Install
  1. Clone or download the repository into your environment.  
     ```https://github.com/vlescot/SnowTricks.git  ```
  2. Change the file *.env.dist* with your own data :  
