@@ -2,7 +2,7 @@
   
 <p style="margin-left:auto;margin-right:auto;" align="center">
 	<img src="http://vincentlescot.fr/git_snowtricks2.png" alt="Details view" height="300">
-  
+	<img src="http://vincentlescot.fr/git_snowtricks1.png" alt="Details view" height="300">
 </p>
 
 **[Click here to have a look](http://snowtricks.vincentlescot.fr)**  
