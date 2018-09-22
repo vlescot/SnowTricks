@@ -1,5 +1,5 @@
 
-# SnowTricks
+# SnowTricks [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e170f2f88d74c5bb6142061ac991f32)](https://www.codacy.com/app/vlescot/SnowTricks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vlescot/SnowTricks&amp;utm_campaign=Badge_Grade)[![Maintainability](https://api.codeclimate.com/v1/badges/aa90009a2a116ca95ad6/maintainability)](https://codeclimate.com/github/vlescot/SnowTricks/maintainability)
   
 **[Have a look](http://snowtricks.vincentlescot.fr)**  
   
