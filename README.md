@@ -2,7 +2,10 @@
 # SnowTricks [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e170f2f88d74c5bb6142061ac991f32)](https://www.codacy.com/app/vlescot/SnowTricks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vlescot/SnowTricks&amp;utm_campaign=Badge_Grade)[![Maintainability](https://api.codeclimate.com/v1/badges/aa90009a2a116ca95ad6/maintainability)](https://codeclimate.com/github/vlescot/SnowTricks/maintainability)
   
 **[Have a look](http://snowtricks.vincentlescot.fr)**  
-  
+
+[image form](http://vincentlescot.fr/git_snowtricks1.png "Image edit")
+[image view](http://vincentlescot.fr/git_snowtricks1.png "Image page view")
+
 SnowTricks is a sharing website about snowboard tricks. This project was built during my [web develpment learning path](https://openclassrooms.com/paths/developpeur-se-d-application-php-symfony) with OpenClassrooms. 
 
 This application is built with Symfony ~4.0 and [ADR (Action-Domain-Responder)](https://youtu.be/y7c-XWLYMVA) architectural pattern.
