@@ -25,3 +25,11 @@ let flash = $("#flash-container");
 if (flash.length > 0) {
     setTimeout(function(){flash.fadeOut(600)}, 5000);
 }
+
+/**
+ *      Hide Modal Flash messages container after a while
+ **/
+let modalFlash = $("#flash-modal-container");
+if (modalFlash.length > 0) {
+    setTimeout(function(){modalFlash.fadeOut(600)} ,3000);
+}

@@ -42,7 +42,7 @@ final class ImageUploaderWarmerTest extends KernelTestCase
 
         $this->filesystem = new Filesystem();
         $this->publicFolder = $this::$kernel->getRootDir() . '/../public';
-        $this->trickFolder = '/image/trick';
+        $this->trickFolder = '/image/snowtrick';
         $this->userFolder = '/image/user';
 
         $this->imageWarmer = new ImageUploadWarmer(

@@ -36,7 +36,7 @@ final class CreateCommentHandler implements CreateCommentHandlerInterface
     private $commentRepository;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -52,7 +52,7 @@ final class CreateCommentHandler implements CreateCommentHandlerInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle(FormInterface $form, TrickInterface $trick) : bool
     {
@@ -63,7 +63,7 @@ final class CreateCommentHandler implements CreateCommentHandlerInterface
                 $trick
             );
 
-            $errors = $this->validator->validate($comment, null, 'create_comment');
+            $errors = $this->validator->validate($comment, null, 'comment');
 
             if (\count($errors) > 0) {
                 foreach ($errors as $violation) {

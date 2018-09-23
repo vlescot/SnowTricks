@@ -13,15 +13,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class VideoType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder->add('iFrame', TextareaType::class, ['trim' => true]);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {

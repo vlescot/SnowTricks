@@ -6,6 +6,7 @@ namespace App\Domain\Builder\Interfaces;
 use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
+use App\Service\Image\Interfaces\FolderChangerInterface;
 use App\Service\Image\Interfaces\ImageRemoverInterface;
 use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 
@@ -17,6 +18,7 @@ interface UpdateTrickBuilderInterface
      * @param CollectionUpdatePrepareInterface $collectionPrepare
      * @param ImageUploadWarmerInterface $imageUploadWarmer
      * @param ImageRemoverInterface $imageRemover
+     * @param FolderChangerInterface $folderChanger
      * @param GroupBuilderInterface $groupBuilder
      * @param PictureBuilderInterface $pictureBuilder
      */
@@ -24,6 +26,7 @@ interface UpdateTrickBuilderInterface
         CollectionUpdatePrepareInterface $collectionPrepare,
         ImageUploadWarmerInterface $imageUploadWarmer,
         ImageRemoverInterface $imageRemover,
+        FolderChangerInterface $folderChanger,
         GroupBuilderInterface $groupBuilder,
         PictureBuilderInterface $pictureBuilder
     );

@@ -49,7 +49,7 @@ final class ImageUploadWarmer implements ImageUploadWarmerInterface
     private $alt;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         Filesystem $filesystem,
@@ -64,7 +64,7 @@ final class ImageUploadWarmer implements ImageUploadWarmerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function initialize(string $context, string $title)
     {
@@ -85,7 +85,7 @@ final class ImageUploadWarmer implements ImageUploadWarmerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateImageInfo(\SplFileInfo $file): array
     {
@@ -97,7 +97,7 @@ final class ImageUploadWarmer implements ImageUploadWarmerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUpdateImageInfo(): array
     {

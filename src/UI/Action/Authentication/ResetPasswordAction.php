@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @Route(
  *     "/reset_password",
  *     name="ResetPassword",
- *     methods={"GET", "POST"}
+ *     methods={"POST"}
  * )
  *
  * Class ResetPasswordAction

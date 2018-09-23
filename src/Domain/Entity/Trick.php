@@ -150,65 +150,54 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @inheritdoc
+     * @param array $pictures
      */
     private function updatePicture(array $pictures)
     {
-        foreach ($pictures as $key => $picture) {
-            if ($this->pictures->containsKey($key)) {
-                $this->pictures->set($key, $picture);
-            } else {
-                $this->pictures->add($picture);
-            }
-        }
-        foreach ($this->pictures->getIterator() as $key => $picture) {
-            if (!isset($pictures[$key])) {
-                $this->pictures->remove($key);
-            }
+        $this->pictures->clear();
+        foreach ($pictures as $picture) {
+            $this->pictures->add($picture);
         }
     }
 
     /**
-     * @inheritdoc
+     * @param array $videos
      */
     private function updateVideo(array $videos)
     {
-        foreach ($videos as $key => $video) {
-            if ($this->videos->containsKey($key)) {
-                $this->videos->set($key, $video);
-            } else {
-                $this->videos->add($video);
-            }
-            $video->setTrick($this);
-        }
         foreach ($this->videos->getIterator() as $key => $video) {
-            if (!isset($videos[$key])) {
+            if (!array_key_exists($key, $videos)) {
+                $video->unsetTrick($this);
                 $this->videos->remove($key);
             }
         }
+        foreach ($videos as $key => $video) {
+            $this->videos->set($key, $video);
+            $video->setTrick($this);
+        }
     }
 
     /**
-     * @inheritdoc
+     * @param \ArrayAccess $groups
      */
     private function updateGroup(\ArrayAccess $groups)
     {
-        foreach ($groups as $key => $group) {
-            if ($this->groups->containsKey($key)) {
-                $this->groups->set($key, $group);
-            } else {
-                $this->addGroup($group);
-            }
-        }
         foreach ($this->groups->getIterator() as $key => $group) {
             if (!isset($groups[$key])) {
+                $this->groups->get($key)->removeTrick($this);
                 $this->removeGroup($group);
+            }
+        }
+        foreach ($groups as $key => $group) {
+            if ($this->groups->containsKey($key)) {
+                $group->addTrick($this);
+                $this->groups->set($key, $group);
             }
         }
     }
 
     /**
-     * @inheritdoc
+     * @param GroupInterface $group
      */
     private function addGroup(GroupInterface$group)
     {
@@ -219,7 +208,7 @@ class Trick implements TrickInterface
     }
 
     /**
-     * @inheritdoc
+     * @param GroupInterface $group
      */
     private function removeGroup(GroupInterface $group)
     {

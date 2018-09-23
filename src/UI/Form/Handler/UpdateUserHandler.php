@@ -58,7 +58,7 @@ final class UpdateUserHandler implements UpdateUserHandlerInterface
     private $imageRemover;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         UpdateUserBuilderInterface $updateUserBuilder,
@@ -82,7 +82,7 @@ final class UpdateUserHandler implements UpdateUserHandlerInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle(FormInterface $form, UserInterface $user): bool
     {
@@ -91,7 +91,7 @@ final class UpdateUserHandler implements UpdateUserHandlerInterface
 
             $user = $this->updateUserBuilder->create($user, $form->getData());
 
-            $errors = $this->validator->validate($user, null, ['userRegistration', 'User']);
+            $errors = $this->validator->validate($user, null, ['user']);
             if (\count($errors) > 0) {
                 foreach ($errors as $violation) {
                     $this->session->getFlashBag()->add('warning', $violation->getMessage());

@@ -29,9 +29,9 @@ interface ChangePasswordHandlerInterface
 
     /**
      * @param FormInterface $form
-     * @param UserInterface $user
+     * @param null|UserInterface $user
      *
      * @return bool
      */
-    public function handle(FormInterface $form, UserInterface $user): bool;
+    public function handle(FormInterface $form, ? UserInterface $user): bool;
 }

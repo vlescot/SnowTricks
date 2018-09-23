@@ -41,7 +41,6 @@ App\Domain\DTO\TrickDTO:
                 groups:
                     - trickDTO
 
-
         newGroups:
             - Valid:
                 traverse: true

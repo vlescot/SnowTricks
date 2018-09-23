@@ -1,77 +1,108 @@
-Trick1:
-  Title: Grab
-  Slug: grab
-  Description: <p>Vestibulum nec dui lorem. Sed eget turpis est. Morbi feugiat faucibus est sed bibendum. Aenean ut tincidunt tortor. Cras blandit neque iaculis diam euismod auctor. Vestibulum felis nisi, dignissim et ligula at, ornare semper metus. Duis luctus in nisi quis pretium. Integer condimentum, justo sed congue imperdiet, diam mi varius nisi, ut convallis urna dolor sed ex. Vestibulum viverra lacus quis quam malesuada luctus. Aliquam eget bibendum tortor. Curabitur finibus lorem velit, nec vehicula leo malesuada vel. Donec quis tortor ac dui vestibulum vestibulum. Morbi scelerisque purus et enim varius, non gravida turpis tincidunt. Proin eu vestibulum lorem. Donec eget quam quis ante mollis facilisis. Fusce venenatis dignissim diam, eget tristique urna accumsan ut.</p>
+mute :
+  Title: Mute
+  Description: <p>La main avant saisit la pointe des pieds entre les orteils ou devant le pied avant. Les variations incluent le Mute Stiffy, dans lequel une prise de silence est effectuée tout en redressant les deux jambes, ou alternativement, certains snowboarders attraperont muet et feront pivoter le bord avant de 90 degrés.</p>
   Reference:
-    Author: User1
-    Comment:
-      - Comment1
-    MainPicture: MainPictureGrab
+    Author: user1
+    MainPicture: main_picture_mute
     Picture:
-      - PictureGrab1
-      - PictureGrab2
+      - picture_mute0
+      - picture_mute1
     Video:
-      - Video1
+      - video_mute0
     Group:
-      - Group1
-      - Group3
-Trick2:
-  Title: Spins
-  Slug: spins
-  Description: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet orci et sapien tristique, sed feugiat neque aliquet. Quisque cursus sodales massa at venenatis. In hac habitasse platea dictumst. Curabitur maximus tempus urna, vitae ullamcorper ligula placerat vitae. Nulla est lectus, vehicula vitae tempor id, pretium eu ante. Nulla egestas justo non sapien molestie, quis mollis enim malesuada. Nunc dui nisi, elementum ac tempor a, viverra quis odio. Integer augue neque, mattis vitae lobortis vel, pulvinar ac mauris. In cursus pulvinar posuere. Vivamus in auctor quam. Maecenas at nunc vel ligula porttitor auctor eget in dolor. Nam posuere ligula et dignissim interdum.</p>
-  Reference:
-    Author: User2
-    Comment:
-      - Comment2
-    MainPicture: MainPictureSpins
-    Picture:
-      - PictureSpins1
-      - PictureSpins2
-      - PictureSpins3
-    Video:
-      - Video2
-      - Video4
-    Group:
-      - Group1
-      - Group2
-Trick3:
-  Title: Japan
-  Slug: japan
-  Description: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quisquam repellat commodi voluptates! Nostrum, dignissimos id cumque! Molestias, dolorem ut asperiores numquam eius dolore consequatur ex, atque impedit tempora quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dignissimos exercitationem placeat nemo ad perferen dis harum pariatur similique iusto sapiente ea repudiandae iste non dicta, inventore earum quos sequi soluta?</p>
-  Reference:
-    Author: User1
-    Comment:
-      - Comment3
-    MainPicture: MainPictureJapan
-    Picture:
-      - PictureJapan1
-      - PictureJapan2
-    Video:
-      - Video3
-    Group:
-      - Group2
+      - grab
+      - flip
 
-#Trick4
-Trick4:
-  Title: Try
-  Slug: try
-  Description: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+backside :
+  Title: Backside
+  Description: <p>En langage snowboard, un cork est une rotation horizontale plus ou moins désaxée, selon un mouvement d'épaules effectué juste au moment du saut. </p>
   Reference:
-    Author: User1
-    MainPicture: MainTry
+    Author: user0
+    MainPicture: main_picture_backside
     Picture:
-      - Try1
-      - Try2
-      - Try3
+      - picture_backside0
     Video:
-      - Video1
-      - Video2
-      - Video3
-      - Video4
-    Comment:
-      - Comment1
-      - Comment2
-      - Comment3
+      - video_backside0
+      - video_backside1
     Group:
-      - Group2
-      - Group3
+      - flip
+
+method_air :
+  Title: Method Air
+  Description: <p>Cette figure – qui consiste à attraper sa planche d'une main et le tourner perpendiculairement au sol – est un classique "old school".</p>
+  Reference:
+    Author: user0
+    MainPicture: main_picture_method_air
+    Picture:
+      - picture_method_air0
+      - picture_method_air1
+    Video:
+      - video_method_air0
+    Group:
+      - flip
+      - grab
+
+japan :
+  Title: Japan
+  Description: <p>La main avant saisit la pointe entre les pieds et le genou avant est tiré vers la planche.</p>
+  Reference:
+    Author: user0
+    MainPicture: main_picture_japan
+    Picture:
+      - picture_japan0
+      - picture_japan1
+      - picture_japan2
+    Video:
+      - video_japan0
+      - video_japan1
+    Group:
+      - grab
+
+
+nose_grab :
+  Title: Nose Grab
+  Description: <p>La main va attraper l'arrière de la planche.</p>
+  Reference:
+    Author: user1
+    MainPicture: main_picture_nose_grab
+    Picture:
+      - picture_nose_grab0
+      - picture_nose_grab1
+      - picture_nose_grab2
+    Video:
+      - video_nose_grab0
+    Group:
+      - grab
+
+
+gutterball :
+  Title: GutterBall
+  Description: <p>Le Gutterball est un slide avant à un pied (le pied avant est attaché et le pied arrière est dégagé) avec une pince de ceinture de sécurité arrière, ressemblant à la position du corps après avoir lâché une boule de bowling dans un allié. Cette astuce a été inventée et nommée par Jeremy Cameron, qui lui a valu une première place au concours "FAME WAR" de Morrow Snowboards en 2009.</p>
+  Reference:
+    Author: user0
+    MainPicture: main_picture_gutterball
+    Picture:
+      - picture_gutterball0
+      - picture_gutterball1
+    Video:
+      - video_gutterball0
+    Group:
+      - grab
+      - slide
+
+
+
+flip900 :
+  Title: Flip 900
+  Description: <p>Le snowboarder effectue une rotation de 900 degrès pendant le saut.</p>
+  Reference:
+    Author: user1
+    MainPicture: main_picture_flip900
+    Picture:
+      - picture_flip9000
+      - picture_flip9001
+      - picture_flip9002
+    Video:
+      - video_flip9000
+    Group:
+      - flip

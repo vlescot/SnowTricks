@@ -18,7 +18,7 @@ final class Mailer implements MailerInterface
     private $twig;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig)
     {
@@ -27,7 +27,7 @@ final class Mailer implements MailerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendMail(
         string $mailTo,
@@ -35,17 +35,18 @@ final class Mailer implements MailerInterface
         string $view,
         array $parameters
     ) {
-        $message = (new \Swift_Message($subject))
-            ->setFrom(['vincent.lescot@gmail.com' => 'La Communauté SnowTricks'])
-            ->setTo($mailTo)
-            ->setBody(
-                $this->twig->render(
-                    'email/' . $view,
-                    $parameters
-                ),
-                'text/html'
-            );
-
-        $this->mailer->send($message);
+        //TODO
+//        $message = (new \Swift_Message($subject))
+//            ->setFrom(['vincent.lescot@gmail.com' => 'La Communauté SnowTricks'])
+//            ->setTo($mailTo)
+//            ->setBody(
+//                $this->twig->render(
+//                    'email/' . $view,
+//                    $parameters
+//                ),
+//                'text/html'
+//            );
+//
+//        $this->mailer->send($message);
     }
 }

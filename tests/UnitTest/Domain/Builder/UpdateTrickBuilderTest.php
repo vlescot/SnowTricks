@@ -19,6 +19,7 @@ use App\Domain\Entity\Interfaces\VideoInterface;
 use App\Domain\Entity\Picture;
 use App\Domain\Entity\Trick;
 use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
+use App\Service\Image\Interfaces\FolderChangerInterface;
 use App\Service\Image\Interfaces\ImageRemoverInterface;
 use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,6 +46,11 @@ final class UpdateTrickBuilderTest extends TestCase
     private $imageRemover;
 
     /**
+     * @var FolderChangerInterface
+     */
+    private $folderChanger;
+
+    /**
      * @var GroupBuilderInterface
      */
     private $groupBuilder;
@@ -59,6 +65,7 @@ final class UpdateTrickBuilderTest extends TestCase
         $this->collectionPrepare = $this->createMock(CollectionUpdatePrepareInterface::class);
         $this->imageUploadWarmer = $this->createMock(ImageUploadWarmerInterface::class);
         $this->imageRemover = $this->createMock(ImageRemoverInterface::class);
+        $this->folderChanger = $this->createMock(FolderChangerInterface::class);
         $this->groupBuilder = $this->createMock(GroupBuilderInterface::class);
         $this->pictureBuilder = $this->createMock(PictureBuilderInterface::class);
     }
@@ -69,6 +76,7 @@ final class UpdateTrickBuilderTest extends TestCase
             $this->collectionPrepare,
             $this->imageUploadWarmer,
             $this->imageRemover,
+            $this->folderChanger,
             $this->groupBuilder,
             $this->pictureBuilder
         );
@@ -125,7 +133,6 @@ final class UpdateTrickBuilderTest extends TestCase
 
 
         // Assertions
-
         static::assertInstanceOf(TrickInterface::class, $trick);
         static::assertSame($trickDTO->title, $trick->getTitle());
         static::assertSame($trickDTO->description, $trick->getDescription());
@@ -215,7 +222,7 @@ final class UpdateTrickBuilderTest extends TestCase
         ];
 
         $trickDTO = new TrickDTO(
-            'New Title',
+            'Trick Title',
             'New description',
             $mainPictureDTO,
             $pictureDTOCollection,

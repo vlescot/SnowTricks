@@ -10,7 +10,7 @@ interface PictureInterface
     /**
      * @param string $path
      */
-    public function update(string $path): void;
+    public function setPath(string $path): void;
 
     /**
      * @return UuidInterface

@@ -8,7 +8,7 @@ App\Domain\DTO\GroupDTO:
             - Length:
                 min: 3
                 minMessage : Le nom du groupe est trop court.
-                max: 255
+                max: 30
                 maxMessage : Le nom du groupe est trop long.
                 groups:
                     - trickDTO

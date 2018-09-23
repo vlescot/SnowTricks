@@ -14,9 +14,6 @@
         <field name="updatedAt" column="date_update" type="integer" />
 
         <many-to-one field="author" target-entity="App\Domain\Entity\User" inversed-by="tricks">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
             <join-column nullable="false" />
         </many-to-one>
 

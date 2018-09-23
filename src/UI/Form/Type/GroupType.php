@@ -13,9 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class GroupType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder
             ->add('name', TextType::class, [
@@ -25,13 +25,13 @@ class GroupType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => GroupDTO::class,
-            'validation_groups' => ['TrickDTO'],
+            'validation_groups' => ['trickDTO'],
             'error_bubbling' => true,
             'empty_data' => function (FormInterface $form) {
                 return new GroupDTO(

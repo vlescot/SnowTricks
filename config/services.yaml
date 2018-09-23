@@ -31,7 +31,7 @@ services:
 #    SERVICES
     App\Service\Image\ImageUploadWarmer:
         arguments:
-            $trickFolder: '/image/trick'
+            $trickFolder: '/image/snowtrick'
             $userFolder: '/image/user'
 
     App\Service\Image\ImageThumbnailCreator:

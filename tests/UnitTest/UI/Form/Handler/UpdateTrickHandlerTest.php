@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace App\Tests\UnitTest\UI\Form\Handler;
 
-use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\Builder\Interfaces\UpdateTrickBuilderInterface;
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
 use App\UI\Form\Handler\UpdateTrickHandler;
 use App\Service\Image\Interfaces\FolderChangerInterface;
@@ -62,17 +60,6 @@ final class UpdateTrickHandlerTest extends TestCase
      */
     private $session;
 
-    /**
-     * @var ImageUploadWarmerInterface
-     */
-    private $imageUploadWarmer;
-
-    /**
-     * @var PictureBuilderInterface
-     */
-    private $pictureBuilder;
-
-
 
     public function setUp()
     {
@@ -85,8 +72,6 @@ final class UpdateTrickHandlerTest extends TestCase
         $this->updateTrickBuilder = $this->createMock(UpdateTrickBuilderInterface::class);
         $this->validator = $this->createMock(ValidatorInterface::class);
         $this->session = $this->createMock(SessionInterface::class);
-        $this->imageUploadWarmer = $this->createMock(ImageUploadWarmerInterface::class);
-        $this->pictureBuilder = $this->createMock(PictureBuilderInterface::class);
     }
 
     private function constructInstance()
@@ -99,9 +84,7 @@ final class UpdateTrickHandlerTest extends TestCase
             $this->folderChanger,
             $this->updateTrickBuilder,
             $this->validator,
-            $this->session,
-            $this->imageUploadWarmer,
-            $this->pictureBuilder
+            $this->session
         );
     }
 

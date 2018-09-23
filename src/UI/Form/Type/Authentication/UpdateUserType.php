@@ -32,9 +32,9 @@ class UpdateUserType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder
             ->add('email', EmailType::class, [
@@ -52,13 +52,13 @@ class UpdateUserType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => UpdateUserDTO::class,
-            'validation_groups' => ['updateUserDTO'],
+            'validation_groups' => ['userDTO'],
             'empty_data' => function (FormInterface $form) {
                 return new UpdateUserDTO(
                     null,

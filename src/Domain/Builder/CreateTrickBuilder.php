@@ -46,7 +46,7 @@ final class CreateTrickBuilder implements CreateTrickBuilderInterface
     private $user;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         PictureBuilderInterface $pictureBuilder,
@@ -63,7 +63,7 @@ final class CreateTrickBuilder implements CreateTrickBuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(TrickDTOInterface $trickDTO): TrickInterface
     {

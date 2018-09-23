@@ -14,53 +14,58 @@ App\Domain\Entity\User:
             - Uuid:
                 message: L'attribut id n'est pas un Uuid valide.
                 groups:
-                    - userRegistration
+                    - user
 
         username:
             - NotBlank:
                 message: Le pseudo est obligatoire.
                 groups:
-                    - userRegistration
+                    - user
             - Length:
                 min: 3
                 minMessage: Ce nom d'utilisateur est trop court
                 max: 255
                 maxMessage: Ce nom est trop long !!
                 groups:
-                    - userRegistration
+                    - user
 
         password:
+            - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
+                message: Votre mot de passe n'est pas valide
             - NotBlank:
                 message: Un mot de passe est obligatoire.
                 groups:
-                    - userRegistration
+                    - user
             - Length:
+                min: 8
+                minMessage: Votre mot de passe est trop court
                 max: 64
                 maxMessage: Le mot de passe est trop court
                 groups:
-                    - userRegistration
+                    - user
+                    - changePassword
 
         email:
             - NotBlank:
                 message: Un email est obligatoire.
                 groups:
-                    - userRegistration
+                    - user
             - Email:
                 message: Cet email n'est pas valide.
                 groups:
-                    - userRegistration
+                    - user
             - Length:
                 max: 255
                 maxMessage: Cet adresse e-mail est trop longue (maximum 255 caractéres)
                 groups:
-                    - userRegistration
+                    - user
 
         createdAt:
             - NotBlank:
                 groups:
-                    - userRegistration
+                    - user
 
         picture:
             - Valid:
                 groups:
-                    - userRegistration
+                    - user

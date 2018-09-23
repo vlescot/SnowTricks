@@ -10,62 +10,62 @@ App\Domain\Entity\Trick:
             - Uuid:
                 message: L'attribut id n'est pas un Uuid valide.
                 groups:
-                    - edit_trick
+                    - trick
 
         title:
             - NotBlank:
                 message: Le titre ne doit pas être vide.
                 groups:
-                    - edit_trick
+                    - trick
             - Length:
                 min: 3
                 minMessage : Le titre est trop court.
                 max: 255
                 maxMessage : Le titre est trop long.
                 groups:
-                    - edit_trick
+                    - trick
 
         slug:
             - NotBlank:
                 groups:
-                    - edit_trick
+                    - trick
             - Length:
                 min: 3
                 minMessage : Le titre est trop court.
                 max: 255
                 maxMessage : Le slug est trop long.
                 groups:
-                    - edit_trick
+                    - trick
 
         description:
             - NotBlank:
                 message: La description ne doit pas être vide.
                 groups:
-                    - edit_trick
+                    - trick
 
         mainPicture:
             - NotBlank:
                 message: Avec une image, c'est plus sympas :-)
                 groups:
-                    - edit_trick
+                    - trick
             - Valid:
                 groups:
-                    - edit_trick
+                    - trick
 
         pictures:
             - Valid:
                 traverse: true
                 groups:
-                    - edit_trick
+                    - trick
 
         videos:
             - Valid:
                 traverse: true
                 groups:
-                    - edit_trick
+                    - trick
 
         groups:
             - Valid:
                 traverse: true
                 groups:
-                    - edit_trick
+                    - trick

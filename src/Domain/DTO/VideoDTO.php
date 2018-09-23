@@ -13,7 +13,7 @@ final class VideoDTO implements VideoDTOInterface
     public $iFrame;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(string $iFrame)
     {

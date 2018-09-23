@@ -13,7 +13,7 @@
         {% if trick.groups | length > 0 %}
             <div class="main-trick-groups text-center">
                 {% for group in trick.groups %}
-                    <span class="badge">{{ group.name }}</span>
+                    <span class="badge">{{ group }}</span>
                 {% endfor %}
             </div>
         {% endif %}

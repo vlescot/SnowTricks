@@ -13,7 +13,7 @@ final class TrickDTOTest extends TestCase
 {
     public function testHasGoodValues()
     {
-        $title = 'Spins';
+        $title = 'mute';
         $description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit ipsam eum in repudiandae libero ducimus, ratione dolorum, adipisci nemo exercitationem soluta praesentium aliquam harum! Adipisci facilis sequi quae in deserunt.';
 
         $mainPicture = $this->createMock(PictureDTOInterface::class);

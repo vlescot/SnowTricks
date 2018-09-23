@@ -39,7 +39,7 @@ final class ChangePasswordHandler implements ChangePasswordHandlerInterface
     private $session;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
@@ -55,15 +55,15 @@ final class ChangePasswordHandler implements ChangePasswordHandlerInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function handle(FormInterface $form, UserInterface $user): bool
+    public function handle(FormInterface $form, ? UserInterface $user): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $this->passwordEncoder->encodePassword($user, $form->get('password')->getData());
             $user->changePassword($password);
 
-            $errors = $this->validator->validate($user, null, ['userRegistration', 'User']);
+            $errors = $this->validator->validate($user, null, ['user']);
             if (\count($errors) > 0) {
                 foreach ($errors as $violation) {
                     $this->session->getFlashBag()->add('warning', $violation->getMessage());
@@ -72,8 +72,7 @@ final class ChangePasswordHandler implements ChangePasswordHandlerInterface
             }
 
             $this->userRepository->save($user);
-
-            $this->session->getFlashBag()->add('success', 'Votre mot de passe à bien été changé');
+            $this->session->getFlashBag()->add('success', 'Votre mot de passe à bien été modifié');
 
             return true;
         }

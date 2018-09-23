@@ -3,13 +3,11 @@ bin/.phpunit/
 .tmp.drivedownload/
 _Building/
 _UML Diagrams/
-
-
 var/
 vendor/
 
+.env
 .phpunit
 phpunit.xml
-.php_cs.cache
-.env
 php-cs-fixer.phar
+.php_cs.cache

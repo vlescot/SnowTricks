@@ -13,4 +13,3 @@ App\Domain\DTO\PictureDTO:
                 groups:
                     - trickDTO
                     - userDTO
-                    - updateUserDTO

@@ -51,7 +51,7 @@ final class RegistrationHandler implements RegistrationHandlerInterface
     private $mailer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -73,14 +73,14 @@ final class RegistrationHandler implements RegistrationHandlerInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->userBuilder->create($form->getData());
 
-            $errors = $this->validator->validate($user, null, ['userRegistration', 'User']);
+            $errors = $this->validator->validate($user, null, ['user']);
 
             if (\count($errors) > 0) {
                 foreach ($errors as $violation) {

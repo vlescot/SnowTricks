@@ -30,7 +30,7 @@ final class UserBuilder implements UserBuilderInterface
     private $pictureBuilder;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
@@ -43,7 +43,7 @@ final class UserBuilder implements UserBuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(UserDTOInterface $userDTO): UserInterface
     {

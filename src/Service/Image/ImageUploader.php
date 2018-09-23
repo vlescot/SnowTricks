@@ -18,7 +18,7 @@ final class ImageUploader implements ImageUploaderInterface
     private $filesToUpload = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(string $publicFolder)
     {
@@ -26,7 +26,7 @@ final class ImageUploader implements ImageUploaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addFileToUpload(\SplFileInfo $file, string $path, string $filename): void
     {
@@ -38,7 +38,7 @@ final class ImageUploader implements ImageUploaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uploadFiles(): void
     {

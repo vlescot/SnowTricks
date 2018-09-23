@@ -51,7 +51,7 @@ final class CreateTrickActionTest extends KernelTestCase
         $twig = $this->createMock(Environment::class);
         $session = $this->createMock(SessionInterface::class);
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $urlGenerator->method('generate')->willReturn('/spins');
+        $urlGenerator->method('generate')->willReturn('/mute');
 
 
         $request = Request::create('/figure/creer', 'GET');

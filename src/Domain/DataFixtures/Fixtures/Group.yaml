@@ -1,6 +1,6 @@
-Group1:
-  Name: Jump
-Group2:
+grab:
+  Name: Grab
+flip:
+  Name: Flip
+slide:
   Name: Slide
-Group3:
-  Name: Rotation

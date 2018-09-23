@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserRepository extends ServiceEntityRepository implements UserLoaderInterface, UserRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -21,9 +21,9 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function loadUserByUsername($username): UserInterface
+    public function loadUserByUsername($username): ? UserInterface
     {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username OR u.email = :email')
@@ -34,9 +34,9 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function loadUserByToken($token): UserInterface
+    public function loadUserByToken($token): ? UserInterface
     {
         return $this->createQueryBuilder('u')
             ->where('u.token = :token')
@@ -46,7 +46,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save(UserInterface $user): void
     {

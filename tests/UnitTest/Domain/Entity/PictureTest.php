@@ -37,7 +37,7 @@ final class PictureTest extends TestCase
     public function testUpdateHasGoodValue(string $path)
     {
         $picture = new Picture('trick/trickName/', 'filename.jpg', 'trickname-picturename');
-        $picture->update($path); // Used when his directory change when trick's name change
+        $picture->setPath($path); // Used when his directory change when trick's name change
 
         static::assertSame($path, $picture->getPath());
     }

@@ -135,7 +135,7 @@ function redirectToTrick(){
  * Display the fa-arrow-up element if >= 15 tricks shown
  **/
 function displayArrowUp() {
-    if ($(".main-trick").length >= 30) {
+    if ($(".main-trick:visible").length >= 20) {
         $(".fa-arrow-up").css("display", "block");
     }
 }
@@ -215,7 +215,7 @@ let mainTrick = $(".main-trick");
 if (mainTrick.length > 0) // Define the concerning page
 {
     // Show more thumbnails when scrolling at the bottom of the page
-    let n = 16;
+    let n = 8;
     let $spinner = $(".fa-spinner");
 
     mainTrick.slice(0, n).css("display", "block");

@@ -48,7 +48,7 @@ final class TrickDTO implements TrickDTOInterface
     public $newGroups;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         string $title,

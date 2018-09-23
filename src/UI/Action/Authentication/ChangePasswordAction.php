@@ -7,16 +7,16 @@ use App\Domain\Repository\Interfaces\UserRepositoryInterface;
 use App\UI\Action\Authentication\Interfaces\ChangePasswordActionInterface;
 use App\UI\Form\Handler\Interfaces\ChangePasswordHandlerInterface;
 use App\UI\Form\Type\Authentication\ChangePasswordType;
-use App\UI\Responder\Authentication\Interfaces\ChangePasswordResponderInterface;
 use App\UI\Responder\Interfaces\TwigResponderInterface;
 use App\UI\Security\LoginFormAuthenticator;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-
+//TODO
 /**
  * @Route(
  *     "/change_password/{token}",
@@ -98,9 +98,8 @@ final class ChangePasswordAction implements ChangePasswordActionInterface
         $user = $this->userRepository->loadUserByToken($token);
 
         if (null === $user) {
-            $this->session->getBagFlash()->add('danger', 'Nous n\'avons pas pu vous identifier');
+            $this->session->getFlashBag()->add('danger', 'Nous n\'avons pas pu vous identifier');
         }
-
         $form = $this->formFactory->create(ChangePasswordType::class)
                                   ->handleRequest($request);
 
@@ -116,8 +115,8 @@ final class ChangePasswordAction implements ChangePasswordActionInterface
         return $responder(
             'security/change_password.html.twig',
             [
-            'form' => $form
-        ]
+                'form' => $form
+            ]
         );
     }
 }

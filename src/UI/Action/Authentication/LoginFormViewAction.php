@@ -5,7 +5,6 @@ namespace App\UI\Action\Authentication;
 
 use App\UI\Action\Authentication\Interfaces\LoginFormViewActionInterface;
 use App\UI\Form\Type\Authentication\LoginType;
-use App\UI\Responder\Authentication\Interfaces\LoginFormViewResponderInterface;
 use App\UI\Responder\Interfaces\TwigResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;

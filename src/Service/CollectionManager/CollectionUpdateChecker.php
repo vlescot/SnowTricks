@@ -63,7 +63,7 @@ final class CollectionUpdateChecker implements CollectionCheckerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function compare(array $collection, array $collectionDTO, string $className): void
     {
@@ -89,7 +89,7 @@ final class CollectionUpdateChecker implements CollectionCheckerInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNewObjects(): array
     {
@@ -100,7 +100,7 @@ final class CollectionUpdateChecker implements CollectionCheckerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeletedObjects(): array
     {

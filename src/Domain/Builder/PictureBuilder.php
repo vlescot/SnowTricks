@@ -28,7 +28,7 @@ final class PictureBuilder implements PictureBuilderInterface
     private $thumbnailCreator;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         ImageUploaderInterface $imageUploader,
@@ -41,7 +41,7 @@ final class PictureBuilder implements PictureBuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create($picturesDTO, bool $isCollection, bool $isThumbnailToCreate = false)
     {
@@ -59,7 +59,7 @@ final class PictureBuilder implements PictureBuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     private function createPicture(PictureDTOInterface $pictureDTO, bool $isThumbnailToCreate)
     {

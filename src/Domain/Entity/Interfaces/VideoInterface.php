@@ -15,6 +15,11 @@ interface VideoInterface
     public function setTrick(TrickInterface $trick);
 
     /**
+     * @return mixed
+     */
+    public function unsetTrick();
+
+    /**
      * @return UuidInterface
      */
     public function getId(): UuidInterface;

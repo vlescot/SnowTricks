@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UI\Form\Subscriber;
 
+use App\Service\CollectionManager\Interfaces\CollectionCheckerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -13,6 +14,13 @@ use Symfony\Component\Form\FormEvents;
  */
 class UpdateTrickSubscriber implements EventSubscriberInterface
 {
+    private $collectionChecker;
+
+    public function __construct(CollectionCheckerInterface $collectionChecker)
+    {
+        $this->collectionChecker = $collectionChecker;
+    }
+
     /**
      * @return array
      */
@@ -28,19 +36,17 @@ class UpdateTrickSubscriber implements EventSubscriberInterface
      */
     public function preSubmit(FormEvent $event)
     {
-        $trickDTO = $event->getForm()->getData();
         $data = $event->getData();
+        $picturesDTO = $event->getForm()->get('pictures')->getData();
 
-        if ($trickDTO->mainPicture->file instanceof \SplFileInfo && $data['mainPicture']['file'] === null) {
-            $data['mainPicture']['file'] = $trickDTO->mainPicture->file;
+        foreach ($picturesDTO as $key => $pictureDTO) {
+            if (array_key_exists($key, $data['pictures']) && $data['pictures'][$key]['file'] === null ) {
+                $data['pictures'][$key]['file'] = $picturesDTO[$key]->file;
+            }
         }
-
         foreach ($data['pictures'] as $key => $dataPicture) {
-            if (isset($trickDTO->pictures[$key])
-                && $trickDTO->pictures[$key]->file instanceof \SplFileInfo
-                && $dataPicture['file'] === null
-            ) {
-                $data['pictures'][$key]['file'] = $trickDTO->pictures[$key]->file;
+            if ($dataPicture['file'] === null) {
+                unset($data['pictures'][$key]);
             }
         }
 

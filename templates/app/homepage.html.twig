@@ -7,9 +7,11 @@
 
 {% block header %}
 	<header style="background-image: url('{{ asset('image/welcome.jpg') }}')">
-		<div class="contents-header">
+		<div class="contents-header text-center">
 			<h1 class="header-title text-center">SnowTricks</h1>
-			<div class="sub-title text-center">
+            <div style="margin-bottom: 3rem;" class="text-center">
+            </div>
+			<div class="sub-title">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident dolor numquam ad ipsam corrupti impedit libero illum eius distinctio earum porro explicabo qui culpa, necessitatibus minus dolore tenetur beatae ratione!
 			</div>
 		</div>
@@ -22,9 +24,17 @@
 	<div class="container homepage" id="top">
         <div class="row">
             <div class="col-md-6">
-                <h5 class="text-center"><label for="search">Rechercher un trick</label></h5>
+                <h5 class="text-center">Afficher par groupe</h5>
+                <div class="main-groups" style="margin: 1em;">
+                    <div class="h5 d-flex justify-content-center">
+                        <span class="badge">Tous</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-center"><label for="search">Rechercher une figure</label></h5>
                 <div class="form-inline search-form d-flex justify-content-center">
-                    <input type="text" id="search" class="form-control form-control-sm col-6">
+                    <input type="text" id="search" class="form-control form-control-sm col-3">
                     <button class="btn btn-sm" id="submit" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
@@ -36,18 +46,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <h5 class="text-center">Afficher par groupe</h5>
-                <div class="main-groups" style="margin: 1em;">
-                    <div class="h5 d-flex justify-content-center">
-                        <span class="badge">Tous</span>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="row main-tricks d-flex justify-content-around">
             {# Snowtrick Thumbnail #}
-			{% include 'app/trick_thumbnail.html.twig' with tricks %}
+            {% include 'app/trick_thumbnail.html.twig' with tricks %}
+            {#TODO Remove this additionals thumbnails#}
+            {#{% include 'app/trick_thumbnail.html.twig' with tricks %}#}
+            {#{% include 'app/trick_thumbnail.html.twig' with tricks %}#}
+            {#{% include 'app/trick_thumbnail.html.twig' with tricks %}#}
+            {#{% include 'app/trick_thumbnail.html.twig' with tricks %}#}
 		</div>
 	</div>
 

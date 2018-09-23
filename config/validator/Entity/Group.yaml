@@ -9,16 +9,15 @@ App\Domain\Entity\Group:
             - Uuid:
                 message: L'attribut id n'est pas un Uuid valide.
                 groups:
-                    - edit_trick
+                    - trick
         name:
             - NotBlank:
                 message: Le groupe doit avoir un nom.
                 groups:
-                    - edit_trick
+                    - trick
             - Length:
                 min: 3
                 minMessage : Le nom du groupe est trop court.
-                max: 255
+                max: 30
                 maxMessage : Le nom du groupe est trop long.
-                groups:
-                    - edit_trick
+                    - trick

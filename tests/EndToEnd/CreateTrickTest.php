@@ -9,20 +9,16 @@ use App\Domain\DTO\PictureDTO;
 use App\Domain\DTO\TrickDTO;
 use App\Domain\DTO\VideoDTO;
 use App\Domain\Entity\Group;
-use App\Tests\ModalConnectionTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Panther\PantherTestCase;
 
-final class CreateTrickTest extends PantherTestCase
+final class CreateTrickTest extends WebTestCase
 {
-    use ModalConnectionTrait;
-
-
     public function testResponseWithAnonUSer()
     {
-        $client = parent::createClient();
+        $client = static::createClient();
         $client->request('GET', '/figure/creer');
 
 
@@ -38,7 +34,7 @@ final class CreateTrickTest extends PantherTestCase
 
     public function testPageWithLoggedUser()
     {
-        $client = parent::createClient([], [
+        $client = static::createClient([], [
             'PHP_AUTH_USER' => 'root',
             'PHP_AUTH_PW'   => 'root',
         ]);
@@ -51,41 +47,10 @@ final class CreateTrickTest extends PantherTestCase
         $h1 = $crawler->filter('h1')->text();
 
         static::assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        static::assertSame('Nouveau Trick', $h1);
+        static::assertSame('Ajouter une figure', $h1);
         static::assertEquals(1, $nbFormOnPage);
     }
 
-
-    public function testUserGetCreateTrickPage()
-    {
-        $client = static::createPantherClient('127.0.0.1', 8999);
-        $crawler = $client->request('GET', '/');
-
-        // Checks if the user is visiting the home page.
-        $h1 = $crawler->filter('h1')->text();
-        static::assertSame('SnowTricks', $h1);
-
-        $crawler->filter('nav .nav-item:nth-child(1) span')->click();
-        $client->waitFor('.modal');
-
-        $connectionForm = $crawler->selectButton('Se connecter')->form();
-        $connectionForm['login[_login]'] = 'root';
-        $connectionForm['login[_password]'] = 'root';
-
-        $crawler = $client->submit($connectionForm);
-
-        $client->waitFor('#flash-container');
-        $flashMessage = $crawler->filter('#flash-container strong')->text();
-
-        // Checks if the user is connected
-        static::assertSame(Response::HTTP_OK, $client->getResponse()->getStatus());
-        static::assertSame('Bonjour root', $flashMessage);
-
-        $crawler->selectLink('Créer un Trick')->click();
-
-        // Checks if user get the page in route /figure/creer
-        static::assertSame(Response::HTTP_OK, $client->getResponse()->getStatus());
-    }
 
     /**
      * @param TrickDTOInterface $trickDTO
@@ -94,7 +59,7 @@ final class CreateTrickTest extends PantherTestCase
      */
     public function testUserCreateTrick(TrickDTOInterface $trickDTO)
     {
-        $client = parent::createClient([], [
+        $client = static::createClient([], [
             'PHP_AUTH_USER' => 'root',
             'PHP_AUTH_PW'   => 'root',
         ]);
@@ -118,8 +83,7 @@ final class CreateTrickTest extends PantherTestCase
             $values['create_trick']['newGroups'][$key]['name'] = $groupDTO->name;
         }
 
-        $client->request($form->getMethod(), $form->getUri(), $values, $form->getPhpFiles());
-
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values, $form->getPhpFiles());
         static::assertSame(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
 
         $crawler = $client->followRedirect();
@@ -135,7 +99,7 @@ final class CreateTrickTest extends PantherTestCase
      */
     public function provideData()
     {
-        parent::bootKernel();
+        static::bootKernel();
         $imagesTestFolder = $this::$kernel->getRootDir() . '/../public/image/tests/';
 
 
@@ -144,9 +108,9 @@ final class CreateTrickTest extends PantherTestCase
         $mainPictureDTO = new PictureDTO(new File($imagesTestFolder . 'b1.png'));
 
         $picturesDTO = [
-            new PictureDTO(new File($imagesTestFolder . 'r1.png')),
-            new PictureDTO(new File($imagesTestFolder . 'r2.png')),
-            new PictureDTO(new File($imagesTestFolder . 'r3.png'))
+            new PictureDTO(new File($imagesTestFolder . 'b2.png')),
+            new PictureDTO(new File($imagesTestFolder . 'b3.png')),
+            new PictureDTO(new File($imagesTestFolder . 'b4.png')),
         ];
 
         $videosDTO = [
@@ -156,12 +120,12 @@ final class CreateTrickTest extends PantherTestCase
         ];
 
         $groups = new ArrayCollection();
-        $groups->add(new Group('Jump'));
-        $groups->add(new Group('Rotation'));
+        $groups->add(new Group('Jump'. rand(0, 99)));
+        $groups->add(new Group('Rotation'. rand(0, 99)));
 
         $newGroupsDTO = [
-            new GroupDTO('New Group'),
-            new GroupDTO('Another New Group'),
+            new GroupDTO('testCreateTrickNewGroup1'),
+            new GroupDTO('testCreateTrickNewGroup2'),
         ];
 
 

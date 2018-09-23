@@ -17,9 +17,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PictureType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder->add('file', FileType::class, [
             'attr' => [
@@ -29,13 +29,13 @@ class PictureType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => PictureDTO::class,
-            'validation_groups' => ['PictureDTO'],
+            'validation_groups' => ['trickDTO'],
             'error_bubbling' => true,
             'empty_data' => function (FormInterface $form) {
                 return new PictureDTO(

@@ -30,8 +30,6 @@ interface UpdateTrickHandlerInterface
      * @param UpdateTrickBuilderInterface $updateTrickBuilder
      * @param ValidatorInterface $validator
      * @param SessionInterface $session
-     * @param ImageUploadWarmerInterface $imageUploadWarmer
-     * @param PictureBuilderInterface $pictureBuilder
      */
     public function __construct(
         TrickRepositoryInterface $trickRepository,
@@ -41,9 +39,7 @@ interface UpdateTrickHandlerInterface
         FolderChangerInterface $folderChanger,
         UpdateTrickBuilderInterface $updateTrickBuilder,
         ValidatorInterface $validator,
-        SessionInterface $session,
-        ImageUploadWarmerInterface $imageUploadWarmer,
-        PictureBuilderInterface $pictureBuilder
+        SessionInterface $session
     );
 
     /**

@@ -12,6 +12,7 @@ use App\Domain\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -38,15 +39,16 @@ final class AppFixtures extends Fixture
 
     /**
      * @param string $entityName
+     *
      * @return array
      */
     private function getDataFixture(string $entityName) :array
     {
-        return Yaml::parse(file_get_contents(__DIR__.'/Fixtures/' . $entityName . '.yaml', true));
+        return Yaml::parse(file_get_contents(__DIR__.'/Fixtures/'. $entityName .'.yaml', true));
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -58,25 +60,16 @@ final class AppFixtures extends Fixture
         $groups = $this->getDataFixture('Group');
 
 
-
         foreach ($pictures as $name => $picture) {
             $picture = new Picture(
                     $picture['path'],
                     $picture['filename'],
-                    $picture['alt']
+                    $picture['alt'] . '-image'
                 );
 
             $this->addReference($name, $picture);
             $manager->persist($picture);
         }
-
-        $manager->flush();
-        echo "\nPictures Loaded...\n";
-
-
-
-
-
 
 
         foreach ($users as $name => $user) {
@@ -98,10 +91,6 @@ final class AppFixtures extends Fixture
             $this->addReference($name, $userEntity);
         }
 
-        $manager->flush();
-        echo "Users Loaded...\n";
-
-
 
         foreach ($groups as $name => $group) {
             $group = new Group(
@@ -110,7 +99,6 @@ final class AppFixtures extends Fixture
 
             $this->addReference($name, $group);
         }
-
 
 
         foreach ($tricks as $name => $trick) {
@@ -131,15 +119,6 @@ final class AppFixtures extends Fixture
                 $groups->add($this->getReference($groupReference));
             }
 
-
-//            foreach ($videos as $name => $video) {
-//                $video = new Video($video['iFrame']);
-//                $manager->persist($video);
-//                $this->addReference($name, $video);
-//            }
-
-            $manager->flush();
-
             $trickEntity = new Trick(
                 $trick['Title'],
                 $trick['Description'],
@@ -154,13 +133,6 @@ final class AppFixtures extends Fixture
 
             $this->addReference($name, $trickEntity);
         }
-
-        $manager->flush();
-        echo "Videos Loaded...\n";
-
-        echo "Tricks Loaded...\n";
-        echo "Groups Loaded...\n";
-
 
 
         foreach ($comments as $comment) {
@@ -177,6 +149,6 @@ final class AppFixtures extends Fixture
         }
 
         $manager->flush();
-        echo "Comments Loaded...\n\nDATABASE COMPLETED !\n";
+        echo "\nFixtures Loaded !\n";
     }
 }

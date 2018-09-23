@@ -24,7 +24,7 @@ final class FolderChanger implements FolderChangerInterface
     private $changeDirectoryFromTo = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(Filesystem $filesystem, string $publicFolder)
     {
@@ -33,7 +33,7 @@ final class FolderChanger implements FolderChangerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function folderToChange(string $oldPath, string $newPath): void
     {
@@ -44,7 +44,7 @@ final class FolderChanger implements FolderChangerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function changeFilesDirectory(): void
     {

@@ -48,7 +48,7 @@ final class TrickPageAction implements TrickPageActionInterface
     private $authorizationChecker;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         TrickRepositoryInterface $trickRepository,

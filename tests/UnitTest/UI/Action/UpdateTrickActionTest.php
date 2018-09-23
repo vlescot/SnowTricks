@@ -106,11 +106,11 @@ final class UpdateTrickActionTest extends KernelTestCase
         $twig = $this->createMock(Environment::class);
         $session = $this->createMock(SessionInterface::class);
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $urlGenerator->method('generate')->willReturn('/spins');
+        $urlGenerator->method('generate')->willReturn('/mute');
 
         $this->trickDTOFactory->method('create')->willReturn($trickDTO);
 
-        $request = Request::create('/spins/modifier', 'GET');
+        $request = Request::create('/mute/modifier', 'GET');
 
         $responder  = new TwigOrRedirectionResponder(
             $twig,
@@ -148,11 +148,11 @@ final class UpdateTrickActionTest extends KernelTestCase
         $twig = $this->createMock(Environment::class);
         $session = $this->createMock(SessionInterface::class);
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $urlGenerator->method('generate')->willReturn('/spins');
+        $urlGenerator->method('generate')->willReturn('/mute');
 
         $this->trickDTOFactory->method('create')->willReturn($trickDTO);
 
-        $request = Request::create('/spins/modifier', 'GET');
+        $request = Request::create('/mute/modifier', 'GET');
 
         $responder  = new TwigOrRedirectionResponder(
             $twig,

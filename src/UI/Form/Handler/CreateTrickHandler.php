@@ -49,7 +49,7 @@ final class CreateTrickHandler implements CreateTrickHandlerInterface
     private $session;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         TrickRepositoryInterface $trickRepository,
@@ -68,14 +68,14 @@ final class CreateTrickHandler implements CreateTrickHandlerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $this->trickBuilder->create($form->getData());
 
-            $errors = $this->validator->validate($trick, null, ['edit_trick', 'Trick', 'Group']);
+            $errors = $this->validator->validate($trick, null, ['trick']);
             if (\count($errors) > 0) {
                 foreach ($errors as $violation) {
                     $this->session->getFlashBag()->add('warning', $violation->getMessage());
@@ -89,7 +89,6 @@ final class CreateTrickHandler implements CreateTrickHandlerInterface
             $this->imageThumbnailCreator->createThumbnails();
 
             $this->session->set('slug', $trick->getSlug());
-
             $this->session->getFlashBag()->add('success', 'La figure a bien été ajoutée !');
             
             return true;

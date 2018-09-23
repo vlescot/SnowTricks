@@ -47,7 +47,7 @@ class Picture implements PictureInterface
     /**
      * @inheritdoc
      */
-    public function update(string $path): void
+    public function setPath(string $path): void
     {
         $this->path = $path;
     }

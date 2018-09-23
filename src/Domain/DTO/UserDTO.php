@@ -32,7 +32,7 @@ final class UserDTO implements UserDTOInterface
     public $picture;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         string $username,

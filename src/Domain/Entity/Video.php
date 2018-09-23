@@ -45,6 +45,14 @@ class Video implements VideoInterface
     /**
      * @inheritdoc
      */
+    public function unsetTrick()
+    {
+        $this->trick = null;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getId(): UuidInterface
     {
         return $this->id;

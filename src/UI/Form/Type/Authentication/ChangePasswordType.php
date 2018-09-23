@@ -15,9 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ChangePasswordType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
@@ -26,12 +26,13 @@ class ChangePasswordType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ChangePasswordDTO::class,
+            'validation_groups' => ['changePasswordDTO'],
             'empty_data' => function (FormInterface $form) {
                 return new ChangePasswordDTO($form->get('password')->getData());
             }

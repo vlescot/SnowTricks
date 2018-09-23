@@ -18,9 +18,9 @@ interface UserRepositoryInterface
     /**
      * @param $token
      *
-     * @return UserInterface
+     * @return null|UserInterface
      */
-    public function loadUserByToken($token): UserInterface;
+    public function loadUserByToken($token): ? UserInterface;
 
     /**
      * @param UserInterface $user

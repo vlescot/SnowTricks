@@ -7,6 +7,7 @@ use App\UI\Form\Handler\Interfaces\ResetPasswordHandlerInterface;
 use App\Service\Interfaces\MailerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class ResetPasswordHandler implements ResetPasswordHandlerInterface
@@ -27,7 +28,7 @@ final class ResetPasswordHandler implements ResetPasswordHandlerInterface
     private $mailer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         UserProviderInterface $userProvider,
@@ -40,30 +41,37 @@ final class ResetPasswordHandler implements ResetPasswordHandlerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
+
             $username = $form->get('username')->getData();
 
-            if ($user = $this->userProvider->loadUserByUsername($username)) {
-                $this->mailer->sendMail(
-                    $user->getEmail(),
-                    'SnowTrick - Mot de pas oublié',
-                    'email_member_reset_password.html.twig',
-                    [
-                        'username' => $user->getUsername(),
-                        'token' => $user->getToken()
-                    ]
-                );
+            try {
+                $user = $this->userProvider->loadUserByUsername($username);
+            } catch (UsernameNotFoundException $e) {
 
-                $this->session->getFlashBag()->add('success', 'Un e-mail vient de vous être envoyer');
-
-                return true;
+                $this->session->getFlashBag()->add('warning', 'Nous n\'avons pas reconnu votre identifiant');
+                return false;
             }
-            $this->session->getFlashBag()->add('warning', 'Nous n\'avons pas reconnu votre identifiant');
+
+            $this->mailer->sendMail(
+                $user->getEmail(),
+                'SnowTrick - Mot de pas oublié',
+                'email_member_reset_password.html.twig',
+                [
+                    'username' => $user->getUsername(),
+                    'token' => $user->getToken()
+                ]
+            );
+
+            $this->session->getFlashBag()->add('success', 'Un e-mail vient de vous être envoyer');
+            return true;
         }
+
+        $this->session->getFlashBag()->add('danger', 'Cette information ne ressemble pas à un e-mail ou un nom d\'utilisateur.');
         return false;
     }
 }

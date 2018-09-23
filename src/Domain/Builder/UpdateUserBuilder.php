@@ -35,7 +35,7 @@ final class UpdateUserBuilder implements UpdateUserBuilderInterface
     private $imageRemover;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         ImageUploadWarmerInterface $imageUploadWarmer,
@@ -51,7 +51,7 @@ final class UpdateUserBuilder implements UpdateUserBuilderInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(UserInterface $user, UpdateUserDTOInterface $updateUserDTO): UserInterface
     {

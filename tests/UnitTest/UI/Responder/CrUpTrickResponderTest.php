@@ -35,7 +35,7 @@ final class CrUpTrickResponderTest extends TestCase
         $this->twig = $this->createMock(Environment::class);
         $this->session = $this->createMock(SessionInterface::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->urlGenerator->method('generate')->willReturn('/spins');
+        $this->urlGenerator->method('generate')->willReturn('/mute');
     }
 
     public function testConstruct()

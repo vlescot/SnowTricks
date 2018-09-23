@@ -25,7 +25,7 @@ final class ImageRemover implements ImageRemoverInterface
     private $filesToRemove = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         Filesystem $filesystem,
@@ -37,7 +37,7 @@ final class ImageRemover implements ImageRemoverInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addFileToRemove(PictureInterface $picture): void
     {
@@ -45,7 +45,7 @@ final class ImageRemover implements ImageRemoverInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeFiles(): void
     {

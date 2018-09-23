@@ -9,6 +9,7 @@ use App\Domain\Builder\Interfaces\UpdateTrickBuilderInterface;
 use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
+use App\Service\Image\Interfaces\FolderChangerInterface;
 use App\Service\Image\Interfaces\ImageRemoverInterface;
 use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -31,6 +32,11 @@ final class UpdateTrickBuilder implements UpdateTrickBuilderInterface
     private $imageRemover;
 
     /**
+     * @var FolderChangerInterface
+     */
+    private $folderChanger;
+
+    /**
      * @var GroupBuilderInterface
      */
     private $groupBuilder;
@@ -41,18 +47,20 @@ final class UpdateTrickBuilder implements UpdateTrickBuilderInterface
     private $pictureBuilder;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         CollectionUpdatePrepareInterface $collectionPrepare,
         ImageUploadWarmerInterface $imageUploadWarmer,
         ImageRemoverInterface $imageRemover,
+        FolderChangerInterface $folderChanger,
         GroupBuilderInterface $groupBuilder,
         PictureBuilderInterface $pictureBuilder
     ) {
         $this->collectionPrepare = $collectionPrepare;
         $this->imageUploadWarmer = $imageUploadWarmer;
         $this->imageRemover = $imageRemover;
+        $this->folderChanger = $folderChanger;
         $this->groupBuilder = $groupBuilder;
         $this->pictureBuilder = $pictureBuilder;
     }
@@ -67,10 +75,23 @@ final class UpdateTrickBuilder implements UpdateTrickBuilderInterface
     {
         $this->imageUploadWarmer->initialize('trick', $trickDTO->title);
 
+        // Change the pictures's folder if the title change
+        if ($trickDTO->title !== $trick->getTitle()) {
+            $updatePictureInfo = $this->imageUploadWarmer->getUpdateImageInfo();
+            $this->folderChanger->folderToChange($trick->getMainPicture()->getPath(), $updatePictureInfo['path']);
+
+            $trick->getMainPicture()->setPath($updatePictureInfo['path']);
+            foreach ($trick->getPictures() as $picture) {
+                $picture->setPath($updatePictureInfo['path']);
+            }
+        }
+
+
         if ($trickDTO->mainPicture->file instanceof UploadedFile) {
             $mainPicture = $this->pictureBuilder->create($trickDTO->mainPicture, false, true);
             $this->imageRemover->addFileToRemove($trick->getMainPicture());
         }
+
 
         $trick->update(
             $trickDTO->title,

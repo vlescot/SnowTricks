@@ -34,7 +34,7 @@ final class ImageThumbnailCreator implements ImageThumbnailCreatorInterface
     private $thumbnailToCreate = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         Filesystem $filesystem,
@@ -49,7 +49,7 @@ final class ImageThumbnailCreator implements ImageThumbnailCreatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addThumbnailToCreate(string $imagePathName)
     {
@@ -57,7 +57,7 @@ final class ImageThumbnailCreator implements ImageThumbnailCreatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createThumbnails()
     {

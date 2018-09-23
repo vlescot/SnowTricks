@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class PictureRepository extends ServiceEntityRepository implements PictureRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -20,7 +20,7 @@ class PictureRepository extends ServiceEntityRepository implements PictureReposi
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function remove(PictureInterface $picture): void
     {

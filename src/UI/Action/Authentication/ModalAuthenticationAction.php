@@ -9,7 +9,6 @@ use App\UI\Form\Type\Authentication\LoginType;
 use App\UI\Form\Type\Authentication\RegistrationType;
 use App\UI\Form\Type\Authentication\ResetPasswordType;
 use App\UI\Form\Type\Authentication\UpdateUserType;
-use App\UI\Responder\Authentication\Interfaces\ModalResponderInterface;
 use App\UI\Responder\Interfaces\TwigResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

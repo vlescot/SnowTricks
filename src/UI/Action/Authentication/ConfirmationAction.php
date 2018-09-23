@@ -5,7 +5,6 @@ namespace App\UI\Action\Authentication;
 
 use App\Domain\Repository\Interfaces\UserRepositoryInterface;
 use App\UI\Action\Authentication\Interfaces\ConfirmationActionInterface;
-use App\UI\Responder\Authentication\Interfaces\ConfirmationResponderInterface;
 use App\UI\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +101,7 @@ final class ConfirmationAction implements ConfirmationActionInterface
             );
         }
 
-        $this->session->getFlashBag()->add('danger', 'Nous n\'avons pas pu vous authentifier');
+        $this->session->getFlashBag()->add('danger', 'Nous n\'avons pas pu vous authentifier.');
 
         return new RedirectResponse($this->urlGenerator->generate('Home'));
     }

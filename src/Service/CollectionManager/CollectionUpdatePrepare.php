@@ -5,8 +5,8 @@ namespace App\Service\CollectionManager;
 
 use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\Builder\Interfaces\VideoBuilderInterface;
+use App\Domain\DTO\Interfaces\PictureDTOInterface;
 use App\Domain\Entity\Interfaces\PictureInterface;
-use App\Domain\Entity\Interfaces\VideoInterface;
 use App\Service\CollectionManager\Interfaces\CollectionCheckerInterface;
 use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
 use App\Service\Image\Interfaces\ImageRemoverInterface;
@@ -34,7 +34,7 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
     private $videoBuilder;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         CollectionCheckerInterface $collectionChecker,
@@ -49,23 +49,28 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     private function getClassName(array $collection)
     {
-        if (reset($collection) instanceof PictureInterface) {
+        $class = reset($collection);
+
+        if ($class instanceof PictureInterface || $class instanceof PictureDTOInterface ) {
             return 'Picture';
-        } elseif (reset($collection) instanceof VideoInterface) {
-            return 'Video';
         }
+        return 'Video';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function prepare(array $collection, array $collectionDTO): array
     {
-        $className = $this->getClassName($collection);
+        if (!empty($collection)) {
+            $className = $this->getClassName($collection);
+        } else {
+            $className = $this->getClassName($collectionDTO);
+        }
 
         $this->collectionChecker->compare($collection, $collectionDTO, $className);
 

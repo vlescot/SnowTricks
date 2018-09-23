@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class CommentRepository extends ServiceEntityRepository implements CommentRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -21,7 +21,7 @@ class CommentRepository extends ServiceEntityRepository implements CommentReposi
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save(CommentInterface $comment): void
     {

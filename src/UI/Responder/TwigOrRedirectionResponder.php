@@ -33,7 +33,7 @@ final class TwigOrRedirectionResponder implements TwigOrRedirectionResponderInte
     private $urlGenerator;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(
         Environment $twig,
@@ -47,7 +47,7 @@ final class TwigOrRedirectionResponder implements TwigOrRedirectionResponderInte
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __invoke(string $view, bool $redirect = true, FormInterface $form = null, string $slug = null)
     {
