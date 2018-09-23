@@ -2,7 +2,6 @@ bin/.phpunit/
 .idea/
 .tmp.drivedownload/
 _Building/
-_UML Diagrams/
 var/
 vendor/
 
@@ -11,3 +10,4 @@ vendor/
 phpunit.xml
 php-cs-fixer.phar
 .php_cs.cache
+codacy.yaml
