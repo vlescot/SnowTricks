@@ -10,4 +10,4 @@ vendor/
 phpunit.xml
 php-cs-fixer.phar
 .php_cs.cache
-codacy.yaml
+$Recycle.Bin
