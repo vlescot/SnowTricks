@@ -1,4 +1,4 @@
 engines:
     exclude_paths:
-        - '**/lib/**'
-        - 'delete_unlinked_groups_TRIGGER.sql'
+        - 'public/lib/'
+        - 'TRIGGER_delete_unlinked_groups.sql'
