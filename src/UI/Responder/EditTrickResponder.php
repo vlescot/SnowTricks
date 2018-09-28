@@ -15,9 +15,6 @@ use Twig\Environment;
  * Class UpdateTrickResponder
  * @package App\Responder
  */
-// TODO
-// TODO RENAME CrUp par Edit
-// TODO
 final class EditTrickResponder implements EditTrickResponderInterface
 {
     /**

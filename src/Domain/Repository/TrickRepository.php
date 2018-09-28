@@ -26,6 +26,26 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
     }
 
 
+    private function normalizeTrick(array $trick)
+    {
+        $trick['groups'] = explode(',', $trick['groups_names']);
+
+        $trick['MainPicture'] = [
+            'path' => $trick['path'],
+            'filename' => $trick['file_name'],
+            'webPath' => $trick['path']. '/' .$trick['file_name'] ,
+            'alt' => $trick['alt']
+        ];
+
+        unset($trick['path']);
+        unset($trick['file_name']);
+        unset($trick['alt']);
+        unset($trick['groups_names']);
+
+        return $trick;
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -46,22 +66,8 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
         $stmt->execute();
         $tricks = $stmt->fetchAll();
 
-
         foreach ($tricks as $key => $trick) {
-            $trick['groups'] = explode(',', $trick['groups_names']);
-
-            $trick['MainPicture'] = [
-                'path' => $trick['path'],
-                'filename' => $trick['file_name'],
-                'webPath' => $trick['path']. '/' .$trick['file_name'] ,
-                'alt' => $trick['alt']
-            ];
-
-            unset($trick['path']);
-            unset($trick['file_name']);
-            unset($trick['alt']);
-            unset($trick['groups_names']);
-
+            $trick = $this->normalizeTrick($trick);
             $tricks[$key] = $trick;
         }
 

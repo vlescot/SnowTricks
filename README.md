@@ -24,7 +24,6 @@ This application is built with Symfony ~4.0 and [ADR (Action-Domain-Responder)](
 * Jquery & Jquery UI
 * Bootstrap
   
-  
 ## Install
  1. Clone or download the repository into your environment.  
     ```https://github.com/vlescot/SnowTricks.git  ```

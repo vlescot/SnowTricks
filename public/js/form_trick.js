@@ -96,7 +96,6 @@ function createGroup (){
         // Replace the id of the input field with the new index
         let attrClass = $("input", newCheckbox).attr("class");
         let attrId = "create_group_checkbox" + newIndex + 1;
-
         // Set attributes
         $("input", newCheckbox).attr({
             id: attrId,
@@ -109,7 +108,6 @@ function createGroup (){
         $("label", newCheckbox).text(groupName);
 
         let helper = $("#create-group-help").show();
-
         formsCheck.parent().append(newCheckbox).append(helper);
     });
 }
