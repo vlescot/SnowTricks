@@ -31,7 +31,7 @@ method_air :
   Title: Method Air
   Description: <p>Cette figure – qui consiste à attraper sa planche d'une main et le tourner perpendiculairement au sol – est un classique "old school".</p>
   Reference:
-    Author: user0
+    Author: user2
     MainPicture: main_picture_method_air
     Picture:
       - picture_method_air0
@@ -96,7 +96,7 @@ flip900 :
   Title: Flip 900
   Description: <p>Le snowboarder effectue une rotation de 900 degrès pendant le saut.</p>
   Reference:
-    Author: user1
+    Author: user2
     MainPicture: main_picture_flip900
     Picture:
       - picture_flip9000

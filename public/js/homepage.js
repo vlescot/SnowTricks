@@ -249,3 +249,36 @@ $(".fa-arrow-up").click(function () {
 $( document ).ready(function() {
     trickThumbnailHeight();
 });
+
+// TODO
+// TODO
+// TODO
+// let nbElement = document.getElementsByClassName("main-trick").length;
+//
+// let h1 = document.getElementsByTagName("h1")[0];
+// h1.innerHTML = nbElement;
+
+
+//
+// let nbElement = document.getElementsByClassName("main-trick").length;
+// if (nbElement === 0) {
+//     let flashContainer = document.getElementById('flash-container');
+//     let flash =
+//         "<div id=\"\" class=\"alert alert-danger alert-dismissible col-12 text-center\" style=\"margin-bottom: 0px\">\n" +
+//         "    <strong>Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   Lorem   </strong>\n" +
+//         "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+//         "</div> ";
+//
+//
+//
+//     function insertAfter(newElem, referenceNode) {
+//         let newDOM = document.createElement("div");
+//         newDOM.innerHTML = newElem;
+//         referenceNode.parentNode.insertBefore(newDOM, referenceNode.nextSibling);
+//     }
+//
+//     insertAfter(flash, flashContainer);
+// }
+
+
+

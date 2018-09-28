@@ -87,7 +87,7 @@ final class UserBuilderTest extends KernelTestCase
     public function provideData()
     {
         static::bootKernel();
-        $imagePath = $this::$kernel->getRootDir() . '/../public/image/tests/b1.png';
+        $imagePath = $this::$kernel->getRootDir() . '/../public/image/tests/r1.png';
         $pictureDTO = new PictureDTO(new File($imagePath));
 
         yield [

@@ -141,7 +141,7 @@ final class CreateTrickHandlerTest extends KernelTestCase
 
         $title = 'New Title';
         $description = 'New Description';
-        $mainPictureDTO = new PictureDTO(new File($imagesTestFolder . 'b1.png'));
+        $mainPictureDTO = new PictureDTO(new File($imagesTestFolder . 'r1.png'));
 
         $picturesDTO = [
             new PictureDTO(new File($imagesTestFolder . 'r1.png')),
@@ -167,7 +167,7 @@ final class CreateTrickHandlerTest extends KernelTestCase
 
         $user = new User();
         $user->registration('NewUser', 'newmail@mail.com', 'azerty00');
-        $oldMainPicture = new Picture('image/tests/b1.png', 'b1.png', 'image-b1');
+        $oldMainPicture = new Picture('image/tests/r1.png', 'r1.png', 'image-b1');
 
 
         yield [

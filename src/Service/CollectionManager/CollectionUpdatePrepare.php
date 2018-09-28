@@ -55,7 +55,7 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
     {
         $class = reset($collection);
 
-        if ($class instanceof PictureInterface || $class instanceof PictureDTOInterface ) {
+        if ($class instanceof PictureInterface || $class instanceof PictureDTOInterface) {
             return 'Picture';
         }
         return 'Video';

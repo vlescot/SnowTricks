@@ -10,4 +10,3 @@ vendor/
 phpunit.xml
 php-cs-fixer.phar
 .php_cs.cache
-$Recycle.Bin

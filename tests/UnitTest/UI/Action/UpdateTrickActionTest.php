@@ -11,7 +11,7 @@ use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
 use App\UI\Action\Interfaces\UpdateTrickActionInterface;
 use App\UI\Action\UpdateTrickAction;
 use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
-use App\UI\Responder\TwigOrRedirectionResponder;
+use App\UI\Responder\EditTrickResponder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -93,7 +93,7 @@ final class UpdateTrickActionTest extends KernelTestCase
     public function testFormGoodHandling()
     {
         $mainPictureDTO = new PictureDTO(
-            new File($this->imageFolder . 'tests/b1.png')
+            new File($this->imageFolder . 'tests/r1.png')
         );
 
         $trickDTO =   new TrickDTO(
@@ -112,7 +112,7 @@ final class UpdateTrickActionTest extends KernelTestCase
 
         $request = Request::create('/mute/modifier', 'GET');
 
-        $responder  = new TwigOrRedirectionResponder(
+        $responder  = new EditTrickResponder(
             $twig,
             $session,
             $urlGenerator
@@ -135,7 +135,7 @@ final class UpdateTrickActionTest extends KernelTestCase
     public function testFormWrongHandling()
     {
         $mainPictureDTO = new PictureDTO(
-            new File($this->imageFolder . 'tests/b1.png')
+            new File($this->imageFolder . 'tests/r1.png')
         );
 
         $trickDTO =   new TrickDTO(
@@ -154,7 +154,7 @@ final class UpdateTrickActionTest extends KernelTestCase
 
         $request = Request::create('/mute/modifier', 'GET');
 
-        $responder  = new TwigOrRedirectionResponder(
+        $responder  = new EditTrickResponder(
             $twig,
             $session,
             $urlGenerator

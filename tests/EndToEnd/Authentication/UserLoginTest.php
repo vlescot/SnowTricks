@@ -43,12 +43,12 @@ final class UserLoginTest extends PantherTestCase
         $client->request('GET', '/');
         $client->waitFor('h1');
 
-        $crawler = $this->getUserConnection('fakeUser', 'FakePsw', $client);
+        $crawler = $this->getUserConnection('WrongUser', 'FakePsw', $client);
 
         $client->waitFor('#flash-container');
         $flashMessage = $crawler->filter('#flash-container strong')->text();
 
-        static::assertSame('Nous n\'avons pas trouvé de membre avec l\'identifiant fakeUser', $flashMessage);
+        static::assertSame('Nous n\'avons pas trouvé de membre avec l\'identifiant WrongUser', $flashMessage);
 
         $client->quit();
     }
@@ -59,7 +59,7 @@ final class UserLoginTest extends PantherTestCase
         $client->request('GET', '/');
         $client->waitFor('h1');
 
-        $crawler = $this->getUserConnection('root', 'FakePsw', $client);
+        $crawler = $this->getUserConnection('root', 'WrongPsw', $client);
 
         $client->waitFor('#flash-container');
         $flashMessage = $crawler->filter('#flash-container strong')->text();

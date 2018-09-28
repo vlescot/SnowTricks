@@ -90,11 +90,6 @@ class Trick implements TrickInterface
         array $videos = [],
         \ArrayAccess $groups = null
     ) {
-        $this->pictures = new ArrayCollection();
-        $this->videos = new ArrayCollection();
-        $this->groups = new ArrayCollection();
-        $this->comments = new ArrayCollection();
-
         $this->id = Uuid::uuid4();
         $this->title = $title;
         $this->slug = strtolower(str_replace(' ', '_', $title));
@@ -104,16 +99,19 @@ class Trick implements TrickInterface
         $this->mainPicture = $mainPicture;
         $this->author = $author;
 
-        foreach ($pictures as $picture) {
-            $this->pictures->add($picture);
-        }
+        $this->pictures = new ArrayCollection($pictures);
+        $this->videos = new ArrayCollection($videos);
+        $this->comments = new ArrayCollection();
+        $this->groups = new ArrayCollection();
+
         foreach ($videos as $video) {
-            $this->videos->add($video);
             $video->setTrick($this);
         }
+
         if ($groups !== null) {
             foreach ($groups->getIterator() as $group) {
-                $this->addGroup($group);
+                $group->addTrick($this);
+                $this->groups->add($group);
             }
         }
     }
@@ -184,8 +182,8 @@ class Trick implements TrickInterface
     {
         foreach ($this->groups->getIterator() as $key => $group) {
             if (!isset($groups[$key])) {
-                $this->groups->get($key)->removeTrick($this);
-                $this->removeGroup($group);
+                $group->removeTrick($this);
+                $this->groups->removeElement($group);
             }
         }
         foreach ($groups as $key => $group) {
@@ -193,28 +191,6 @@ class Trick implements TrickInterface
                 $group->addTrick($this);
                 $this->groups->set($key, $group);
             }
-        }
-    }
-
-    /**
-     * @param GroupInterface $group
-     */
-    private function addGroup(GroupInterface$group)
-    {
-        if (!$this->groups->contains($group)) {
-            $this->groups->add($group);
-            $group->addTrick($this);
-        }
-    }
-
-    /**
-     * @param GroupInterface $group
-     */
-    private function removeGroup(GroupInterface $group)
-    {
-        if ($this->groups->contains($group)) {
-            $this->groups->removeElement($group);
-            $group->removeTrick($this);
         }
     }
 

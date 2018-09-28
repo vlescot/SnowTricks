@@ -29,12 +29,11 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
     /**
      * {@inheritdoc}
      */
-    // TODO
     public function findAll(): array
     {
         $sql = '
           SELECT t.id, t.title, t.slug, t.description,p.path, p.file_name, p.alt,
-              group_concat(DISTINCT g.name ORDER BY g.name DESC SEPARATOR ",") as groups_names
+              group_concat(DISTINCT g.name) as groups_names
           FROM st_trick as t
           INNER JOIN st_tricks_groups as tg ON t.id = tg.trick_id
           INNER JOIN st_group as g ON g.id = tg.group_id
@@ -66,21 +65,8 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
             $tricks[$key] = $trick;
         }
 
-
         return $tricks;
-
-
-
-//        return $this->createQueryBuilder('t')
-//            ->orderBy('t.updatedAt', 'DESC')
-//            ->setCacheable(true)
-//            ->getQuery()
-//            ->useResultCache(true)
-//            ->useQueryCache(true)
-//            ->getResult()
-//        ;
     }
-
 
     /**
      * {@inheritdoc}

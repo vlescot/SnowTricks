@@ -105,7 +105,7 @@ final class CreateTrickTest extends WebTestCase
 
         $title = 'New Title';
         $description = 'New Description';
-        $mainPictureDTO = new PictureDTO(new File($imagesTestFolder . 'b1.png'));
+        $mainPictureDTO = new PictureDTO(new File($imagesTestFolder . 'b11.png'));
 
         $picturesDTO = [
             new PictureDTO(new File($imagesTestFolder . 'b2.png')),

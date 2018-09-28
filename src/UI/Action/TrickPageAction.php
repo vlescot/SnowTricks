@@ -68,7 +68,7 @@ final class TrickPageAction implements TrickPageActionInterface
      */
     public function __invoke(Request $request, TwigResponderInterface $responder): Response
     {
-        if (!$trick = $this->trickRepository->findOneBy([ 'slug' => $request->attributes->get('slug') ])) {
+        if (!$trick = $this->trickRepository->findOneBy(['slug' => $request->attributes->get('slug')])) {
             throw new NotFoundHttpException();
         }
 

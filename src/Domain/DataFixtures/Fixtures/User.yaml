@@ -8,7 +8,13 @@ user0:
 user1:
   Username: Vincent
   Password: azerty
-  Email: false-mail@gmail.com
+  Email: vincent@gmail.com
   Reference:
     Picture: picture_user1
 
+user2:
+  Username: Mike
+  Password: snow
+  Email: mike@mail.com
+  Reference:
+    Picture: picture_user2

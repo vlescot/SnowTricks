@@ -46,13 +46,11 @@ final class ResetPasswordHandler implements ResetPasswordHandlerInterface
     public function handle(FormInterface $form): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
-
             $username = $form->get('username')->getData();
 
             try {
                 $user = $this->userProvider->loadUserByUsername($username);
             } catch (UsernameNotFoundException $e) {
-
                 $this->session->getFlashBag()->add('warning', 'Nous n\'avons pas reconnu votre identifiant');
                 return false;
             }

@@ -40,7 +40,7 @@ class UpdateTrickSubscriber implements EventSubscriberInterface
         $picturesDTO = $event->getForm()->get('pictures')->getData();
 
         foreach ($picturesDTO as $key => $pictureDTO) {
-            if (array_key_exists($key, $data['pictures']) && $data['pictures'][$key]['file'] === null ) {
+            if (array_key_exists($key, $data['pictures']) && $data['pictures'][$key]['file'] === null) {
                 $data['pictures'][$key]['file'] = $picturesDTO[$key]->file;
             }
         }

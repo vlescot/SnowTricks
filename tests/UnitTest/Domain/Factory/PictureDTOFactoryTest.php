@@ -15,7 +15,7 @@ final class PictureDTOFactoryTest extends TestCase
     {
         $picture = new Picture(
             '/image/tests',
-            'b1.png',
+            'r1.png',
             'image-test'
         );
 

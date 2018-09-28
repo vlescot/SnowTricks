@@ -6,7 +6,7 @@ namespace App\UI\Action\Interfaces;
 use App\Domain\Factory\Interfaces\TrickDTOFactoryInterface;
 use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
 use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
-use App\UI\Responder\Interfaces\TwigOrRedirectionResponderInterface;
+use App\UI\Responder\Interfaces\EditTrickResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,9 +33,9 @@ interface UpdateTrickActionInterface
 
     /**
      * @param Request $request
-     * @param TwigOrRedirectionResponderInterface $responder
+     * @param EditTrickResponderInterface $responder
      *
      * @return Response
      */
-    public function __invoke(Request $request, TwigOrRedirectionResponderInterface $responder): Response;
+    public function __invoke(Request $request, EditTrickResponderInterface $responder): Response;
 }

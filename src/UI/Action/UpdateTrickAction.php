@@ -8,7 +8,7 @@ use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
 use App\UI\Action\Interfaces\UpdateTrickActionInterface;
 use App\UI\Form\Handler\Interfaces\UpdateTrickHandlerInterface;
 use App\UI\Form\Type\UpdateTrickType;
-use App\UI\Responder\Interfaces\TwigOrRedirectionResponderInterface;
+use App\UI\Responder\Interfaces\EditTrickResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,7 +73,7 @@ final class UpdateTrickAction implements UpdateTrickActionInterface
     /**
      * @inheritdoc
      */
-    public function __invoke(Request $request, TwigOrRedirectionResponderInterface $responder): Response
+    public function __invoke(Request $request, EditTrickResponderInterface $responder): Response
     {
         $trick = $this->trickRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
         $trickDTO = $this->trickDTOFactory->create($trick);

@@ -5,7 +5,7 @@ namespace App\UI\Action;
 
 use App\UI\Action\Interfaces\CreateTrickActionInterface;
 use App\UI\Form\Handler\Interfaces\CreateTrickHandlerInterface;
-use App\UI\Responder\Interfaces\TwigOrRedirectionResponderInterface;
+use App\UI\Responder\Interfaces\EditTrickResponderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -48,7 +48,7 @@ final class CreateTrickAction implements CreateTrickActionInterface
     /**
      * @inheritdoc
      */
-    public function __invoke(Request $request, TwigOrRedirectionResponderInterface $responder) :Response
+    public function __invoke(Request $request, EditTrickResponderInterface $responder) :Response
     {
         $form = $this->formFactory->create(CreateTrickType::class)
                                   ->handleRequest($request);

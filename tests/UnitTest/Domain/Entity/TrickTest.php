@@ -89,11 +89,6 @@ final class TrickTest extends TestCase
         array $videosCollection,
         \ArrayAccess $groupsCollection
     ) {
-        //TODO
-//        foreach ($videosCollection as $video) {
-//            $video->method('unsetTrick')->willReturn(null);dump($video);
-//        }
-
         $trick = new Trick(
             $title,
             $description,

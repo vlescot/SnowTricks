@@ -35,18 +35,17 @@ final class Mailer implements MailerInterface
         string $view,
         array $parameters
     ) {
-        //TODO
-//        $message = (new \Swift_Message($subject))
-//            ->setFrom(['vincent.lescot@gmail.com' => 'La Communauté SnowTricks'])
-//            ->setTo($mailTo)
-//            ->setBody(
-//                $this->twig->render(
-//                    'email/' . $view,
-//                    $parameters
-//                ),
-//                'text/html'
-//            );
-//
-//        $this->mailer->send($message);
+        $message = (new \Swift_Message($subject))
+            ->setFrom(['vincent.lescot@gmail.com' => 'La Communauté SnowTricks'])
+            ->setTo($mailTo)
+            ->setBody(
+                $this->twig->render(
+                    'email/' . $view,
+                    $parameters
+                ),
+                'text/html'
+            );
+
+        $this->mailer->send($message);
     }
 }

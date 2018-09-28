@@ -6,7 +6,7 @@
 
     <entity name="App\Domain\Entity\Trick" table="st_trick" repository-class="App\Domain\Repository\TrickRepository">
 
-        <id name="id" type="uuid" />
+        <id name="id" type="uuid"  />
         <field name="title" type="string" length="255" unique="true" />
         <field name="slug" type="string" length="255" unique="true" />
         <field name="description" type="text" />

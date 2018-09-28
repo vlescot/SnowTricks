@@ -42,16 +42,17 @@
         "symfony/web-server-bundle": "^4.0"
     },
     "config": {
+        "optimize-autoloader": true,
+        "apcu-autoloader": true,
         "preferred-install": {
             "*": "dist"
         },
         "sort-packages": true
     },
     "autoload": {
-        "optimize-autoloader": true,
-        "classmap-authoritative": true,
         "psr-4": {
             "App\\": "src/",
+            "App\\Tests\\": "tests/",
             "App\\Domain\\Builder\\": "src/Domain/Builder/",
             "App\\Domain\\Builder\\Interfaces\\": "src/Domain/Builder/Interfaces/",
             "App\\Domain\\DTO\\": "src/Domain/DTO/",
@@ -89,8 +90,6 @@
         }
     },
     "autoload-dev": {
-        "optimize-autoloader": true,
-        "classmap-authoritative": true,
         "psr-4": {
             "App\\Tests\\": "tests/",
             "App\\": "src/",

@@ -33,12 +33,12 @@ final class UpdateUserTest extends PantherTestCase
         $client->waitFor('#flash-container strong');
         $flashMessage = $crawler->filter('#flash-container strong')->text();
 
-        $newUser = $this->getUser('root');
+        $newUser = $this->getUser('Vincent');
 
         static::assertNotSame($oldUser->getPassword(), $newUser->getPassword());
         static::assertNotSame($oldUser->getEmail(), $newUser->getEmail());
         static::assertSame('Ton profil a bien été mise à jour', $flashMessage);
 
-        $client->close();
+        $client->quit();
     }
 }
