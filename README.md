@@ -1,4 +1,3 @@
-
 # SnowTricks 
   
 **[Have a look](http://snowtricks.vincentlescot.fr)**  
@@ -29,11 +28,12 @@ This application is built with Symfony ~4.0 and [ADR (Action-Domain-Responder)](
 ## Install
  1. Clone or download the repository into your environment.  
     ```https://github.com/vlescot/SnowTricks.git  ```
- 2. Change the file *.env.dist* with your own data :  
+ 2. Change the files  *.env.dist* and *phpunit.xml.dist* with your own data :  
  3. Install the database and inject the fixtures.
- 4. Add the file code *TRIGGER_delete_unlinked_groups.sql* in your database, via the migration's file for exemple.
+ 4. Add the file code *TRIGGER_delete_unlinked_groups.sql* in your database, via the migration's file, for exemple, or directly in your DB.
      
- NOTE : If you encounter any database not found issue during tests, you would probably have to help the very new [Panther](https://github.com/symfony/panther) component by editing the file */config/packages/doctrine.yaml* with :
+ NOTE : If you encounter any database not found issue during tests, you would probably have to help the very new [Panther](https://github.com/symfony/panther) component by editing the file */config/packages/doctrine.yaml* <sub>(yes yes... on dev environment)</sub>
+ with : 
  ```yaml
 parameters:
     env(DATABASE_URL): 'mysql://db_user:db_password@127.0.0.1:3306/db_name'
