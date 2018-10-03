@@ -23,18 +23,18 @@ services:
 
 #    SECURITY
     app.security.login_form_authenticator:
-        class: App\UI\Security\LoginFormAuthenticator
+        class: App\App\Security\LoginFormAuthenticator
 
     app.security.logout_success_handler:
-        class: App\UI\Security\LogoutSuccessHandler
+        class: App\App\Security\LogoutSuccessHandler
 
 #    SERVICES
-    App\Service\Image\ImageUploadWarmer:
+    App\App\Image\ImageUploadWarmer:
         arguments:
             $trickFolder: '/image/snowtrick'
             $userFolder: '/image/user'
 
-    App\Service\Image\ImageThumbnailCreator:
+    App\App\Image\ImageThumbnailCreator:
         arguments:
             $thumbnailsWidth: '400'
             $thumbnailsAltPrefix: 'thumbnail-'

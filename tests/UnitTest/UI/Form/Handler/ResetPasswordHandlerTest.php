@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Tests\UnitTest\UI\Form\Handler;
 
-use App\Service\Interfaces\MailerInterface;
+use App\App\Interfaces\MailerInterface;
 use App\UI\Form\Handler\Interfaces\ResetPasswordHandlerInterface;
 use App\UI\Form\Handler\ResetPasswordHandler;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

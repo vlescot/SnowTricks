@@ -8,7 +8,7 @@ use App\UI\Action\Authentication\Interfaces\ChangePasswordActionInterface;
 use App\UI\Form\Handler\Interfaces\ChangePasswordHandlerInterface;
 use App\UI\Form\Type\Authentication\ChangePasswordType;
 use App\UI\Responder\Interfaces\TwigResponderInterface;
-use App\UI\Security\LoginFormAuthenticator;
+use App\App\Security\LoginFormAuthenticator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

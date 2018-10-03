@@ -1,12 +1,15 @@
-bin/.phpunit/
 .idea/
 .tmp.drivedownload/
 _Building/
+
+.env
 var/
 vendor/
 
-.env
+bin/.phpunit/
 .phpunit
 phpunit.xml
 php-cs-fixer.phar
 .php_cs.cache
+
+/.web-server-pid

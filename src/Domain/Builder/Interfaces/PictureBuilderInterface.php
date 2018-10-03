@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Builder\Interfaces;
 
-use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
-use App\Service\Image\Interfaces\ImageUploaderInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\App\Image\Interfaces\ImageUploaderInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 
 interface PictureBuilderInterface
 {

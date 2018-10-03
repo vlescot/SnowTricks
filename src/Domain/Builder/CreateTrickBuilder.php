@@ -10,7 +10,7 @@ use App\Domain\Builder\Interfaces\VideoBuilderInterface;
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Entity\Trick;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 

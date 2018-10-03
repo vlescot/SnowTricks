@@ -7,7 +7,7 @@ use App\Domain\Entity\User;
 use App\Domain\Repository\Interfaces\UserRepositoryInterface;
 use App\UI\Action\Authentication\ConfirmationAction;
 use App\UI\Action\Authentication\Interfaces\ConfirmationActionInterface;
-use App\UI\Security\LoginFormAuthenticator;
+use App\App\Security\LoginFormAuthenticator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -6,7 +6,7 @@ namespace App\UI\Action\Authentication\Interfaces;
 use App\Domain\Repository\Interfaces\UserRepositoryInterface;
 use App\UI\Form\Handler\Interfaces\ChangePasswordHandlerInterface;
 use App\UI\Responder\Interfaces\TwigResponderInterface;
-use App\UI\Security\LoginFormAuthenticator;
+use App\App\Security\LoginFormAuthenticator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

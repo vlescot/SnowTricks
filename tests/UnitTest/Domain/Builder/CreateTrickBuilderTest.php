@@ -15,7 +15,7 @@ use App\Domain\Entity\Interfaces\GroupInterface;
 use App\Domain\Entity\Interfaces\PictureInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Entity\Interfaces\VideoInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

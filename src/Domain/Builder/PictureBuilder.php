@@ -6,9 +6,9 @@ namespace App\Domain\Builder;
 use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\DTO\Interfaces\PictureDTOInterface;
 use App\Domain\Entity\Picture;
-use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
-use App\Service\Image\Interfaces\ImageUploaderInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\App\Image\Interfaces\ImageUploaderInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 
 final class PictureBuilder implements PictureBuilderInterface
 {

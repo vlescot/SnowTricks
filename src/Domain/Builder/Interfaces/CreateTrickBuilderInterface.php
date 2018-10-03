@@ -5,7 +5,7 @@ namespace App\Domain\Builder\Interfaces;
 
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 interface CreateTrickBuilderInterface

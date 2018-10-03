@@ -9,7 +9,7 @@
         {% if is_granted('ROLE_USER') %}
         <li class="nav-item">
         <a href="{{ path('CreateTrick') }}">
-          <span class="nav-link">Créer un Trick</span>
+          <span class="nav-link">Créer une figure</span>
         </a>
         </li>
         <li class="nav-item">
@@ -23,13 +23,6 @@
             </span>
         </li>
         {% else %}
-        <li class="nav-item">
-        {% if is_granted('ROLE_USER') %}
-            <a href="{{ path('CreateTrick') }}">
-                <span class="nav-link">Créer un Trick</span>
-            </a>
-        {% endif %}
-        </li>
         <li class="nav-item">
             <span class="nav-link" onclick="displayAuthenticationModal('login')">Se connecter</span>
         </li>

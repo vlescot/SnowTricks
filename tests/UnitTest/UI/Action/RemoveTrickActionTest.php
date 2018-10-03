@@ -5,7 +5,7 @@ namespace App\Tests\UnitTest\UI\Action;
 
 use App\Domain\Entity\Interfaces\TrickInterface;
 use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
-use App\Service\Image\Interfaces\FolderRemoverInterface;
+use App\App\Image\Interfaces\FolderRemoverInterface;
 use App\UI\Action\Interfaces\RemoveTrickActionInterface;
 use App\UI\Action\RemoveTrickAction;
 use PHPUnit\Framework\TestCase;

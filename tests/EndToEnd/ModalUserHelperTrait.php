@@ -19,7 +19,7 @@ trait ModalUserHelperTrait
     {
         $crawler = $client->getCrawler();
 
-        $crawler->filter('nav .nav-item:nth-child(2) span')->click();
+        $crawler->filter('nav .nav-item:nth-child(1) span')->click();
         $client->waitFor('.modal');
 
         $connectionForm = $crawler->selectButton('Se connecter')->form();

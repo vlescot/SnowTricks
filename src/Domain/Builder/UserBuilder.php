@@ -7,7 +7,7 @@ use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\Builder\Interfaces\UserBuilderInterface;
 use App\Domain\DTO\Interfaces\UserDTOInterface;
 use App\Domain\Entity\User;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

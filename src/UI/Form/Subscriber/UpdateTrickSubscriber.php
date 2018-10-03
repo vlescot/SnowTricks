@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UI\Form\Subscriber;
 
-use App\Service\CollectionManager\Interfaces\CollectionCheckerInterface;
+use App\Domain\CollectionManager\Interfaces\CollectionCheckerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

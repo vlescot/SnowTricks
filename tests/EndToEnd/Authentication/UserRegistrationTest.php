@@ -31,7 +31,7 @@ final class UserRegistrationTest extends PantherTestCase
         $crawler = $client->request('GET', '/');
         $client->waitFor('h1');
 
-        $crawler->filter('nav .nav-item:nth-child(3) span')->click();
+        $crawler->filter('nav .nav-item:nth-child(2) span')->click();
         $client->waitFor('.modal');
 
         $registrationForm = $crawler->selectButton('S\'inscrire')->form();

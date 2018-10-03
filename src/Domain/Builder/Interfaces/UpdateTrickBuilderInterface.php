@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Builder\Interfaces;
 
-use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
+use App\Domain\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
-use App\Service\Image\Interfaces\FolderChangerInterface;
-use App\Service\Image\Interfaces\ImageRemoverInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\FolderChangerInterface;
+use App\App\Image\Interfaces\ImageRemoverInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 
 interface UpdateTrickBuilderInterface
 {

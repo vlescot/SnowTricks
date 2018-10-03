@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Domain\Builder\Interfaces;
 
 use App\Domain\DTO\Interfaces\UserDTOInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 

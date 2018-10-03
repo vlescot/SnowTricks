@@ -5,7 +5,7 @@ namespace App\UI\Action\Authentication\Interfaces;
 
 use App\Domain\Repository\Interfaces\UserRepositoryInterface;
 use App\UI\Responder\Authentication\Interfaces\ConfirmationResponderInterface;
-use App\UI\Security\LoginFormAuthenticator;
+use App\App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

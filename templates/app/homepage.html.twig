@@ -19,9 +19,7 @@
 {% endblock %}
 
 {% block body %}
-
-    <i class="fas fa-arrow-up fa-3x"></i>
-	<div class="container homepage" id="top">
+    <div class="container homepage" id="top">
         <div class="row">
             <div class="col-md-6">
                 <h5 class="text-center">Afficher par groupe</h5>
@@ -55,8 +53,9 @@
             {% include 'app/trick_thumbnail.html.twig' with tricks %}
             {% include 'app/trick_thumbnail.html.twig' with tricks %}
             {% include 'app/trick_thumbnail.html.twig' with tricks %}
-		</div>
-	</div>
+        </div>
+    </div>
+    <i class="fas fa-arrow-up fa-3x"></i>
 
     {% if is_granted('ROLE_USER') %}
         {% include 'app/CRUD/remove_trick.html.twig' %}

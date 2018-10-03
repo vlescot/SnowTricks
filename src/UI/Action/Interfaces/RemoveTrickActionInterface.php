@@ -5,7 +5,7 @@ namespace App\UI\Action\Interfaces;
 
 use App\Domain\Repository\Interfaces\TrickRepositoryInterface;
 use App\UI\Responder\Interfaces\RemoveTrickResponderInterface;
-use App\Service\Image\Interfaces\FolderRemoverInterface;
+use App\App\Image\Interfaces\FolderRemoverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

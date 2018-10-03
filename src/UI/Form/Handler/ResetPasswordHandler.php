@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\UI\Form\Handler;
 
 use App\UI\Form\Handler\Interfaces\ResetPasswordHandlerInterface;
-use App\Service\Interfaces\MailerInterface;
+use App\App\Interfaces\MailerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;

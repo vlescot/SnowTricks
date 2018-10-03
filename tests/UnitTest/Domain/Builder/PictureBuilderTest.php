@@ -7,9 +7,9 @@ use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\Builder\PictureBuilder;
 use App\Domain\DTO\PictureDTO;
 use App\Domain\Entity\Interfaces\PictureInterface;
-use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
-use App\Service\Image\Interfaces\ImageUploaderInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\App\Image\Interfaces\ImageUploaderInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class PictureBuilderTest extends TestCase

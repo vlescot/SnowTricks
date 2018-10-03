@@ -5,9 +5,9 @@ namespace App\UI\Form\Handler\Interfaces;
 
 use App\Domain\Builder\Interfaces\UserBuilderInterface;
 use App\Domain\Repository\Interfaces\UserRepositoryInterface;
-use App\Service\Image\Interfaces\ImageThumbnailCreatorInterface;
-use App\Service\Image\Interfaces\ImageUploaderInterface;
-use App\Service\Interfaces\MailerInterface;
+use App\App\Image\Interfaces\ImageThumbnailCreatorInterface;
+use App\App\Image\Interfaces\ImageUploaderInterface;
+use App\App\Interfaces\MailerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

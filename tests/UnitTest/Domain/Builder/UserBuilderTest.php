@@ -10,7 +10,7 @@ use App\Domain\DTO\Interfaces\UserDTOInterface;
 use App\Domain\DTO\PictureDTO;
 use App\Domain\DTO\UserDTO;
 use App\Domain\Entity\Interfaces\PictureInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

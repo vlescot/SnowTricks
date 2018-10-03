@@ -10,6 +10,7 @@ $(".badge").on("click", function () {
 });
 $(".imageGallery1 a").simpleLightbox();
 
+
 function setPaginationDisabled(currentPage){
     let paginationPrevious = $("#pagination-previous");
     switch (currentPage) {

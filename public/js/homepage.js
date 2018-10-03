@@ -71,6 +71,7 @@ function displayRemoveTrickModal(id, title) {
     removeTrickModal.find("input[type=hidden]").val(id);
     removeTrickModal.modal({show:true});
 }
+
 /**
  * Height's Thumbnail Adjusting
  */

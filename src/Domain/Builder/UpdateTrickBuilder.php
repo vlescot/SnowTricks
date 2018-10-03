@@ -6,12 +6,12 @@ namespace App\Domain\Builder;
 use App\Domain\Builder\Interfaces\GroupBuilderInterface;
 use App\Domain\Builder\Interfaces\PictureBuilderInterface;
 use App\Domain\Builder\Interfaces\UpdateTrickBuilderInterface;
-use App\Service\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
+use App\Domain\CollectionManager\Interfaces\CollectionUpdatePrepareInterface;
 use App\Domain\DTO\Interfaces\TrickDTOInterface;
 use App\Domain\Entity\Interfaces\TrickInterface;
-use App\Service\Image\Interfaces\FolderChangerInterface;
-use App\Service\Image\Interfaces\ImageRemoverInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\FolderChangerInterface;
+use App\App\Image\Interfaces\ImageRemoverInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class UpdateTrickBuilder implements UpdateTrickBuilderInterface

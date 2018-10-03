@@ -83,7 +83,7 @@ final class CreateTrickTest extends WebTestCase
             $values['create_trick']['newGroups'][$key]['name'] = $groupDTO->name;
         }
 
-        $crawler = $client->request($form->getMethod(), $form->getUri(), $values, $form->getPhpFiles());
+        $client->request($form->getMethod(), $form->getUri(), $values, $form->getPhpFiles());
         static::assertSame(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
 
         $crawler = $client->followRedirect();

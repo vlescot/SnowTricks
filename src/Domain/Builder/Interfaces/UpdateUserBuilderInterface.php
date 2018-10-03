@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Domain\Builder\Interfaces;
 
 use App\Domain\DTO\Interfaces\UpdateUserDTOInterface;
-use App\Service\Image\Interfaces\ImageRemoverInterface;
-use App\Service\Image\Interfaces\ImageUploadWarmerInterface;
+use App\App\Image\Interfaces\ImageRemoverInterface;
+use App\App\Image\Interfaces\ImageUploadWarmerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
