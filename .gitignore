@@ -1,0 +1,12 @@
+.idea/
+.tmp.drivedownload/
+_Building/
+ .env
+var/
+vendor/
+ bin/.phpunit/
+.phpunit
+phpunit.xml
+php-cs-fixer.phar
+.php_cs.cache
+ /.web-server-pid
