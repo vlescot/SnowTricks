@@ -20,6 +20,11 @@ final class ImageRemover implements ImageRemoverInterface
     private $publicFolder;
 
     /**
+     * @var string
+     */
+    private $folderPath;
+
+    /**
      * @var array
      */
     private $filesToRemove = [];
@@ -35,13 +40,26 @@ final class ImageRemover implements ImageRemoverInterface
         $this->publicFolder = $publicFolder;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function warmFolder(string $path): void
+    {
+        $this->folderPath = $this->publicFolder . $path;
+    }
 
     /**
      * {@inheritdoc}
      */
     public function addFileToRemove(PictureInterface $picture): void
     {
-        $this->filesToRemove[] = $picture;
+        if (isset($this->folderPath)) {
+            $this->filesToRemove[] = $this->folderPath . '/thumbnail-' . $picture->getFilename();
+            $this->filesToRemove[] = $this->folderPath . '/' . $picture->getFilename();
+        } else {
+            $this->filesToRemove[] = $this->publicFolder . $picture->getPath() . '/thumbnail-' . $picture->getFilename();
+            $this->filesToRemove[] = $this->publicFolder . $picture->getWebPath();
+        }
     }
 
     /**
@@ -49,12 +67,6 @@ final class ImageRemover implements ImageRemoverInterface
      */
     public function removeFiles(): void
     {
-        foreach ($this->filesToRemove as $picture) {
-            $thumbnailPath = $this->publicFolder . $picture->getPath() . '/thumbnail-' . $picture->getFilename();
-            if ($this->filesystem->exists($thumbnailPath)) {
-                $this->filesystem->remove($thumbnailPath);
-            }
-            $this->filesystem->remove($this->publicFolder . $picture->getWebPath());
-        }
+        $this->filesystem->remove($this->filesToRemove);
     }
 }

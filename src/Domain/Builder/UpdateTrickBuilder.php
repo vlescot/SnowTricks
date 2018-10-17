@@ -75,8 +75,10 @@ final class UpdateTrickBuilder implements UpdateTrickBuilderInterface
     {
         $this->imageUploadWarmer->initialize('trick', $trickDTO->title);
 
-        // Change the pictures's folder if the title change
+        // Initializes the folder change if the title change
         if ($trickDTO->title !== $trick->getTitle()) {
+            $this->imageRemover->warmFolder($trick->getMainPicture()->getPath()); // Gives the old folder path before update it
+
             $updatePictureInfo = $this->imageUploadWarmer->getUpdateImageInfo();
             $this->folderChanger->folderToChange($trick->getMainPicture()->getPath(), $updatePictureInfo['path']);
 

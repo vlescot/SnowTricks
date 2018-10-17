@@ -88,6 +88,7 @@ final class UpdateTrickHandler implements UpdateTrickHandlerInterface
     public function handle(FormInterface $form, TrickInterface $trick): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
+
             $trick = $this->updateTrickBuilder->update($trick, $form->getData());
 
             $errors = $this->validator->validate($trick, null, ['trick']);
@@ -97,7 +98,6 @@ final class UpdateTrickHandler implements UpdateTrickHandlerInterface
                 }
                 return false;
             }
-
 
             $this->trickRepository->save($trick);
 

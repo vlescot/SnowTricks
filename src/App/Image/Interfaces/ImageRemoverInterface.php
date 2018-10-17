@@ -20,6 +20,12 @@ interface ImageRemoverInterface
     );
 
     /**
+     * @param string $path
+     * @return mixed
+     */
+    public function warmFolder(string $path): void;
+
+    /**
      * @param PictureInterface $picture
      * @return mixed
      */
