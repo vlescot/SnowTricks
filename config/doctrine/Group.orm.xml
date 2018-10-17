@@ -9,11 +9,5 @@
         <id name="id" type="uuid" />
         <field name="name" type="string" unique="true" />
 
-        <many-to-many field="tricks" mapped-by="groups" target-entity="Trick">
-            <order-by>
-                <order-by-field name="title" direction="ASC" />
-            </order-by>
-        </many-to-many>
-
     </entity>
 </doctrine-mapping>

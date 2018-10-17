@@ -51,6 +51,7 @@ final class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
+
         $pictures = $this->getDataFixture('Picture');
         $users = $this->getDataFixture('User');
         $tricks = $this->getDataFixture('Trick');

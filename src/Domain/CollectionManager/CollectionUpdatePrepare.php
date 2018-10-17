@@ -75,7 +75,6 @@ final class CollectionUpdatePrepare implements CollectionUpdatePrepareInterface
         $this->collectionChecker->compare($collection, $collectionDTO, $className);
 
         foreach ($this->collectionChecker->getDeletedObjects() as $key => $entity) {
-
             unset($collection[$key]);
 
             if ($entity instanceof PictureInterface) {
