@@ -22,11 +22,6 @@ class Group implements GroupInterface
     private $name;
 
     /**
-     * @var \ArrayAccess
-     */
-    private $tricks;
-
-    /**
      * @inheritdoc
      */
     public function __construct(
@@ -36,26 +31,6 @@ class Group implements GroupInterface
         $this->tricks = new ArrayCollection();
 
         $this->name = $name;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function addTrick(TrickInterface $trick): void
-    {
-        if (!$this->tricks->contains($trick)) {
-            $this->tricks->add($trick);
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function removeTrick(TrickInterface $trick): void
-    {
-        if ($this->tricks->contains($trick)) {
-            $this->tricks->removeElement($trick);
-        }
     }
 
     /**
@@ -72,14 +47,6 @@ class Group implements GroupInterface
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getTricks(): \ArrayAccess
-    {
-        return $this->tricks;
     }
 
     public function __toString()

@@ -110,7 +110,6 @@ class Trick implements TrickInterface
 
         if ($groups !== null) {
             foreach ($groups->getIterator() as $group) {
-                $group->addTrick($this);
                 $this->groups->add($group);
             }
         }
@@ -182,13 +181,11 @@ class Trick implements TrickInterface
     {
         foreach ($this->groups->getIterator() as $key => $group) {
             if (!isset($groups[$key])) {
-                $group->removeTrick($this);
                 $this->groups->removeElement($group);
             }
         }
         foreach ($groups as $key => $group) {
             if ($this->groups->containsKey($key)) {
-                $group->addTrick($this);
                 $this->groups->set($key, $group);
             }
         }
