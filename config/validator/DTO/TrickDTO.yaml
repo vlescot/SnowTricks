@@ -1,0 +1,48 @@
+App\Domain\DTO\TrickDTO:
+    properties:
+
+        title:
+            - NotBlank:
+                message: Le titre ne doit pas être vide.
+                groups:
+                    - trickDTO
+            - Length:
+                min: 3
+                minMessage : Le titre doit faire au moins 3 caractères.
+                max: 255
+                maxMessage : Le titre est trop long.
+                groups:
+                    - trickDTO
+
+        description:
+            - NotBlank:
+                message: La description ne doit pas être vide.
+                groups:
+                    - trickDTO
+
+        mainPicture:
+            - NotBlank:
+                message: Avec une image, c'est plus sympas :-)
+                groups:
+                    - trickDTO
+            - Valid:
+                groups:
+                    - trickDTO
+
+        pictures:
+            - Valid:
+                traverse: true
+                groups:
+                    - trickDTO
+
+        videos:
+            - Valid:
+                traverse: true
+                groups:
+                    - trickDTO
+
+        newGroups:
+            - Valid:
+                traverse: true
+                groups:
+                    - trickDTO

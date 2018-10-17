@@ -1,0 +1,24 @@
+video_mute0 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/M5NTCfdObfs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+video_backside0 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/Br6ZJM01I6s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+video_backside1 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/YAABnJfKJ5w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+video_method_air0 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/2Ul5P-KucE8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+video_japan0 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/Rca2XYqehjU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+video_japan1 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/4vUt-4_UGsQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+video_nose_grab0 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/jPAsCuoRvoY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+video_gutterball0 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/evMsZSr6hGM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+video_flip9000 :
+  iFrame: <iframe width="560" height="315" src="https://www.youtube.com/embed/jNfYuk3rmU0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

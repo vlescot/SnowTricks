@@ -1,0 +1,22 @@
+{% extends 'bundles/TwigBundle/Exception/base_error.html.twig' %}
+
+{% block body %}
+
+    {% set referer = app.request.server.get('HTTP_REFERER')|default('/') %}
+
+    <div id="error" class="row text-center">
+        <div class="container">
+            <h3>
+                Oups ! Erreur 404
+            </h3>
+            <div>
+                Cette page n'existe pas.
+            </div>
+            <div style="padding-top: 20px;">
+                <a href="{{ referer }}">
+                    <button class="btn btn-sm">Retour</button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

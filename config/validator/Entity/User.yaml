@@ -1,0 +1,71 @@
+App\Domain\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: username
+            message: Ce nom d'utilisateur est déjà utilisé
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: email
+            message: Ce adresse e-mail est déjà utilisée
+
+    properties:
+
+        id:
+            - NotBlank: ~
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                    - user
+
+        username:
+            - NotBlank:
+                message: Le pseudo est obligatoire.
+                groups:
+                    - user
+            - Length:
+                min: 3
+                minMessage: Ce nom d'utilisateur est trop court
+                max: 255
+                maxMessage: Ce nom est trop long !!
+                groups:
+                    - user
+
+        password:
+            - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
+                message: Votre mot de passe n'est pas valide
+            - NotBlank:
+                message: Un mot de passe est obligatoire.
+                groups:
+                    - user
+            - Length:
+                min: 8
+                minMessage: Votre mot de passe est trop court
+                max: 64
+                maxMessage: Le mot de passe est trop court
+                groups:
+                    - user
+                    - changePassword
+
+        email:
+            - NotBlank:
+                message: Un email est obligatoire.
+                groups:
+                    - user
+            - Email:
+                message: Cet email n'est pas valide.
+                groups:
+                    - user
+            - Length:
+                max: 255
+                maxMessage: Cet adresse e-mail est trop longue (maximum 255 caractéres)
+                groups:
+                    - user
+
+        createdAt:
+            - NotBlank:
+                groups:
+                    - user
+
+        picture:
+            - Valid:
+                groups:
+                    - user

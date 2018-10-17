@@ -1,0 +1,7 @@
+App\Domain\DTO\CommentDTO:
+    properties:
+        content:
+            - NotBlank:
+                message: Le commentaire ne peut pas être vide.
+                groups:
+                    - commentDTO

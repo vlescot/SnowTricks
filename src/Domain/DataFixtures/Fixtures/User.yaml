@@ -1,0 +1,20 @@
+user0:
+  Username: root
+  Password: root
+  Email: floyd-24@hotmail.com
+  Reference:
+    Picture: picture_user0
+
+user1:
+  Username: Vincent
+  Password: azerty
+  Email: vincent@gmail.com
+  Reference:
+    Picture: picture_user1
+
+user2:
+  Username: Mike
+  Password: snow
+  Email: mike@mail.com
+  Reference:
+    Picture: picture_user2

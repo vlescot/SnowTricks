@@ -1,0 +1,26 @@
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+		<link rel="icon" type="image/png" href="{{ asset('assets/favicon.png') }}" />
+		{# Bootstrap #}
+		<link rel="stylesheet" href="{{ asset('assets/lib/bootstrap/css/bootstrap.min.css') }}">
+	    {# Font-Awesome #}
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+   		{# Project files #}
+		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    	<style>
+			@font-face {
+				font-family: 'Montserrat'; 
+				src: url( {{ asset('assets/fonts/montserrat/Montserrat-Regular.ttf') }} ) format('truetype');
+			}
+			@font-face {
+				font-family: 'Raleway-Medium'; 
+				src: url( {{ asset('assets/fonts/raleway/Raleway-Medium.ttf') }} ) format('truetype');
+			}
+			@font-face {
+			  	font-family: 'Raleway-Light'; 
+				src: url( {{ asset('assets/fonts/raleway/Raleway-Light.ttf') }} ) format('truetype');
+		  	}
+    	</style>
+</head>

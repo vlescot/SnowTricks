@@ -1,0 +1,57 @@
+App\Domain\DTO\Comment:
+    properties:
+
+        username:
+            - NotBlank:
+                message: Le pseudo est obligatoire.
+                groups:
+                    - userDTO
+                    - resetPassword
+            - Length:
+                min: 3
+                minMessage: Ce nom d'utilisateur est trop court
+                max: 255
+                maxMessage: Ce nom est trop long !!
+                groups:
+                    - userDTO
+                    - resetPassword
+
+        password:
+            - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
+                message : Votre mot de passe n'est pas valide.
+                groups:
+                    - userDTO
+                    - changePassword
+            - NotBlank:
+                message: Un mot de passe est obligatoire.
+                groups:
+                    - userDTO
+                    - changePassword
+            - Length:
+                min: 8
+                minMessage: Votre mot de passe est trop court
+                max: 64
+                maxMessage: Votre mot de passe est trop long
+                groups:
+                    - userDTO
+                    - changePassword
+
+        email:
+            - NotBlank:
+                message: Un email est obligatoire.
+                groups:
+                    - userDTO
+            - Email:
+                message: Cet email n'est pas valide.
+                groups:
+                    - userDTO
+            - Length:
+                max: 255
+                maxMessage: Cet adresse e-mail est trop longue (maximum 255 caractéres)
+                groups:
+                    - userDTO
+
+        pictures:
+            - Valid:
+                groups:
+                    - userDTO

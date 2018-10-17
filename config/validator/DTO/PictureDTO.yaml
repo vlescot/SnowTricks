@@ -1,0 +1,15 @@
+App\Domain\DTO\PictureDTO:
+    properties:
+        file:
+            - Image:
+                maxSize: 2M
+                maxSizeMessage: Les images doivent peser moins de 2 Mo.
+                uploadIniSizeErrorMessage: Les images doivent peser moins de 2 Mo.
+                mimeTypes:
+                    - 'image/jpeg'
+                    - 'image/png'
+                    - 'image/jpg'
+                mimeTypesMessage: Les images doivent être aux formats JPG, JPEG ou PNG.
+                groups:
+                    - trickDTO
+                    - userDTO

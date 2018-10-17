@@ -1,0 +1,29 @@
+security:
+    encoders:
+        App\Domain\Entity\User:
+            algorithm: bcrypt
+    providers:
+        snowtricks_provider:
+            entity:
+                class: App\Domain\Entity\User
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            provider: snowtricks_provider
+            guard:
+                authenticators:
+                  - app.security.login_form_authenticator
+            logout:
+                path: /user/logout
+                success_handler: app.security.logout_success_handler
+
+    access_control:
+        - { path: /creer,                  roles: ROLE_USER }
+        - { path: /modifier,               roles: ROLE_USER }
+        - { path: /supprimer,              roles: ROLE_USER }
+        - { path: /update_user,            roles: ROLE_USER }
+        - { path: ^/profile,               roles: ROLE_ADMIN }

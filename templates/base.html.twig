@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('image/favicon.png') }}" />
+        {# Bootstrap #}
+        <link rel="stylesheet" href="{{ asset('lib/bootstrap/bootstrap.min.css') }}">
+        {# Font-Awesome #}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        {# Project files #}
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        {% block css %}{% endblock %}
+        <style>
+            @font-face {
+                font-family: 'Montserrat';
+                src: url( {{ asset('fonts/montserrat/Montserrat-Regular.ttf') }} ) format('truetype');
+            }
+            @font-face {
+                font-family: 'Raleway-Medium';
+                src: url( {{ asset('fonts/raleway/Raleway-Medium.ttf') }} ) format('truetype');
+            }
+            @font-face {
+                font-family: 'Raleway-Light';
+                src: url( {{ asset('fonts/raleway/Raleway-Light.ttf') }} ) format('truetype');
+            }
+        </style>
+    </head>
+
+    <body>
+        {# Navbar #}
+        {% include 'layout/navbar.html.twig' %}
+
+        {#Hidden elements when starting#}
+        <div id="modal-container"></div>
+		<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+        {#Flash Messages#}
+        {% include 'layout/flash.html.twig' %}
+
+        {# Header #}
+        {% block header %}{% endblock %}
+        {# Body #}
+        {% spaceless %}{% block body %}{% endblock %}{% endspaceless %}
+        {# Footer #}
+        {% include 'layout/footer.html.twig' %}
+
+	    {# JavaScript #}
+        {#jQuery#}
+        <script src="{{ asset('lib/jquery.min.js') }}"></script>
+        {#Bootstrap#}
+        <script src="{{ asset('lib/popper.min.js') }}"></script>
+        <script src="{{ asset('lib/bootstrap/bootstrap.min.js') }}"></script>
+        {#My JS#}
+        <script src="{{ asset('js/base.js') }}"></script>
+        {% block javascript %}{% endblock %}
+    </body>
+</html>

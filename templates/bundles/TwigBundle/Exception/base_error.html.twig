@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Erreur {{ status_code }} - SnowTricks
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+let margin = ($("body").height() - $("nav").height() - $("footer").height() - $("#error").height() ) / 2;
+
+$("#error").css({
+    "margin-top" : margin,
+    "margin-bottom" : margin
+});
+</script>
+{% endblock %}

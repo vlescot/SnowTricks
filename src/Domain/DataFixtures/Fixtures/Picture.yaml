@@ -1,0 +1,136 @@
+main_picture_mute :
+  filename   : mute.jpg
+  path       : /image/snowtrick/mute
+  alt        : main-mute
+
+picture_mute0 :
+  filename   : mute0.jpg
+  path       : /image/snowtrick/mute
+  alt        : mute0
+
+picture_mute1 :
+  filename   : mute1.jpg
+  path       : /image/snowtrick/mute
+  alt        : mute1
+
+
+main_picture_backside :
+  filename   : backside.png
+  path       : /image/snowtrick/backside
+  alt        : main-backside
+
+picture_backside0 :
+  filename   : backside0.png
+  path       : /image/snowtrick/backside
+  alt        : backside0
+
+
+main_picture_method_air :
+  filename   : method_air.jpg
+  path       : /image/snowtrick/method_air
+  alt        : main-method_air
+
+picture_method_air0 :
+  filename   : method_air0.jpg
+  path       : /image/snowtrick/method_air
+  alt        : method_air0
+
+picture_method_air1 :
+  filename   : method_air1.jpg
+  path       : /image/snowtrick/method_air
+  alt        : method_air1
+
+
+main_picture_japan :
+  filename   : japan.jpg
+  path       : /image/snowtrick/japan
+  alt        : main-japan
+
+picture_japan0 :
+  filename   : japan0.jpg
+  path       : /image/snowtrick/japan
+  alt        : japan0
+
+picture_japan1 :
+  filename   : japan1.jpg
+  path       : /image/snowtrick/japan
+  alt        : japan1
+
+picture_japan2 :
+  filename   : japan2.jpg
+  path       : /image/snowtrick/japan
+  alt        : japan2
+
+
+main_picture_nose_grab :
+  filename   : nose_grab.jpg
+  path       : /image/snowtrick/nose_grab
+  alt        : main-nose_grab
+
+picture_nose_grab0 :
+  filename   : nose_grab0.jpg
+  path       : /image/snowtrick/nose_grab
+  alt        : nose-grab0
+
+picture_nose_grab1 :
+  filename   : nose_grab1.jpg
+  path       : /image/snowtrick/nose_grab
+  alt        : nose-grab1
+
+picture_nose_grab2 :
+  filename   : nose_grab2.jpg
+  path       : /image/snowtrick/nose_grab
+  alt        : nose-grab2
+
+
+main_picture_gutterball :
+  filename   : gutterball.png
+  path       : /image/snowtrick/gutterball
+  alt        : main-gutterball
+
+picture_gutterball0 :
+  filename   : gutterball0.jpg
+  path       : /image/snowtrick/gutterball
+  alt        : gutterball0
+
+picture_gutterball1 :
+  filename   : gutterball1.jpg
+  path       : /image/snowtrick/gutterball
+  alt        : gutterball1
+
+
+main_picture_flip900 :
+  filename   : flip900.jpg
+  path       : /image/snowtrick/flip_900
+  alt        : main-flip900
+
+picture_flip9000 :
+  filename   : flip9000.jpg
+  path       : /image/snowtrick/flip_900
+  alt        : flip900-0
+
+picture_flip9001 :
+  filename   : flip9001.jpg
+  path       : /image/snowtrick/flip_900
+  alt        : flip900-1
+
+picture_flip9002 :
+  filename   : flip9002.jpg
+  path       : /image/snowtrick/flip_900
+  alt        : flip900-2
+
+
+picture_user0:
+  filename   : user0.jpg
+  path       : /image/user
+  alt        : user0
+
+picture_user1:
+  filename   : user1.jpg
+  path       : /image/user
+  alt        : user1
+
+picture_user2:
+  filename   : user2.jpg
+  path       : /image/user
+  alt        : user2

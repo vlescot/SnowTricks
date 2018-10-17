@@ -1,0 +1,134 @@
+/**
+ ****       Add/Update Post   ***
+ ***
+ */
+
+h1 {
+    margin-top: 3rem;
+}
+
+.trick label:not(.form-check-label), .trick legend {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.trick {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 768px)
+{
+    .trick .adding-img {
+        max-width: 200px;
+    }
+}
+
+.trick form input[type="file"] {
+    cursor: pointer;
+}
+
+.trick .form-group {
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+}
+
+#create-group-help {
+    display: none;
+}
+
+.btn {
+    color: white;
+    cursor: pointer;
+    background-color: #2f5e67;
+    border: #2f5e67;
+}
+
+.trick form label img {
+    width: 200px;
+    height: auto;
+}
+.trick form label .adding-img {
+    width: 100%;
+}
+.trick .label-file {
+    cursor: pointer;
+}
+.trick .input-file {
+    display: none;
+}
+.trick .uploaded-img {
+    display: none;
+}
+
+.picture-container {
+    padding: 0 1rem;
+}
+.picture-container label  {
+    display: flex;
+    align-items: center;
+}
+.pictures-control {
+    margin-top: 0.5rem;
+}
+
+.picture-container .form-control {
+    padding-bottom: 1rem;
+}
+.video-container {
+    margin: 0 0 1rem 0.5rem;
+}
+.video-container .col-form-label {
+    padding-top: 0;
+}
+.video-container textarea::placeholder {
+    font-size: 0.8rem;
+}
+.video-container textarea {
+    font-size: 0.7rem;
+}
+.videos-control .fas {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.video-container .video-not-displaying, .trick .vertical-align-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#video-info {
+    margin-left: 0.5rem;
+}
+#video-info:hover {
+    cursor: pointer;
+}
+.popover-header {
+    padding: 0.2rem 0.1rem;
+    text-align: center;
+    font-size: 12px;
+}
+.popover p, .popover li {
+    font-size: 10px ;
+}
+.popover a:hover {
+    text-decoration: none;
+    color: #0c5460;
+}
+
+.trick .fas:hover {
+    cursor: pointer;
+}
+.trick .fa-plus-square {
+    color: darkgreen;
+}
+.trick .fa-trash {
+    color: darkred;
+}
+
+/**
+ * Responsive
+ */
+@media screen and (max-width: 576px)
+{
+
+}

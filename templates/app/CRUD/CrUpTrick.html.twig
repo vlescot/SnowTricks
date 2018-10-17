@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+{% import 'app/CRUD/macro/macros.html.twig' as formMacros %}
+
+{% block title %}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/form_trick.css') }}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+    <div class="container">
+
+        {% block back_button %}{% endblock %}
+
+        <div style="width: 100%;">
+            <div id="field-warning" class="alert alert-warning alert-dismissible col-10 col-sm-8 col-md-6 text-center" style="display: none;margin: 0 auto;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+
+        {{ form_start(form, {'attr': {'class': 'trick'}}) }}
+        {{ form_errors(form) }}
+
+        <div class="form-row">
+            <div class="col-md-8">
+                <div class="form-row">
+
+                    {#Title#}
+                    <div class="col-md-12 form-group">
+                        {{ form_label(form.title, 'Titre') }}
+                        {{ form_widget(form.title) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+
+                    {#Description#}
+                    <div class="col-md-12 form-group">
+                        {{ form_label(form.description, 'Description') }}
+                        {{ form_widget(form.description, {'attr': {'rows': '8', 'class': 'tinymce'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+
+                </div>
+            </div>
+
+            <aside class="offset-md-1 col-md-3">
+
+                {#MainPicture#}
+                <div class="form-group">
+                    {{ form_label(form.mainPicture, 'Choisir l\'image principale') }}
+                </div>
+                <div class="form-group text-center picture-load">
+                    {{ form_widget(form.mainPicture, {
+                        'attr': {'class': 'input-file file'}
+                    }) }}
+                    <label for="{{ form.mainPicture.vars.id }}_file" class="label-file">
+                        {% if form.mainPicture.vars.value.file.pathname is defined %}
+                            {% set path = form.mainPicture.vars.value.file.pathname %}
+                            {% set alt = 'trick-picture' %}
+                        {% else %}
+                            {% set path = 'image/no-image.png' %}
+                            {% set alt = 'no-image' %}
+                        {% endif %}
+
+                        <img
+                                src="{{ asset( path ) }}"
+                                alt="{{ alt }}"
+                                class="rounded img-fluid adding-img"
+                        >
+                    </label>
+                </div>
+
+                {#Groups#}
+                {{ form_label(form.groups, 'Groupes de figure') }}
+                {{ form_widget(form.groups, {'attr': { 'class': 'check-groups' }}) }}
+                {{ form_errors(form.groups) }}
+
+                <small id="create-group-help" class="form-text text-muted">
+                    Déchochez pour ne pas créer le groupe
+                </small>
+
+                {{ form_label(form.newGroups, 'Créer un groupe') }}
+                <div class="form-inline wrapper" id="create-group"
+                     data-prototype="{{ form_widget(form.newGroups.vars.prototype)|e('html_attr') }}"
+                     data-index="{{ form.newGroups|length }}">
+                    <div class="group-container">
+                        {{ form_widget(form.newGroups) }}
+                    </div>
+                    <span id="group-create-btn" class="btn">Créer</span>
+                </div>
+
+            </aside>
+        </div>
+        <div class="form-row" style="margin-top: 2em;">
+
+            {#Pictures#}
+            <div class="col-md-6">
+                <div class="form-row form-group col-12 text-center">
+                    {{ form_label(form.pictures, 'Images') }}
+                </div>
+                <div class="form-row col-12 text-center wrapper"
+                     data-prototype="{{ formMacros.pictureRow(form.pictures.vars.prototype)|e('html_attr') }}"
+                     data-index="{{ form.pictures|length }}"
+                >
+                    {% if form.pictures|length == 0 %}
+                        <div class="col-6 col-sm-4 col-md-3 picture-container picture-load">
+                            {{ formMacros.pictureRow(form.pictures) }}
+                        </div>
+                    {% else %}
+                        {% for picture in form.pictures %}
+                            {{ formMacros.pictureRow(picture) }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            {#Videos#}
+            <div class="col-md-6">
+                <div class="form-row form-group col-12 text-center">
+                    {{ form_label(form.videos, 'Vidéos') }}
+                </div>
+
+                <div class="wrapper"
+                     data-prototype="{{ formMacros.videoRow(form.videos.vars.prototype)|e('html_attr') }}"
+                     data-index="{{ form.videos|length }}"
+                >
+                    <i id="video-info" style="color: #0c5460;"
+                       tabindex="0" data-trigger="click" data-placement="top" data-html="true" data-toggle="popover"
+                       title='Comment intégrer des vidéos ?' data-content="
+            <p style='margin-bottom: 5px;'>Les liens suivants expliquent comment intégrer de nouvelles vidéos :</p>
+                <li><a href='https://support.google.com/youtube/answer/171780?hl=fr' target='_blank'>Avec YouTube</a></li>
+                <li><a href='http://dailymotion.canalblog.com/archives/2011/02/10/20351553.html' target='_blank'>Avec DailyMotion</a></li>
+                <li><a href='https://help.vimeo.com/hc/fr/articles/229326167-Fonctionnalit%C3%A9s-de-partage' target='_blank'>Avec Viméo</a></li>">
+                        <small>( Comment ? )</small>
+                    </i>
+
+                    {% if form.videos|length == 0 %}
+                        <div class="form-row form-control video-container">
+                            {{ form_row(form.videos) }}
+                        </div>
+                    {% else %}
+                        {% for video in form.videos %}
+                            {{ formMacros.videoRow(video) }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center" style="margin-top: 2rem;">
+                {{ form_rest(form) }}
+
+                <button type="submit" class="btn-secondary btn">
+                    Enregistrer
+                </button>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+{# TinyMCE #}
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eis6nkdgrkczhxtrmm46v5nyzpiyzrfkvntcagit2m07g0gz"></script>
+<script src="{{ asset('lib/TinyMCE/TinyMCE_placeholder_pluggin.js') }}"></script>
+<script src="{{ asset('lib/TinyMCE/TinyMCE_config.js') }}"></script>
+{#My JS#}
+<script src="{{ asset('js/form_trick.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+App\Domain\Entity\Group:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: name
+            message: Ce nouveau groupe existe déjà
+
+    properties:
+        id:
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                    - trick
+        name:
+            - NotBlank:
+                message: Le groupe doit avoir un nom.
+                groups:
+                    - trick
+            - Length:
+                min: 3
+                minMessage : Le nom du groupe est trop court.
+                max: 30
+                maxMessage : Le nom du groupe est trop long.
+                    - trick

@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="{{ asset('css/modal_auth.css') }}">
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+<div class="modal fade" role="dialog" id={{ modal }}>
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    {% block modal_head %}{% endblock %}
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-10 mx-auto">
+                        {% spaceless %}{% block authentication_form %}{% endblock %}{% endspaceless %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    {% block footer_modal %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

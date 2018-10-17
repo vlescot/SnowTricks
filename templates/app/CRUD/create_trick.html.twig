@@ -1,0 +1,16 @@
+{% extends 'app/CRUD/edit_trick.html.twig' %}
+
+{% block title %}Ajouter un Trick{% endblock %}
+
+{% block header %}
+    <h1 class="text-center text-center">Ajouter une figure</h1>
+{% endblock %}
+
+{% block back_button %}
+    {% set referer = app.request.server.get('HTTP_REFERER') | default('/') %}
+
+    <a href="{{ referer }}" role="button" class="btn btn-back btn-sm">
+        <i class="fas fa-undo"></i>
+        Retour
+    </a>
+{% endblock %}

@@ -1,0 +1,151 @@
+/*
+* === Trick Page  ===
+*/
+
+.media {
+    padding: 15px;
+}
+.media img {
+    -webkit-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    -moz-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+#trick-description {
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+#trick-description > div:nth-child(2) > div > p {
+    text-align: justify;
+}
+.trick-infos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+#carouselExampleIndicators {
+    display: none;
+    background-color: black;
+}
+#carouselExampleIndicators img {
+    margin: auto;
+}
+
+
+
+/**
+ * Comments Section
+ */
+.comments-container {
+    padding: 10px;
+    background-color: #dadfe5;
+    border-radius: 15px;
+}
+#comments {
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+#comments .col-12 {
+    padding: 0;
+}
+.avatar {
+    display: flex;
+    align-items: center;
+    margin: 0.2rem 0;
+}
+#comments p {
+    margin-top: 0px;
+    color: #000;
+}
+.comment-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 0.2rem 0;
+    background-color: #fff;
+}
+.comment {
+    font-size: 0.85rem;
+    margin: 0;
+}
+.infos {
+    font-style: italic;
+    font-size: 0.6em;
+    margin-bottom: 0;
+}
+#comments form {
+    margin: 1rem 0 1.5rem 0;
+}
+#comments .form-group {
+    width: 100%;
+}
+#comments textarea{
+    height: 37px;
+    border-radius: 5px 0 0 5px;
+    border-width: 0;
+}
+#comments textarea:placeholder-shown {
+    text-align: center;
+}
+#comments .btn-primary {
+    height: 37px;
+    padding: 6px 12px;
+    margin: 0;
+    border-radius: 0 5px 5px 0;
+    text-transform: none;
+    font-weight: 600;
+    background-color: #2f5e67;
+    border-color: #2f5e67;
+    font-size: 0.85rem;
+    font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,Calibri,"Gill Sans","Gill Sans MT","Myriad Pro",Myriad,sans-serif;
+}
+#comments form .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 0.85rem;
+    font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,Calibri,"Gill Sans","Gill Sans MT","Myriad Pro",Myriad,sans-serif;
+}
+#comments form .form-control::-moz-placeholder { /* Firefox 19+ */
+    font-size: 0.85rem;
+    font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,Calibri,"Gill Sans","Gill Sans MT","Myriad Pro",Myriad,sans-serif;
+}
+#comments form .form-control:-ms-input-placeholder { /* IE 10+ */
+    font-size: 0.85rem;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, sans-serif;
+}
+#comments form .form-control:-moz-placeholder { /* Firefox 18- */
+    font-size: 0.85rem;
+    font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,Calibri,"Gill Sans","Gill Sans MT","Myriad Pro",Myriad,sans-serif;
+}
+
+/*
+ *  Pagination
+ */
+#pagination-container{
+    margin-top: 1em;
+    font-size: smaller;
+    font-weight: 600;
+}
+#pagination-container .pagination a {
+    color: #0085a1;
+}
+#pagination-container .pagination .disabled a {
+    color: #868e96;
+}
+
+/**
+ * Responsive
+ */
+@media screen and (max-width: 576px)
+{
+    #trick-description > div:first-child {
+        margin-bottom: 2rem;
+    }
+    .trick-infos {
+        flex-direction: column;
+    }
+    .trick-infos  p {
+        margin: 0;
+    }
+}

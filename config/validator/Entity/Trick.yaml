@@ -1,0 +1,71 @@
+App\Domain\Entity\Trick:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: title
+            message: Ce nom de figure existe déjà.
+
+    properties:
+        id:
+            - NotBlank: ~
+            - Uuid:
+                message: L'attribut id n'est pas un Uuid valide.
+                groups:
+                    - trick
+
+        title:
+            - NotBlank:
+                message: Le titre ne doit pas être vide.
+                groups:
+                    - trick
+            - Length:
+                min: 3
+                minMessage : Le titre est trop court.
+                max: 255
+                maxMessage : Le titre est trop long.
+                groups:
+                    - trick
+
+        slug:
+            - NotBlank:
+                groups:
+                    - trick
+            - Length:
+                min: 3
+                minMessage : Le titre est trop court.
+                max: 255
+                maxMessage : Le slug est trop long.
+                groups:
+                    - trick
+
+        description:
+            - NotBlank:
+                message: La description ne doit pas être vide.
+                groups:
+                    - trick
+
+        mainPicture:
+            - NotBlank:
+                message: Avec une image, c'est plus sympas :-)
+                groups:
+                    - trick
+            - Valid:
+                groups:
+                    - trick
+
+        pictures:
+            - Valid:
+                traverse: true
+                groups:
+                    - trick
+
+        videos:
+            - Valid:
+                traverse: true
+                groups:
+                    - trick
+
+        groups:
+            - Valid:
+                traverse: true
+                groups:
+                    - trick
