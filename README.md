@@ -11,6 +11,7 @@ SnowTricks is a sharing website about snowboard tricks. This project was built d
    1. PSR-0, PSR-1, PSR-2, PSR-4  
    2. Symfony Best Practices  
    3. Doctrine Best Practices
+   4. SOLID
    
 ## Built with
 ##### Back-end
